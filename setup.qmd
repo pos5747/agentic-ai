@@ -1,0 +1,52 @@
+---
+title: "Choose Your Setup"
+toc: false
+---
+
+Before we can get started with agentic AI, we need a **model** and an **interface**. The right choices depend on your budget (in dollars), perhaps your computer's memory (if you are using local models), and how "smart" you need the model to be.
+
+The open source models below (e.g., qwen) are far inferior to Claude's frontier models (Fable, Opus) and even well below Sonnet. They are potentially useful for some rare tasks that require local computing; we'll use them to experiment for free. But I highly recommend a Claude subscription for $20/month (which will give you some meaningful Sonnet usage) or $100/month (which will give you significant Opus usage).
+
+
+
+## Choose a model
+
+The **model** is the "AI" part of "agentic AI."
+
+- **gpt-oss** (gpt-oss:20b, from OpenAI) is free and runs on your own computer. It needs 16 GB of memory. Choose it if you want a free model and your computer has 16 GB of memory or more but less than 32 GB. This model "works," but not very well. It will make a lot of mistakes and is slow (compared to, say, Sonnet below).
+- **qwen** (qwen3-coder:30b, from Alibaba) is free and runs on your own computer. It needs 32 GB of memory. Choose it if you want a free model and your computer has 32 GB of memory or more. This model works substantially better than gpt-oss, but is functional only for the simplest tasks and very slow (compared to, say, Sonnet below).
+- **Claude** (a family of proprietary models from Anthropic including Haiku, Sonnet, Opus, and Fable) runs on Anthropic's servers, so it will work on any computer. You must have *at least* a Claude "Pro" subscription ($20/month), and probably a Claude "Max" ($100/month) subscription. Each plan has a 5-hour and weekly usage limit. The limits for the $20 plan are something like 20% of the limits for the $100 plan and only enough for meaningful Sonnet usage (Opus will burn through your usage too quickly.) Sonnet models are functional, but require specific instructions and concrete tasks. Opus has better "judgement" to fill in gaps in instructions. 
+
+Start with Claude Pro and Sonnet ($20/month), unless you want to keep it free and just experiment. 
+
+::: {.callout-note collapse="true" title="What about OpenAI?"}
+OpenAI offers a parallel set of options. Its interface is **Codex CLI**, which runs in the terminal like Claude Code. (Unlike Claude Code, Codex CLI is open source.) Its models are the GPT models, including Luna, Sol, and Astra (GPT-6 Luna, GPT-6.1 Sol, and GPT-6 Astra, from least to most capable). As with Claude, you get them through a subscription: ChatGPT Plus costs \$20/month, and ChatGPT Pro costs \$100, \$200, or \$500/month.
+
+My guidance focuses only on Anthropic because that's the ecosystem I learned first. Either works well; neither offers a meaningful advantage.
+:::
+
+::: {.callout-tip collapse="true" title="How to check your memory"}
+{{< include _partials/_memory.md >}}
+:::
+
+## Choose an interface
+
+The **interface** is the "agentic" part of "agentic AI."
+
+You type your prompts into an interface. The interface sends your prompt to the model. When the model asks to read a file, edit a file, or run R, the interface does it on your computer and sends the result back to the model. The model can only write text; however, the interface can turn that text into changes in your files. The ability to **change your files** is what makes agentic AI powerful.
+
+We have two interfaces.
+
+- **OpenCode** is an open-source interface. Choose it only if you prefer to use open-source software. 
+- **Claude Code** is Anthropic's program. It's proprietary. Choose it if you're fine with proprietary software. You can use it with open source models, and it does not require a Claude subscription.
+
+Start with Claude Code.
+
+## Pick your pair
+
+Click the pair you chose.
+
+|  | **gpt-oss**<br>free, 16 GB | **qwen**<br>free, 32 GB | **Claude**<br>Pro, \$20 a month gets you a little; $100 a month for functional usage |
+|---|---|---|---|
+| **OpenCode**<br>open source | [OpenCode + gpt-oss](opencode-gptoss.qmd) | [OpenCode + qwen](opencode-qwen.qmd) | not available |
+| **Claude Code**<br>proprietary | [Claude Code + gpt-oss](claude-code-gptoss.qmd) | [Claude Code + qwen](claude-code-qwen.qmd) | [Claude Code + Claude](claude-code-claude.qmd) |

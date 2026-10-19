@@ -1,0 +1,33 @@
+---
+title: "Claude Code + Claude"
+---
+
+([Back to the choices](setup.qmd).)
+
+**Subscribe to Claude Pro.** Go to [claude.ai](https://claude.ai) and sign up (or log in). Click your name in the lower-left corner > *Upgrade plan* > *Pro*.
+
+**Install Claude Code.** Paste the block into PowerShell (Windows) or Terminal (Mac).
+
+**On Windows**:
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+**On Mac**:
+
+```sh
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+If the installer prints a command that adds a folder to your PATH, run that command too.
+
+**Log in.** Open a new terminal window and run `claude`. Choose *Claude account with subscription*, log in to your Pro account in the browser window that opens, and click *Authorize*. Quit with `/exit`.
+
+**Check.** Run
+
+```sh
+claude -p --model haiku "Reply with only the word hello."
+```
+
+It should print `hello`. Then go to [A First Example](first-example.qmd).

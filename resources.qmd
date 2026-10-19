@@ -1,0 +1,98 @@
+---
+title: "Resources"
+toc: false
+---
+
+These are roughly in order from most to least useful for someone starting to experiment with agentic AI.
+
+**Start here:** "[An opinionated guide to which AI to use to do stuff](https://www.oneusefulthing.org/p/an-opinionated-guide-to-which-ai-b22)." From **[Ethan Mollick](https://mgmt.wharton.upenn.edu/profile/emollick/)**, a professor of management at the University of Pennsylvania. Discussion of choosing an AI, chatbots versus agents, giving an AI its own computer, and giving an AI your computer. It's short, current (July 2026), and needs no setup, and it draws the line the rest of this page assumes: a chatbot talks with you, while an agent is given a computer and does the work.
+
+"[Claude Blattman: AI for Professionals Who Don't Code](https://claudeblattman.com/)." From **[Chris Blattman](https://chrisblattman.com/)**, a political economist at the University of Chicago. Discussion of getting started without coding experience, installing Claude Code, `CLAUDE.md` files, and skills for managing a research workload.
+
+"[Thinking with Agents](https://thinkingwithagents.github.io/)." From **[Erkmen G. Aslim](https://www.nber.org/people/erkmen_aslim)** and **[Emily Beam](https://eabeam.github.io)**, economists at the University of Vermont. Discussion of the terminal and git for beginners, chat versus agentic tools, context windows, reusable skills, and auditing code and papers.
+
+"[Agentic AI for Social Science Research](https://bgpopescu.net/teaching/agentic/index.html)." From **[Bogdan G. Popescu](https://bgpopescu.net)**, a political scientist at Tec de Monterrey. A series of tutorials. Discussion of what an agent is, installing Claude Code, permissions and data privacy, `CLAUDE.md` files, git, and skills.
+
+From **[Claes Bäckman](https://claesbackman.com/)**, an economist at the Leibniz Institute for Financial Research SAFE.
+
+- "[Claude Code in VS Code for Academic Economists](https://claesbackman.com/claude-code-guide.html)." Discussion of installation, `CLAUDE.md` files and skills, git, and managing the context window.
+- "[Feedback Machines: Writing and editing research papers with generative AI](https://claesbackman.substack.com/p/feedback-machines-writing-and-editing)." Discussion of getting AI feedback on a draft, a worked example of the workflow, and its limitations.
+- "[Using AI to get feedback on your research](https://github.com/claesbackman/AI-research-feedback)." Discussion of installable skills for referee-style reviews, multi-agent review, and checking that the code matches the paper.
+
+From **[Paul Goldsmith-Pinkham](https://paulgp.com/)**, an economist at Yale University.
+
+- "[Research in the Time of AI](https://paulgp.substack.com/p/research-in-the-time-of-ai)." Discussion of research slop, how AI compresses the research timeline, and why checking the work becomes the hard part.
+- "[Mini-Series on Claude Code for Applied Economists](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)." Eight videos. Discussion of getting started, data analysis, web scraping, large datasets, writing, skills, permissions, and collaborating through GitHub.
+- "[Getting Started with Claude Code: A Researcher's Setup Guide](https://paulgp.substack.com/p/getting-started-with-claude-code)." Discussion of a ladder of AI coding tools, installation and plans, keeping sensitive data away from the agent, and managing the context window.
+
+From **[Yusaku Horiuchi](https://horiuchi.org/)**, a political scientist at Florida State University.
+
+- "[AI-Assisted Research Project Management and Replication Guide](https://yhoriuchi.github.io/replication-package-guide/)." Discussion of organizing a project from day one, `AGENTS.md` instructions, and building a replication package.
+- "[Guide to Recording AI Use](https://yhoriuchi.github.io/ai-collaboration-guide/)." Discussion of keeping a dated record of AI use and documenting the models and settings.
+- "[BibTeX Cleaning Agent Guide](https://yhoriuchi.github.io/bibtex-cleaning-agent-guide/)." Discussion of using an agent to clean a bibliography and check citation metadata.
+
+"[AI Accountability and Transparency Policy for Authors](https://ajps.org/ajps-ai-policy/)." From the **American Journal of Political Science**, the journal of the Midwest Political Science Association. Discussion of which uses of AI an author must declare, including writing code and analyzing data, and what the declaration must report.
+
+"[Reflections on Vibe Researching](https://joshuagans.substack.com/p/reflections-on-vibe-researching)." From **[Joshua Gans](https://www.joshuagans.com/)**, an economist at the University of Toronto. Discussion of a year-long AI-first research experiment, mistakes that survived to peer review, and carrying more mediocre ideas to completion.
+
+"[Agentic AI and Social Science Research Practice](https://tompepinsky.com/2026/01/23/agentic-ai-and-social-science-research-practice/)." From **[Tom Pepinsky](https://tompepinsky.com)**, a political scientist at Cornell University. Discussion of using agents for tasks that follow rules but not for answers or interpretations, why an agent's citations go wrong when its code doesn't, and AI-written journal submissions.
+
+"[The 100x Research Institution](https://freesystems.substack.com/p/the-100x-research-institution)." From **[Andrew B. Hall](https://www.gsb.stanford.edu/faculty-research/faculty/andrew-b-hall)**, a political economist at Stanford University. Discussion of an independent audit of Claude Code's replication and extension of one of his published papers, what it got wrong, and what checking it cost.
+
+"[AI Coding Agents in Social Science: Methodologically Diverse, Empirically Consistent, Interpretively Vulnerable](https://arxiv.org/abs/2606.11456)." By [Meysam Alizadeh](https://www.oii.ox.ac.uk/people/profiles/meysam-alizadeh/), Fabrizio Gilardi, Mohsen Mosleh, and Enkelejda Kasneci (2026). Discussion of a many-analysts study run with coding agents, stable estimates, and interpretations that shift with the prompt.
+
+"[AI Coding Agents Can Reproduce Social Science Findings](https://arxiv.org/abs/2606.11447)." By [Meysam Alizadeh](https://www.oii.ox.ac.uk/people/profiles/meysam-alizadeh/), Mohsen Mosleh, Fabrizio Gilardi, Atoosa Kasirzadeh, and Joshua Tucker (2026). Discussion of a benchmark of 221 reproduction tasks from 54 papers, Claude Code against Codex, and prompts that nudge an agent toward specification search.
+
+"[The Agentic Garden of Forking Paths](https://arxiv.org/abs/2607.01507)." By [Jiacheng Miao](https://www.jiachengmiao.com/), Jonathan K. Pritchard, and James Zou (2026). Discussion of agents given opposite beliefs reaching opposite conclusions from the same data, reports that still pass expert review, and logging every analysis an agent tries.
+
+"[AI Agents for Economics Research](https://aieconomist.io/tutorials/ai-agents-for-economics-research)." From **[Aniket Panjwani](https://aieconomist.io/)**, an economist who runs The AI Economist. Discussion of choosing between Codex and Claude Code, a first exercise, git, skills, and planning.
+
+"[Claude Code for Accounting Research](https://johnmbarrios.com/claude-code-accounting/)." From **[John Barrios](https://som.yale.edu/faculty-research/faculty-directory/john-manuel-barrios)**, a professor of accounting at Yale University. A course for PhD students. Discussion of setting up Claude Code, choosing among agent tools, and a protocol for checking what an agent produces.
+
+"[AI-Assisted coding for research](https://carpentry.library.ucsb.edu/ai-coding-workshop/)." From **[Carpentry @ UCSB Library](https://carpentry.library.ucsb.edu/)**, the workshop program of the University of California, Santa Barbara Library. Discussion of running OpenCode in a sandbox, its permission system, `AGENTS.md` files, and planning before building.
+
+From **Anthropic**, the company that makes Claude and Claude Code.
+
+- "[Coding agents in the social sciences](https://www.anthropic.com/research/coding-agents-social-sciences)." Discussion of a survey of 1,260 social scientists and who has adopted coding agents.
+- "[Agentic coding and persistent returns to expertise](https://www.anthropic.com/research/claude-code-expertise)." Discussion of how people use Claude Code and why domain expertise predicts success.
+- "[Claude Code Docs](https://code.claude.com/docs/en/overview)." Discussion of installation, how Claude Code works, settings, and best practices.
+
+From **Posit**, the company that makes RStudio and Positron.
+
+- "[Posit Assistant is specialized for data work](https://opensource.posit.co/blog/2026-06-08_comparing-posit-assistant-and-claude-code/)." Discussion of why Claude Code can't see the data in your R session, plots an agent can't see, and how Posit's own assistant differs.
+- "[btw: A complete toolkit for connecting R and LLMs](https://posit-dev.github.io/btw/)." Discussion of letting Claude Code see your R session's objects, data, and help pages through an MCP server, and of copying R context into a chat.
+- "[Posit Assistant](https://assistant.posit.co/)." Discussion of an agent that runs inside RStudio and Positron, with local models through Ollama or LM Studio or cloud models through an API key or a Posit AI Pass subscription.
+
+"[ICPSR Policy on the Use of Large Language Models](https://www.icpsr.umich.edu/sites/icpsr/about/policies/large-language-models-and-ai)." From **ICPSR**, the social-science data archive at the University of Michigan. Discussion of which kinds of model may see ICPSR data, why giving data to a model can count as redistributing it, and restricted-use data.
+
+"[Using Local Coding Agents](https://magazine.sebastianraschka.com/p/using-local-coding-agents)." From **[Sebastian Raschka](https://sebastianraschka.com/)**, an LLM research engineer and former statistics professor at the University of Wisconsin–Madison. Discussion of running open-weight models through Ollama behind Claude Code and Codex, speed and memory on a Mac, how reliably local models use tools, and testing a model on your own tasks.
+
+"[Privacy-Preserving Analysis with Local LLMs: Generating Synthetic Data Proxies](https://ladal.edu.au/tutorials/llm_privacy/llm_privacy.html)." From **[Martin Schweinberger](https://www.martinschweinberger.de/)**, a linguist at the University of Queensland. Discussion of describing confidential data to a local model, generating a synthetic stand-in, sending only that to a cloud assistant, and running the resulting R code on the real data.
+
+"[Randomness in large language models: What researchers need to know (and report)](https://arxiv.org/abs/2607.24372)." By [Guillaume Coqueret](https://em-lyon.com/en/guillaume-coqueret/briefly), Joan Llull, Florian Oswald, Christophe Pérignon, Christoph Scheuch, and Lars Vilhuber (2026). Discussion of why the same prompt gives different answers, why setting the temperature to 0 doesn't fix it, and what to report.
+
+"[Agentic AI in Social Science Research: From Annotators to Autonomous Pipelines](https://www.matthewdigiuseppe.com/Agentic_AI_SS_Research_May2026.pdf)." From **[Matt DiGiuseppe](https://www.matthewdigiuseppe.com)**, a political scientist at Leiden University. Slides from a talk. Discussion of agents as research pipelines, checking every extracted quote against its archived source, checkpoints, and a register of what went wrong.
+
+From **Oliver Dürr**, a researcher at the Thurgau Institute for Digital Transformation in Switzerland.
+
+- "[AutoStan: Can we automate (parts of) Bayesian workflow with coding agents?](https://discourse.mc-stan.org/t/autostan-can-we-automate-parts-of-bayesian-workflow-with-coding-agents/41028)." A thread on the Stan Forums. Discussion of letting Claude Code edit and refit Stan models, with replies from Stan users, including the Stan developer Aki Vehtari, on overfitting and on how they use agents.
+- "[AutoStan: Autonomous Bayesian Model Improvement via Predictive Feedback](https://arxiv.org/abs/2603.27766)." Discussion of an agent that keeps or reverts each change to a Stan model by its held-out predictive density, divergences, R-hat, and effective sample size.
+
+"[A Practitioner's Guide to Using Large Language Models and Generative AI in Economic History](https://www.nber.org/papers/w35374)." From **[Andreas Ferrara](https://www.econ.pitt.edu/people/andreas-ferrara)**, an economist at the University of Pittsburgh. Discussion of four ways to use an LLM, chat versus agentic coding versus the API, and validating measures an LLM creates.
+
+From **[Scott Cunningham](https://www.scunning.com/)**, an economist at Baylor University.
+
+- "[Claude Code](https://causalinf.substack.com/s/claude-code)." A series of posts. Discussion of research workflows with Claude Code, Claude as a thinking partner, and which stages of research to give an agent.
+- "[MixtapeTools](https://github.com/scunning1975/MixtapeTools)." Discussion of audit protocols, slides, and PDF workflows for Claude Code.
+
+"[My Claude Code Setup](https://psantanna.com/claude-code-my-workflow/)." From **[Pedro H. C. Sant'Anna](https://psantanna.com/)**, an economist at Emory University. Discussion of a ready-to-fork template, review agents, and quality gates.
+
+"[EconTools](https://github.com/johanfourieza/econtools)." From **[Johan Fourie](https://johanfourie.com/)**, an economic historian at Stellenbosch University. Discussion of Claude Code skills for simulated peer review and for turning a folder of PDFs into notes an agent can read.
+
+"[claude-academic-research](https://github.com/mronkko/claude-academic-research)." From **[Mikko Rönkkö](https://www.jyu.fi/en/people/mikko-ronkko)**, a professor of entrepreneurship at the University of Jyväskylä. Discussion of checking citations, Zotero, systematic reviews, and revising a manuscript.
+
+"[AI for Economists](https://policy.fi/ai-econ/)." From **[Jesse Lastunen](https://policy.fi/)**, an economist at UNU-WIDER. A searchable list of about 220 resources: papers, courses, tools, and commentary.
+
+"[How to Use AI for Public Engagement](https://www.popularbydesign.org/p/how-to-use-ai-for-public-engagement)." From **[Alexander Kustov](https://alexanderkustov.org/)**, a political scientist at the University of Notre Dame. Discussion of using AI to write for the public and catching its mistakes.
+
+"[Scaling Reproducibility: An AI-Assisted Workflow for Large-Scale Replication and Reanalysis](https://arxiv.org/abs/2602.16733)." By [Yiqing Xu](https://politicalscience.stanford.edu/people/yiqing-xu) and Leo Yang Yang (2026). Discussion of using an AI workflow to replicate and reanalyze published political science papers at scale.

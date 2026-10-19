@@ -1,0 +1,6 @@
+.DS_Store
+/.quarto/
+/_site/
+/_old/
+# the deck-only render (slides/src/render.sh); the published deck is docs/slides/slides.html
+/slides/slides.html

@@ -1,0 +1,196 @@
+---
+title: "A First Example"
+---
+
+In this exercise, you'll give 13 prompts to a coding agent and watch what it does with a short R script. The goal is to get a feel for the workflow and to make sure the software works on your machine. You'll see one run of each prompt. In lecture, we'll look at what happens across many runs.
+
+The script, `logit.R`, is supposed to print a predicted probability from a logit model. It has two bugs.
+
+## Before you start
+
+Install your model and interface first ([Choose your setup](setup.qmd)). Then install the R and git tools below.
+
+You'll use three programs. Run R code in RStudio. Run the agent in the terminal (Terminal on a Mac, PowerShell on Windows). Look at what the agent changed in GitHub Desktop (or with git in the terminal).
+
+{{< include _partials/_r.md >}}
+
+{{< include _partials/_git.md >}}
+
+## The exercise
+
+{{< include _partials/_part0.md >}}
+
+### How to run each prompt
+
+Run the prompts in order. Most of them come in pairs: a short version of a
+request, then a more careful version of the same request. Start a fresh
+session for every prompt, so the agent remembers nothing from the last one.
+
+Click your setup.
+
+::: {.panel-tabset group="pair"}
+
+## Claude Code + Claude
+
+Claude Code sends the contents of the files it reads to Anthropic. So never
+start an agent in a folder that holds restricted or identifiable data. (The
+folder for this exercise holds only simulated data.)
+
+1. Make sure the *Changes* tab in GitHub Desktop lists no files.
+2. In the terminal, start Claude Code from inside the folder:
+
+   ```sh
+   cd ~/Documents/GitHub/agentic-ai-example
+   claude --model haiku --permission-mode manual
+   ```
+
+3. Paste the prompt. In this mode, Claude Code asks before it runs a command
+   or edits a file. Read each request, since it shows what the agent is about
+   to do. Then choose *Yes*. Don't choose the option that tells it not to ask
+   again.
+4. Write down about how long the reply took and what it says.
+5. Quit with `/exit`.
+6. Look at the *Changes* tab, write down which files changed, and discard the
+   changes.
+
+Each reply takes about 5 to 20 seconds, plus the time you take to read the
+requests.
+
+## Claude Code + qwen
+
+Never start an agent in a folder that holds restricted or identifiable data.
+(The folder for this exercise holds only simulated data.)
+
+Make sure Ollama is running (its icon is in the menu bar on a Mac or the
+system tray on Windows).
+
+1. Make sure the *Changes* tab in GitHub Desktop lists no files.
+2. In the terminal, start Claude Code from inside the folder:
+
+   ```sh
+   cd ~/Documents/GitHub/agentic-ai-example
+   ollama launch claude --model qwen3-coder:30b --yes -- --permission-mode manual
+   ```
+
+3. Paste the prompt. In this mode, Claude Code asks before it runs a command
+   or edits a file. Read each request, since it shows what the agent is about
+   to do. Then choose *Yes*. Don't choose the option that tells it not to ask
+   again.
+4. Write down about how long the reply took and what it says.
+5. Quit with `/exit`.
+6. Look at the *Changes* tab, write down which files changed, and discard the
+   changes.
+
+[CTK: how long a reply takes with Claude Code and qwen; not yet timed.]
+Sometimes the model writes out a tool call as text instead of running it, and
+the reply stops there. If that happens, write it down as a run that failed and
+go on to the next prompt.
+
+## Claude Code + gpt-oss
+
+Never start an agent in a folder that holds restricted or identifiable data.
+(The folder for this exercise holds only simulated data.)
+
+Make sure Ollama is running (its icon is in the menu bar on a Mac or the
+system tray on Windows).
+
+1. Make sure the *Changes* tab in GitHub Desktop lists no files.
+2. In the terminal, start Claude Code from inside the folder:
+
+   ```sh
+   cd ~/Documents/GitHub/agentic-ai-example
+   ollama launch claude --model gpt-oss:20b --yes -- --permission-mode manual
+   ```
+
+3. Paste the prompt. In this mode, Claude Code asks before it runs a command
+   or edits a file. Read each request, since it shows what the agent is about
+   to do. Then choose *Yes*. Don't choose the option that tells it not to ask
+   again.
+4. Write down about how long the reply took and what it says.
+5. Quit with `/exit`.
+6. Look at the *Changes* tab, write down which files changed, and discard the
+   changes.
+
+[CTK: how long a reply takes with Claude Code and gpt-oss; not yet timed.]
+Sometimes the model writes out a tool call as text instead of running it, and
+the reply stops there. If that happens, write it down as a run that failed and
+go on to the next prompt.
+
+## OpenCode + qwen
+
+Never start an agent in a folder that holds restricted or identifiable data.
+(The folder for this exercise holds only simulated data.)
+
+Make sure Ollama is running (its icon is in the menu bar on a Mac or the
+system tray on Windows).
+
+1. Make sure the *Changes* tab in GitHub Desktop lists no files.
+2. In the terminal, start OpenCode from inside the folder:
+
+   ```sh
+   cd ~/Documents/GitHub/agentic-ai-example
+   opencode --model ollama/qwen3-coder:30b
+   ```
+
+3. Stay in **Build** mode (the footer says "Build"). In Build mode, OpenCode
+   runs commands and edits files without asking. Plan mode, which the Tab key
+   switches to, is read-only, and the model then refuses to run R. Paste the
+   prompt.
+4. Write down about how long the reply took and what it says.
+5. Quit with `ctrl+c`.
+6. Look at the *Changes* tab, write down which files changed, and discard the
+   changes.
+
+Each reply takes about one to five minutes. Sometimes the model writes out a
+tool call as text (e.g., `<function=read>`) instead of running it, and the
+reply stops there. If that happens, write it down as a run that failed and go
+on to the next prompt.
+
+## OpenCode + gpt-oss
+
+Never start an agent in a folder that holds restricted or identifiable data.
+(The folder for this exercise holds only simulated data.)
+
+Make sure Ollama is running (its icon is in the menu bar on a Mac or the
+system tray on Windows).
+
+1. Make sure the *Changes* tab in GitHub Desktop lists no files.
+2. In the terminal, start OpenCode from inside the folder:
+
+   ```sh
+   cd ~/Documents/GitHub/agentic-ai-example
+   opencode --model ollama/gpt-oss:20b
+   ```
+
+3. Stay in **Build** mode (the footer says "Build"). In Build mode, OpenCode
+   runs commands and edits files without asking. Plan mode, which the Tab key
+   switches to, is read-only, and the model then refuses to run R. Paste the
+   prompt.
+4. Write down about how long the reply took and what it says.
+5. Quit with `ctrl+c`.
+6. Look at the *Changes* tab, write down which files changed, and discard the
+   changes.
+
+Each reply takes about 15 seconds to a minute on a computer with 32 GB of
+memory, and longer on a computer with 16 GB. Sometimes the model writes out a
+tool call as text instead of running it, and the reply stops there. If that
+happens, write it down as a run that failed and go on to the next prompt.
+
+:::
+
+{{< include _partials/_run-common.md >}}
+
+{{< include _partials/_parts.md >}}
+
+{{< include _partials/_record.md >}}
+
+{{< include _partials/_answers.md >}}
+
+### Clean up
+
+In GitHub Desktop, click *Repository* > *Remove...*, check the box that also
+moves the repository to the Trash (the Recycle Bin on Windows), and click
+*Remove*.
+
+This leaves your model and interface installed. If you used a local model,
+`ollama rm qwen3-coder:30b` or `ollama rm gpt-oss:20b` frees the space it uses.

@@ -1,0 +1,35 @@
+---
+title: "Claude Code + gpt-oss"
+---
+
+([Back to the choices](setup.qmd).)
+
+gpt-oss needs 16 GB of memory and about 20 GB of free disk space. You don't need a Claude account.
+
+**Install Ollama, gpt-oss, and Claude Code.** Paste the block into PowerShell (Windows) or Terminal (Mac). The model download takes a while.
+
+**On Windows**:
+
+```powershell
+irm https://ollama.com/install.ps1 | iex
+ollama pull gpt-oss:20b
+irm https://claude.ai/install.ps1 | iex
+```
+
+**On Mac**:
+
+```sh
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull gpt-oss:20b
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+**Set the context length.** Click the Ollama icon (in the menu bar on a Mac, or the system tray on Windows) > *Settings*, and move the *Context length* slider to *64k*.
+
+**Check.** Open a new terminal window and run
+
+```sh
+ollama launch claude --model gpt-oss:20b --yes -- -p "Reply with only the word hello."
+```
+
+It should print `hello`. (It can take a minute or two.) Then go to [A First Example](first-example.qmd).

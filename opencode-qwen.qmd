@@ -1,0 +1,67 @@
+---
+title: "OpenCode + qwen"
+---
+
+([Back to the choices](setup.qmd).)
+
+qwen needs 32 GB of memory and about 25 GB of free disk space.
+
+**Install Ollama, qwen, and OpenCode.** Paste the block into PowerShell (Windows) or Terminal (Mac). The model download takes a while.
+
+**On Windows**:
+
+```powershell
+irm https://ollama.com/install.ps1 | iex
+ollama pull qwen3-coder:30b
+winget install SST.opencode
+New-Item -ItemType Directory -Force "$HOME\.config\opencode" | Out-Null
+@'
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": { "baseURL": "http://localhost:11434/v1" },
+      "models": {
+        "qwen3-coder:30b": { "name": "Qwen3-Coder 30B (local)" }
+      }
+    }
+  }
+}
+'@ | Set-Content "$HOME\.config\opencode\opencode.json"
+```
+
+**On Mac**:
+
+```sh
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull qwen3-coder:30b
+curl -fsSL https://opencode.ai/install | bash
+mkdir -p ~/.config/opencode
+cat > ~/.config/opencode/opencode.json <<'EOF'
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": { "baseURL": "http://localhost:11434/v1" },
+      "models": {
+        "qwen3-coder:30b": { "name": "Qwen3-Coder 30B (local)" }
+      }
+    }
+  }
+}
+EOF
+```
+
+**Set the context length.** Click the Ollama icon (in the menu bar on a Mac, or the system tray on Windows) > *Settings*, and move the *Context length* slider to *32k*.
+
+**Check.** Open a new terminal window and run
+
+```sh
+opencode run --model ollama/qwen3-coder:30b "Reply with only the word hello."
+```
+
+It should print `hello`. (It can take a minute or two.) Then go to [A First Example](first-example.qmd).

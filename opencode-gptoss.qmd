@@ -1,0 +1,67 @@
+---
+title: "OpenCode + gpt-oss"
+---
+
+([Back to the choices](setup.qmd).)
+
+gpt-oss needs 16 GB of memory and about 20 GB of free disk space.
+
+**Install Ollama, gpt-oss, and OpenCode.** Paste the block into PowerShell (Windows) or Terminal (Mac). The model download takes a while.
+
+**On Windows**:
+
+```powershell
+irm https://ollama.com/install.ps1 | iex
+ollama pull gpt-oss:20b
+winget install SST.opencode
+New-Item -ItemType Directory -Force "$HOME\.config\opencode" | Out-Null
+@'
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": { "baseURL": "http://localhost:11434/v1" },
+      "models": {
+        "gpt-oss:20b": { "name": "gpt-oss 20B (local)" }
+      }
+    }
+  }
+}
+'@ | Set-Content "$HOME\.config\opencode\opencode.json"
+```
+
+**On Mac**:
+
+```sh
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull gpt-oss:20b
+curl -fsSL https://opencode.ai/install | bash
+mkdir -p ~/.config/opencode
+cat > ~/.config/opencode/opencode.json <<'EOF'
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": { "baseURL": "http://localhost:11434/v1" },
+      "models": {
+        "gpt-oss:20b": { "name": "gpt-oss 20B (local)" }
+      }
+    }
+  }
+}
+EOF
+```
+
+**Set the context length.** Click the Ollama icon (in the menu bar on a Mac, or the system tray on Windows) > *Settings*, and move the *Context length* slider to *32k*.
+
+**Check.** Open a new terminal window and run
+
+```sh
+opencode run --model ollama/gpt-oss:20b "Reply with only the word hello."
+```
+
+It should print `hello`. (It can take a minute or two.) Then go to [A First Example](first-example.qmd).

@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Getting Started with Agentic AI"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: setup.qmd
+        text: Choose your setup
+      - href: first-example.qmd
+        text: A First Example
+      - href: slides/slides.qmd
+        text: Slides
+      - href: resources.qmd
+        text: Resources
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3

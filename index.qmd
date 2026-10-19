@@ -1,0 +1,8 @@
+---
+title: "Getting Started with Agentic AI"
+toc: false
+---
+
+1. [Choose your setup](setup.qmd): pick a model and an interface, and install them.
+2. [A First Example](first-example.qmd): give an agent 13 prompts about a short R script.
+3. [Resources](resources.qmd): what to read next.
