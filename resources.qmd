@@ -5,7 +5,9 @@ toc: false
 
 These are roughly in order from most to least useful for someone starting to experiment with agentic AI.
 
-**Start here:** "[An opinionated guide to which AI to use to do stuff](https://www.oneusefulthing.org/p/an-opinionated-guide-to-which-ai-b22)." From **[Ethan Mollick](https://mgmt.wharton.upenn.edu/profile/emollick/)**, a professor of management at the University of Pennsylvania. Discussion of choosing an AI, chatbots versus agents, giving an AI its own computer, and giving an AI your computer. It's short, current (July 2026), and needs no setup, and it draws the line the rest of this page assumes: a chatbot talks with you, while an agent is given a computer and does the work.
+**Start here:** "[Research in the Time of AI](https://paulgp.substack.com/p/research-in-the-time-of-ai)." From **[Paul Goldsmith-Pinkham](https://paulgp.com/)**, an economist at Yale University. Discussion of research slop, how AI compresses the research timeline, and why checking the work becomes the hard part. Read it before you point an agent at your own paper: when doing the work gets cheap, checking it becomes the job.
+
+"[An opinionated guide to which AI to use to do stuff](https://www.oneusefulthing.org/p/an-opinionated-guide-to-which-ai-b22)." From **[Ethan Mollick](https://mgmt.wharton.upenn.edu/profile/emollick/)**, a professor of management at the University of Pennsylvania. Discussion of choosing an AI, chatbots versus agents, giving an AI its own computer, and giving an AI your computer.
 
 "[Claude Blattman: AI for Professionals Who Don't Code](https://claudeblattman.com/)." From **[Chris Blattman](https://chrisblattman.com/)**, a political economist at the University of Chicago. Discussion of getting started without coding experience, installing Claude Code, `CLAUDE.md` files, and skills for managing a research workload.
 
@@ -21,7 +23,6 @@ From **[Claes Bäckman](https://claesbackman.com/)**, an economist at the Leibni
 
 From **[Paul Goldsmith-Pinkham](https://paulgp.com/)**, an economist at Yale University.
 
-- "[Research in the Time of AI](https://paulgp.substack.com/p/research-in-the-time-of-ai)." Discussion of research slop, how AI compresses the research timeline, and why checking the work becomes the hard part.
 - "[Mini-Series on Claude Code for Applied Economists](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)." Eight videos. Discussion of getting started, data analysis, web scraping, large datasets, writing, skills, permissions, and collaborating through GitHub.
 - "[Getting Started with Claude Code: A Researcher's Setup Guide](https://paulgp.substack.com/p/getting-started-with-claude-code)." Discussion of a ladder of AI coding tools, installation and plans, keeping sensitive data away from the agent, and managing the context window.
 
