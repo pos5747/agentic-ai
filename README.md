@@ -13,18 +13,13 @@ works (its output, `slides/slides.html`, is gitignored).
 **Publish:** commit the sources *and* `docs/`, then push. Nothing is live until
 then.
 
-**One-time setup (not done yet, 2026-10-19):**
+**Managed by Claude Code** (Carlisle, 2026-10-19): Claude may commit and push
+here; the rules are in the root `CLAUDE.md`, rule 1's exception.
 
-1. GitHub Desktop: *File* > *Add Local Repository...* > choose this `site/`
-   folder > *create a repository* here. Name it `agentic-ai`. Make the first
-   commit (check that `_old/`, `_site/`, `.quarto/`, and `slides/slides.html`
-   are not listed; `.gitignore` excludes them).
-2. *Publish repository*: organization **pos5747**, uncheck "Keep this code
-   private".
-3. On GitHub: the repo's *Settings* > *Pages* > *Deploy from a branch* >
-   `main`, folder `/docs`. The site appears at
-   https://pos5747.github.io/agentic-ai/ (the deck at
-   https://pos5747.github.io/agentic-ai/slides/slides.html).
+**Setup status (2026-10-19):** local repo created (`git init -b main`, first
+commit `05558f3`). Still to do: create the empty GitHub repo
+`pos5747/agentic-ai` (public, no README), add it as `origin`, push `main`,
+then *Settings* > *Pages* > *Deploy from a branch* > `main`, `/docs`.
 
 The history below was written when this folder was `getting-started/`; the
 pages and partials it describes are unchanged.
