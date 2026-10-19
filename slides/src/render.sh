@@ -8,7 +8,7 @@ deck="$(dirname "$src")"
 work="$(mktemp -d /private/tmp/slides.XXXXXX)"
 mkdir "$work/src"
 cp "$deck/slides.qmd" "$work/"
-cp "$src/mock-gui.css" "$src/deck.css" "$src/agent-gui.lua" "$src/gh-diff.lua" "$work/src/"
+cp "$src/mock-gui.css" "$src/deck.css" "$src/agent-gui.lua" "$src/gh-diff.lua" "$src/theme.scss" "$work/src/"
 cp -R "$deck/img" "$work/"
 (cd "$work" && quarto render slides.qmd --quiet)
 cp "$work/slides.html" "$deck/slides.html"

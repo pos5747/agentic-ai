@@ -1,0 +1,74 @@
+/*-- scss:defaults --*/
+
+// Shared look for the week-9 site and deck (2026-10-19): ink text, an amber
+// accent that matches the agent panels in mock-gui.css, Barlow Semi Condensed
+// headings (close in width to the old News Cycle, so titles wrap the same),
+// Source Sans 3 body text (a little narrower than the old Lato).
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+$ink: #1f2933;
+$amber: #b45309;
+$muted: #616e7c;
+
+$font-family-sans-serif: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+$presentation-heading-font: "Barlow Semi Condensed", "Arial Narrow", sans-serif;
+$presentation-heading-font-weight: 600;
+$presentation-heading-color: $ink;
+$body-color: $ink;
+$link-color: $amber;
+$code-color: #9a3412;
+
+/*-- scss:rules --*/
+
+// Quarto drops the quotes when it writes $font-family-sans-serif into
+// --r-main-font, and an unquoted "Source Sans 3" (a name ending in a digit)
+// is invalid CSS, so the browser falls back to a serif. Set it here verbatim.
+.reveal {
+  --r-main-font: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+}
+
+// A short amber rule under ordinary slide titles (not the five-pane slides
+// or the full-color slides). It is absolutely
+// positioned, so it takes no space and cannot push content down.
+.reveal .slides section:not(.gui-slide):not([data-background-color]) > h2 {
+  position: relative;
+  letter-spacing: -0.005em;
+}
+.reveal .slides section:not(.gui-slide):not([data-background-color]) > h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.12em;
+  width: 1.6em;
+  height: 0.09em;
+  border-radius: 0.05em;
+  background: $amber;
+}
+
+// Section dividers (# headings)
+.reveal .slides section.title-slide h1 {
+  letter-spacing: -0.01em;
+}
+
+// Title slide
+#title-slide .title {
+  letter-spacing: -0.01em;
+}
+#title-slide .subtitle {
+  color: $amber;
+  font-weight: 600;
+}
+
+// Chrome
+.reveal .progress {
+  color: $amber;
+}
+.reveal .slide-number {
+  color: $muted;
+  background: transparent;
+  font-family: $font-family-sans-serif;
+}
+.reveal .slide-menu-button .fa-bars::before,
+.reveal .slide-menu-button {
+  color: $muted;
+}

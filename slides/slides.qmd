@@ -69,7 +69,7 @@ title: "An Introduction to Agentic AI"
 subtitle: "Promise and Pitfalls"
 format:
   revealjs:
-    theme: simple
+    theme: [simple, src/theme.scss]
     slide-number: true
     embed-resources: true
     width: 1280

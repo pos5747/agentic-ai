@@ -6,7 +6,7 @@
 set -e
 here="$(cd "$(dirname "$0")" && pwd)"
 work="$(mktemp -d /private/tmp/agentic-ai-site.XXXXXX)"
-rsync -a --exclude docs --exclude _site --exclude .quarto --exclude _old --exclude slides/slides.html "$here/" "$work/"
+rsync -a --exclude docs --exclude _site --exclude .quarto --exclude _old --exclude slides/slides.html --exclude CLAUDE.md --exclude .claude "$here/" "$work/"
 (cd "$work" && quarto render 2>&1 | grep -iE "error|warn" || true)
 rsync -a --delete "$work/docs/" "$here/docs/"
 touch "$here/docs/.nojekyll"   # serve files as-is on GitHub Pages

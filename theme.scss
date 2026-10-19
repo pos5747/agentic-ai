@@ -1,0 +1,116 @@
+/*-- scss:defaults --*/
+
+// Shared look for the week-9 site and deck (2026-10-19); the deck's version
+// is slides/src/theme.scss. Ink text, an amber accent that matches the agent
+// panels on the slides, Barlow Semi Condensed headings, Source Sans 3 body,
+// JetBrains Mono code.
+$web-font-path: "https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap";
+
+$ink: #1f2933;
+$amber: #b45309;
+$amber-light: #fdf6ec;
+$muted: #616e7c;
+$line: #e7e1d7;
+
+$font-family-sans-serif: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+$headings-font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif;
+$font-family-monospace: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+$headings-font-weight: 600;
+$font-size-root: 17px;
+
+$body-color: $ink;
+$primary: $amber;
+$link-color: $amber;
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+$navbar-bg: $ink;
+$navbar-fg: #f3efe7;
+$navbar-hl: #fbbf24;
+
+$code-color: #9a3412;
+$code-block-bg: #f8f6f2;
+$code-block-border-left: $amber;
+
+$callout-color-note: #3b6e8f;
+
+$footer-bg: #faf8f4;
+$footer-border-color: $line;
+
+/*-- scss:rules --*/
+
+.navbar-brand .navbar-title {
+  font-family: $headings-font-family;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+h1.title {
+  letter-spacing: -0.01em;
+}
+
+.quarto-title .subtitle {
+  color: $amber;
+  font-weight: 600;
+}
+
+h2 {
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid $line;
+}
+
+// Tables (the setup grid, the write-down table)
+table {
+  border-color: $line;
+}
+thead th {
+  --bs-table-bg: #{$amber-light};
+}
+
+// Tabs on A First Example
+.panel-tabset .nav-tabs .nav-link.active {
+  border-top: 3px solid $amber;
+  font-weight: 600;
+}
+
+// Cards on the home page
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+@media (max-width: 575.98px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+.cards .card-link {
+  display: block;
+  padding: 1rem 1.1rem;
+  border: 1px solid $line;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: $ink;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.cards .card-link:hover {
+  border-color: $amber;
+  box-shadow: 0 6px 18px rgba(31, 41, 51, 0.08);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.cards .card-title {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: $headings-font-family;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: $amber;
+}
+.cards .card-text {
+  display: block;
+  font-size: 0.95rem;
+  color: $muted;
+}

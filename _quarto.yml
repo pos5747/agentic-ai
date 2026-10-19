@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: docs
+  # Only .qmd pages are published; README.md and the local CLAUDE.md are not.
+  render:
+    - "*.qmd"
+    - "slides/*.qmd"
 
 website:
   title: "Getting Started with Agentic AI"
@@ -16,9 +20,15 @@ website:
         text: Slides
       - href: resources.qmd
         text: Resources
+    right:
+      - icon: github
+        href: https://github.com/pos5747/agentic-ai
+        aria-label: Source on GitHub
+  page-footer:
+    center: "Content by Carlisle Rainey · Style and git history by Claude Code · [Source on GitHub](https://github.com/pos5747/agentic-ai)"
 
 format:
   html:
-    theme: cosmo
+    theme: [cosmo, theme.scss]
     toc: true
     toc-depth: 3
