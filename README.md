@@ -6,7 +6,7 @@
 [![Style and git history by Claude Code](https://img.shields.io/badge/style_%26_git_history-Claude_Code-b45309)](https://code.claude.com/docs/en/overview)
 [![GitHub Pages](https://img.shields.io/badge/hosted_on-GitHub_Pages-1f2933)](https://pos5747.github.io/agentic-ai/)
 
-Materials for week 9 of POS 5747, a political science PhD course on probability models: how to set up a coding agent, a first exercise with it, a lecture on what agents do well and badly, and a list of resources.
+Materials for week 9 of POS 5747, a political science PhD course on probability models: a lecture on what agents do well and badly, then how to set up a coding agent, a first exercise with it, and a list of resources.
 
 <p align="center">
   <img src=".github/readme/slide-agent.png" alt="A slide from the deck: a real Claude Code run shown as five panes (the code, the diff, the files, the output, and the conversation)" width="820">
@@ -27,10 +27,10 @@ In practice, that means:
 
 | Page | What it does |
 |---|---|
+| [Slides](https://pos5747.github.io/agentic-ai/slides/slides.html) | "An Introduction to Agentic AI: Promise and Pitfalls" |
 | [Choose your setup](https://pos5747.github.io/agentic-ai/setup.html) | Pick a model (gpt-oss, qwen, or Claude) and an interface (OpenCode or Claude Code) |
 | Five install pages | One Windows block and one Mac block per pair, then a one-line check |
 | [A First Example](https://pos5747.github.io/agentic-ai/first-example.html) | Give an agent 13 prompts about a buggy R script, and check what it did |
-| [Slides](https://pos5747.github.io/agentic-ai/slides/slides.html) | "An Introduction to Agentic AI: Promise and Pitfalls" |
 | [Resources](https://pos5747.github.io/agentic-ai/resources.html) | What to read next, by person, roughly in order of value to a beginner |
 
 <p align="center">

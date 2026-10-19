@@ -9,11 +9,11 @@ Given the spirit of this topic, I've used agentic AI to develop these materials 
 :::
 
 ::: {.cards}
+[[Slides]{.card-title}[An introduction to agentic AI: promise and pitfalls.]{.card-text}](slides/slides.qmd){.card-link}
+
 [[Choose your setup]{.card-title}[Pick a model and an interface, and install them.]{.card-text}](setup.qmd){.card-link}
 
 [[A First Example]{.card-title}[Give an agent 13 prompts about a short R script.]{.card-text}](first-example.qmd){.card-link}
-
-[[Slides]{.card-title}[An introduction to agentic AI: promise and pitfalls.]{.card-text}](slides/slides.qmd){.card-link}
 
 [[Resources]{.card-title}[What to read next.]{.card-text}](resources.qmd){.card-link}
 :::

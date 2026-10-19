@@ -126,16 +126,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./slides/slides.html"> 
+<span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./setup.html"> 
 <span class="menu-text">Choose your setup</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./first-example.html" aria-current="page"> 
 <span class="menu-text">A First Example</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./slides/slides.html"> 
-<span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./resources.html"> 
@@ -205,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this exercise, you’ll give 13 prompts to a coding agent and watch what it does with a short R script. The goal is to get a feel for the workflow and to make sure the software works on your machine. You’ll see one run of each prompt. In lecture, we’ll look at what happens across many runs.</p>
+<p>In this exercise, you’ll give 13 prompts to a coding agent and watch what it does with a short R script. The goal is to get a feel for the workflow and to make sure the software works on your machine. You’ll see one run of each prompt. In lecture, we looked at what happens across many runs.</p>
 <p>The script, <code>logit.R</code>, is supposed to print a predicted probability from a logit model. It has two bugs.</p>
 <section id="before-you-start" class="level2">
 <h2 class="anchored" data-anchor-id="before-you-start">Before you start</h2>
@@ -341,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p><strong>Write down what the agent said, not what it should have said.</strong> In lecture, we’ll compare the run you got with many runs of the same prompt. (Those runs approved every request ahead of time.)</p>
+<p><strong>Write down what the agent said, not what it should have said.</strong> In lecture, we looked at many runs of the same prompt. Compare the run you got with those. (Those runs approved every request ahead of time.)</p>
 <p><strong><code>data.csv</code> has 500 rows plus a header.</strong> An agent sometimes reports that <code>data.csv</code> is truncated. It isn’t. To check, run <code>nrow(read.csv("data.csv"))</code> in the RStudio console. It prints <code>500</code>.</p>
 </section>
 <section id="part-1-find-and-fix-the-bugs" class="level3">

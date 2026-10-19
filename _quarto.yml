@@ -12,12 +12,12 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: slides/slides.qmd
+        text: Slides
       - href: setup.qmd
         text: Choose your setup
       - href: first-example.qmd
         text: A First Example
-      - href: slides/slides.qmd
-        text: Slides
       - href: resources.qmd
         text: Resources
     right:

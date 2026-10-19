@@ -2,7 +2,7 @@
 title: "A First Example"
 ---
 
-In this exercise, you'll give 13 prompts to a coding agent and watch what it does with a short R script. The goal is to get a feel for the workflow and to make sure the software works on your machine. You'll see one run of each prompt. In lecture, we'll look at what happens across many runs.
+In this exercise, you'll give 13 prompts to a coding agent and watch what it does with a short R script. The goal is to get a feel for the workflow and to make sure the software works on your machine. You'll see one run of each prompt. In lecture, we looked at what happens across many runs.
 
 The script, `logit.R`, is supposed to print a predicted probability from a logit model. It has two bugs.
 
