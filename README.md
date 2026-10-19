@@ -1,57 +1,60 @@
-# Getting Started with Agentic AI — the week-9 site
+# Getting Started with Agentic AI
 
-The public website for week 9, published at **https://pos5747.github.io/agentic-ai/**
-from its own repo, `pos5747/agentic-ai`, rooted at this folder (`agentic-ai/site/`).
-It holds the student pages and the lecture deck (`slides/`). Everything else in
-`agentic-ai/` is working material and is not in the repo.
+**[pos5747.github.io/agentic-ai](https://pos5747.github.io/agentic-ai/)** · [Slides](https://pos5747.github.io/agentic-ai/slides/slides.html) · POS 5747, Florida State University
 
-**Render:** `./render.sh` (or `./render.sh open`). It renders the pages and the
-deck in `/private/tmp`, copies the result to `docs/`, and adds `docs/.nojekyll`.
-For a quick deck-only render while editing slides, `slides/src/render.sh` still
-works (its output, `slides/slides.html`, is gitignored).
+[![Built with Quarto](https://img.shields.io/badge/built_with-Quarto-75AADB)](https://quarto.org)
+[![Style and git history by Claude Code](https://img.shields.io/badge/style_%26_git_history-Claude_Code-b45309)](https://code.claude.com/docs/en/overview)
+[![GitHub Pages](https://img.shields.io/badge/hosted_on-GitHub_Pages-1f2933)](https://pos5747.github.io/agentic-ai/)
 
-**Publish:** commit the sources *and* `docs/`, then push. Nothing is live until
-then.
+Materials for week 9 of POS 5747, a political science PhD course on probability models: how to set up a coding agent, a first exercise with it, a lecture on what agents do well and badly, and a list of resources.
 
-**Managed by Claude Code** (Carlisle, 2026-10-19): Claude may commit and push
-here; the rules are in the root `CLAUDE.md`, rule 1's exception.
+<p align="center">
+  <img src=".github/readme/slide-agent.png" alt="A slide from the deck: a real Claude Code run shown as five panes (the code, the diff, the files, the output, and the conversation)" width="820">
+</p>
 
-**Setup (done 2026-10-19):** created with `gh repo create pos5747/agentic-ai
---public`, pushed `main`, and GitHub Pages turned on from `main` / `docs` with
-`gh api`. `gh` is installed with Homebrew and logged in as carlislerainey.
+## Made with agentic AI
 
-The history below was written when this folder was `getting-started/`; the
-pages and partials it describes are unchanged.
+> Given the spirit of this topic, I've used agentic AI to develop these materials as much as possible. I've let the models design the website and the slides (the style, not the content). I let the models maintain the git history.
 
-The site began (2026-10-19) as a combination of
-`../local-agent-example/INSTALL.md` and `TRY-IT.md` into one page per
-(interface, model) pair.
+In practice, that means:
 
-| | gpt-oss:20b (16 GB) | qwen3-coder:30b (32 GB) | Claude Haiku (Pro) |
-|---|---|---|---|
-| OpenCode | `opencode-gptoss.qmd` | `opencode-qwen.qmd` | not available (Anthropic bars subscriptions in third-party tools; OpenCode dropped the plugin in 1.3.0) |
-| Claude Code | `claude-code-gptoss.qmd` | `claude-code-qwen.qmd` | `claude-code-claude.qmd` |
+- **The look** of the site and the slides (fonts, colors, the cards on the home page, the five-pane "agent workspace" slides) was designed and written by Claude Code, in [`theme.scss`](theme.scss), [`slides/src/theme.scss`](slides/src/theme.scss), and the filters and styles in [`slides/src/`](slides/src).
+- **The git history** is Claude Code's: it renders the site, reads the diff, writes the commit message, and pushes. Every commit carries a `Co-Authored-By` line.
+- **The content** (what the pages and slides say) is Carlisle Rainey's.
+- **Every agent run on the slides is real.** The conversations, diffs, and outputs come from logged runs of Claude Code and OpenCode on short R scripts, and the agents' words are quoted verbatim.
 
-**How a page is built.** Each pair page is YAML (`pair:` and `model:` values)
-plus a list of `{{< include >}}` partials from `_partials/`. The partials use
-`{{< meta model.id >}}` and similar shortcodes, which Quarto expands inside code
-blocks too, so one partial serves every model. Edit a partial to change every
-page that includes it. Text in the partials is copied verbatim from INSTALL.md
-and TRY-IT.md (Parts 1–3 and the answers were extracted by script, with "(qwen
-too)" removed), except where the README hand-off or the log in `../CLAUDE.md`
-says otherwise.
+## What's here
 
-**`resources.qmd`** (added 2026-10-19) is a curated subset of `../resources/`,
-grouped by person and ordered roughly by value to a first-timer. The format and
-the rule for keeping it in step with the collection are in
-`../resources/index.md`, "The student-facing Resources page."
+| Page | What it does |
+|---|---|
+| [Choose your setup](https://pos5747.github.io/agentic-ai/setup.html) | Pick a model (gpt-oss, qwen, or Claude) and an interface (OpenCode or Claude Code) |
+| Five install pages | One Windows block and one Mac block per pair, then a one-line check |
+| [A First Example](https://pos5747.github.io/agentic-ai/first-example.html) | Give an agent 13 prompts about a buggy R script, and check what it did |
+| [Slides](https://pos5747.github.io/agentic-ai/slides/slides.html) | "An Introduction to Agentic AI: Promise and Pitfalls" |
+| [Resources](https://pos5747.github.io/agentic-ai/resources.html) | What to read next, by person, roughly in order of value to a beginner |
 
-**Restructured 2026-10-19 (later).** Pages now: `index.qmd` (Home; a placeholder
-for Carlisle's content), `setup.qmd` (the old grid page, "Choose Your Setup"),
-five install-only pair pages (one Windows block and one Mac block each, written
-out in full, no partials), `first-example.qmd` ("A First Example": TRY-IT plus
-the R and git/GitHub install steps, with the setup-specific run steps in one
-five-tab tabset), and `resources.qmd`. Partials still in use: `_r`, `_git`,
-`_part0`, `_run-common`, `_parts`, `_record`, `_answers`, `_memory`. The rest
-are parked in `_old/partials-2026-10-19/`. The table at the top of this file
-predates the restructure.
+<p align="center">
+  <img src=".github/readme/site-home.png" alt="The site's home page" width="640">
+</p>
+
+## Build
+
+The site is a [Quarto](https://quarto.org) website; the slides are a revealjs deck inside it.
+
+```sh
+./render.sh        # renders the pages and the deck into docs/
+```
+
+GitHub Pages serves `docs/` from `main`. The five-pane slides are written as plain-text blocks and built by a Lua filter, [`slides/src/agent-gui.lua`](slides/src/agent-gui.lua); its header documents the syntax.
+
+```
+.
+├── _quarto.yml, theme.scss   site config and theme
+├── index.qmd, setup.qmd, first-example.qmd, resources.qmd
+├── claude-code-*.qmd, opencode-*.qmd   the five install pages
+├── _partials/                text shared by A First Example
+├── slides/
+│   ├── slides.qmd            the deck
+│   └── src/                  filters, CSS, and the deck's theme
+└── docs/                     the rendered site (what Pages serves)
+```
