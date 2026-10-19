@@ -16,10 +16,9 @@ then.
 **Managed by Claude Code** (Carlisle, 2026-10-19): Claude may commit and push
 here; the rules are in the root `CLAUDE.md`, rule 1's exception.
 
-**Setup status (2026-10-19):** local repo created (`git init -b main`, first
-commit `05558f3`). Still to do: create the empty GitHub repo
-`pos5747/agentic-ai` (public, no README), add it as `origin`, push `main`,
-then *Settings* > *Pages* > *Deploy from a branch* > `main`, `/docs`.
+**Setup (done 2026-10-19):** created with `gh repo create pos5747/agentic-ai
+--public`, pushed `main`, and GitHub Pages turned on from `main` / `docs` with
+`gh api`. `gh` is installed with Homebrew and logged in as carlislerainey.
 
 The history below was written when this folder was `getting-started/`; the
 pages and partials it describes are unchanged.
