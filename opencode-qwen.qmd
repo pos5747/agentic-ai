@@ -13,7 +13,7 @@ qwen needs 32 GB of memory and about 25 GB of free disk space.
 ```powershell
 irm https://ollama.com/install.ps1 | iex
 ollama pull qwen3-coder:30b
-winget install SST.opencode
+winget install SST.opencode --accept-source-agreements --accept-package-agreements
 New-Item -ItemType Directory -Force "$HOME\.config\opencode" | Out-Null
 @'
 {
@@ -56,7 +56,9 @@ cat > ~/.config/opencode/opencode.json <<'EOF'
 EOF
 ```
 
-**Set the context length.** Click the Ollama icon (in the menu bar on a Mac, or the system tray on Windows) > *Settings*, and move the *Context length* slider to *32k*.
+(It may ask for your Mac password; the typing doesn't show.)
+
+**Set the context length.** Click the Ollama icon (in the menu bar on a Mac, or the system tray on Windows) > *Settings*, and move the *Context length* slider to *64k*.
 
 **Check.** Open a new terminal window and run
 
@@ -64,4 +66,8 @@ EOF
 opencode run --model ollama/qwen3-coder:30b "Reply with only the word hello."
 ```
 
-It should print `hello`. (It can take a minute or two.) Then go to [A First Example](first-example.qmd).
+It should print `hello`. (It can take a minute or two.)
+
+Then run `ollama ps` and make sure the *CONTEXT* column says `65536`. Then go to [A First Example](first-example.qmd).
+
+If you get stuck, copy the command and everything it printed and send it to Bryson or me.

@@ -120,6 +120,8 @@ the agent's interval? Is that the method the agent said it used?
 
 These three prompts ask for a quantity the script doesn't compute. Prompt 11
 doesn't name a file. Prompts 12 and 13 ask the agent to change `logit.R`.
+Your `logit.R` has only `x`. The lecture's runs on this task used a version
+with a second predictor, `z`, so your answer won't be the lecture's 0.433.
 
 **Prompt 11.**
 

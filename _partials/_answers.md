@@ -41,7 +41,8 @@ Check these only after you've run the prompts.
 
 - **Prompts 11–13.** The average difference is 0.557, with a 95% interval of
   (0.481, 0.634). The call is `avg_comparisons(fit, variables = list(x =
-  "iqr"))`.
+  "iqr"))`. (The lecture's runs used a script with a second predictor, `z`,
+  so their answer was 0.433.)
 - **Wrong answers to recognize.** 0.292 is the average slope (from
   `avg_slopes()`). 0.311 is the difference for a one-unit change in `x` (the
   default of `avg_comparisons()`). 0.450 is the difference for a

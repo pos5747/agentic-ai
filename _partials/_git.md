@@ -19,4 +19,4 @@ Run `git config --global --list` and make sure it shows your name and e-mail.
 
 **Test GitHub Desktop.** **On macOS**, click *GitHub Desktop* > *Settings...* > *Accounts*. **On Windows**, click *File* > *Options* > *Accounts*. Make sure your GitHub username appears. If so, you've got git and GitHub Desktop working.
 
-Comment: An agent can change many files at once. Git records every version of your files, so you can see exactly what the agent changed and undo it.
+An agent can change many files at once. Git records every version of your files, so you can see exactly what the agent changed and undo it.

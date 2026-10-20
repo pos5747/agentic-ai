@@ -215,13 +215,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="r-and-marginaleffects">R and {marginaleffects}</h3>
 <p><strong>Install (or update) R and RStudio.</strong> You should already have these from this course.</p>
 <p><strong>Install the marginaleffects package.</strong> In RStudio, click the <em>Packages</em> tab in the lower-right pane, click <em>Install</em>, type “marginaleffects,” and click <em>Install</em>.</p>
-<p><strong>Let the terminal find R (Windows only).</strong> The agents run R from the terminal, and on Windows, the terminal can’t find R until you add it to your PATH. In PowerShell, run</p>
+<p><strong>Let the terminal find R (Windows only).</strong> The agent runs R from the terminal, and on Windows, the terminal can’t find R until you add it to your PATH. In PowerShell, run</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">$rbin</span> <span class="op">=</span> <span class="op">(</span><span class="fu">Get-ChildItem</span> <span class="st">"C:\Program Files\R"</span> <span class="op">|</span> <span class="fu">Sort-Object</span> Name <span class="op">|</span> <span class="fu">Select-Object</span> <span class="op">-</span>Last <span class="dv">1</span><span class="op">).</span><span class="fu">FullName</span> <span class="op">+</span> <span class="st">"\bin"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Environment<span class="op">]::</span>SetEnvironmentVariable<span class="op">(</span><span class="st">"Path"</span><span class="op">,</span> <span class="op">[</span>Environment<span class="op">]::</span>GetEnvironmentVariable<span class="op">(</span><span class="st">"Path"</span><span class="op">,</span> <span class="st">"User"</span><span class="op">)</span> <span class="op">+</span> <span class="st">";</span><span class="va">$rbin</span><span class="st">"</span><span class="op">,</span> <span class="st">"User"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>and then restart the terminal.</p>
 <p><strong>Test R from the terminal.</strong> Run</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">"library(marginaleffects); cat('ok')"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Make sure it prints <code>ok</code>. If so, the agents can run R.</p>
+<p>Make sure it prints <code>ok</code>. If so, the agent can run R.</p>
 </section>
 <section id="git-github-and-github-desktop" class="level3">
 <h3 class="anchored" data-anchor-id="git-github-and-github-desktop">Git, GitHub, and GitHub Desktop</h3>
@@ -234,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Run <code>git config --global --list</code> and make sure it shows your name and e-mail.</p>
 <p><strong>Install GitHub Desktop.</strong> Download <a href="https://desktop.github.com">GitHub Desktop</a>, install it, and open it. Sign in with your GitHub account when it asks.</p>
 <p><strong>Test GitHub Desktop.</strong> <strong>On macOS</strong>, click <em>GitHub Desktop</em> &gt; <em>Settings…</em> &gt; <em>Accounts</em>. <strong>On Windows</strong>, click <em>File</em> &gt; <em>Options</em> &gt; <em>Accounts</em>. Make sure your GitHub username appears. If so, you’ve got git and GitHub Desktop working.</p>
-<p>Comment: An agent can change many files at once. Git records every version of your files, so you can see exactly what the agent changed and undo it.</p>
+<p>An agent can change many files at once. Git records every version of your files, so you can see exactly what the agent changed and undo it.</p>
 </section>
 </section>
 <section id="the-exercise" class="level2">
@@ -248,10 +248,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Keep <code>logit.R</code> open in RStudio. When an agent changes the file, RStudio shows the new version, and you can click <em>Source</em> to run it. Don’t edit the file while an agent is running.</p>
 <p><strong>Commit the <code>.gitignore</code> file.</strong> When RStudio opens the project, it adds two things to the folder. The first is a hidden folder named <code>.Rproj.user</code>, where RStudio keeps its own settings for the project. The second is a file named <code>.gitignore</code>, which tells git to leave that folder (and R’s <code>.RData</code> and <code>.Rhistory</code> files) out of its record. In GitHub Desktop, click the <em>Changes</em> tab. It lists <code>.gitignore</code> as a new file. Make sure <code>.gitignore</code> is the only file with a check mark. Type <code>Add .gitignore</code> in the <em>Summary</em> box and click <em>Commit to main</em>. The <em>Changes</em> tab is now empty. (If the tab was already empty, skip this step.)</p>
 <p>A commit adds the current version of the checked files to git’s record. You don’t need to click <em>Push origin</em>. Your commits stay on your computer.</p>
-<p><strong>Move the terminal into the folder.</strong> The agents work in the folder you start them from. In the terminal, run</p>
+<p><strong>Move the terminal into the folder.</strong> The agent works in the folder you start it from. In the terminal, run</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/GitHub/agentic-ai-example</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>(If your <em>Local Path</em> was a different folder, use that folder in the <code>cd</code> command, here and below.)</p>
-<p><strong>Look at what the agent changed, then undo it.</strong> The agents sometimes edit the script, change the data, or create new files, even when you only ask a question. After each prompt, open GitHub Desktop and click the <em>Changes</em> tab. It lists every file the agent changed or created. Click a file to see the lines that changed. Write down which files changed. Then click <em>Branch</em> &gt; <em>Discard All Changes…</em> to undo the changes. If the <em>Changes</em> tab lists no files, then the agent changed nothing, and there’s nothing to discard.</p>
+<p><strong>Look at what the agent changed, then undo it.</strong> The agent sometimes edits the script, change the data, or create new files, even when you only ask a question. After each prompt, open GitHub Desktop and click the <em>Changes</em> tab. It lists every file the agent changed or created. Click a file to see the lines that changed. Write down which files changed. Then click <em>Branch</em> &gt; <em>Discard All Changes…</em> to undo the changes. If the <em>Changes</em> tab lists no files, then the agent changed nothing, and there’s nothing to discard.</p>
 <p>On a Mac, a file named <code>.DS_Store</code> sometimes appears in the list. Finder creates it when you open the folder, so it isn’t the agent’s work. Don’t write it down. You can discard it with the other changes.</p>
 <p>If you prefer the terminal, <code>git status</code> lists the files that changed, <code>git diff</code> shows the lines (press <code>q</code> to leave a long one), and these two commands undo the changes:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> restore .</span>
@@ -271,13 +271,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Make sure the <em>Changes</em> tab in GitHub Desktop lists no files.</p></li>
 <li><p>In the terminal, start Claude Code from inside the folder:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Documents/GitHub/agentic-ai-example</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--model</span> haiku <span class="at">--permission-mode</span> manual</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> <span class="at">--model</span> sonnet <span class="at">--permission-mode</span> manual</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Paste the prompt. In this mode, Claude Code asks before it runs a command or edits a file. Read each request, since it shows what the agent is about to do. Then choose <em>Yes</em>. Don’t choose the option that tells it not to ask again.</p></li>
 <li><p>Write down about how long the reply took and what it says.</p></li>
 <li><p>Quit with <code>/exit</code>.</p></li>
 <li><p>Look at the <em>Changes</em> tab, write down which files changed, and discard the changes.</p></li>
 </ol>
-<p>Each reply takes about 5 to 20 seconds, plus the time you take to read the requests.</p>
+<p>Each reply takes about 5 to 20 seconds, plus the time you take to read the requests. (<code>--model sonnet</code> now runs Sonnet 5.5, a newer model than the lecture’s Sonnet 5.)</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Never start an agent in a folder that holds restricted or identifiable data. (The folder for this exercise holds only simulated data.)</p>
@@ -292,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Quit with <code>/exit</code>.</p></li>
 <li><p>Look at the <em>Changes</em> tab, write down which files changed, and discard the changes.</p></li>
 </ol>
-<p>[CTK: how long a reply takes with Claude Code and qwen; not yet timed.] Sometimes the model writes out a tool call as text instead of running it, and the reply stops there. If that happens, write it down as a run that failed and go on to the next prompt.</p>
+<p>Sometimes the model writes out a tool call as text instead of running it, and the reply stops there. If that happens, write it down as a run that failed and go on to the next prompt.</p>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <p>Never start an agent in a folder that holds restricted or identifiable data. (The folder for this exercise holds only simulated data.)</p>
@@ -307,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Quit with <code>/exit</code>.</p></li>
 <li><p>Look at the <em>Changes</em> tab, write down which files changed, and discard the changes.</p></li>
 </ol>
-<p>[CTK: how long a reply takes with Claude Code and gpt-oss; not yet timed.] Sometimes the model writes out a tool call as text instead of running it, and the reply stops there. If that happens, write it down as a run that failed and go on to the next prompt.</p>
+<p>Sometimes the model writes out a tool call as text instead of running it, and the reply stops there. If that happens, write it down as a run that failed and go on to the next prompt.</p>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p>Never start an agent in a folder that holds restricted or identifiable data. (The folder for this exercise holds only simulated data.)</p>
@@ -322,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Quit with <code>ctrl+c</code>.</p></li>
 <li><p>Look at the <em>Changes</em> tab, write down which files changed, and discard the changes.</p></li>
 </ol>
-<p>Each reply takes about one to five minutes. Sometimes the model writes out a tool call as text (e.g., <code>&lt;function=read&gt;</code>) instead of running it, and the reply stops there. If that happens, write it down as a run that failed and go on to the next prompt.</p>
+<p>Each reply takes about 30 seconds to a few minutes. Sometimes the model writes out a tool call as text (e.g., <code>&lt;function=read&gt;</code>) instead of running it, and the reply stops there. If that happens, write it down as a run that failed and go on to the next prompt.</p>
 </div>
 <div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
 <p>Never start an agent in a folder that holds restricted or identifiable data. (The folder for this exercise holds only simulated data.)</p>
@@ -431,7 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="part-3-write-new-code" class="level3">
 <h3 class="anchored" data-anchor-id="part-3-write-new-code">Part 3: Write new code</h3>
-<p>These three prompts ask for a quantity the script doesn’t compute. Prompt 11 doesn’t name a file. Prompts 12 and 13 ask the agent to change <code>logit.R</code>.</p>
+<p>These three prompts ask for a quantity the script doesn’t compute. Prompt 11 doesn’t name a file. Prompts 12 and 13 ask the agent to change <code>logit.R</code>. Your <code>logit.R</code> has only <code>x</code>. The lecture’s runs on this task used a version with a second predictor, <code>z</code>, so your answer won’t be the lecture’s 0.433.</p>
 <p><strong>Prompt 11.</strong></p>
 <blockquote class="blockquote">
 <p>Use {marginaleffects} to find the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, and its 95% confidence interval.</p>
@@ -453,7 +453,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="what-to-write-down" class="level3">
 <h3 class="anchored" data-anchor-id="what-to-write-down">What to write down</h3>
-<p>For each run, write down about how long the reply took, whether the answer is right (check the answers below after you’ve run every prompt), which files changed that you didn’t ask the agent to change, and whether the agent said it succeeded. Bring your notes to class.</p>
+<p>For each run, write down about how long the reply took, whether the answer is right (check the answers below after you’ve run every prompt), which files changed that you didn’t ask the agent to change, and whether the agent said it succeeded.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -588,7 +588,7 @@ Show the answers
 </ul>
 <p><strong>Part 3</strong></p>
 <ul>
-<li><strong>Prompts 11–13.</strong> The average difference is 0.557, with a 95% interval of (0.481, 0.634). The call is <code>avg_comparisons(fit, variables = list(x =   "iqr"))</code>.</li>
+<li><strong>Prompts 11–13.</strong> The average difference is 0.557, with a 95% interval of (0.481, 0.634). The call is <code>avg_comparisons(fit, variables = list(x =   "iqr"))</code>. (The lecture’s runs used a script with a second predictor, <code>z</code>, so their answer was 0.433.)</li>
 <li><strong>Wrong answers to recognize.</strong> 0.292 is the average slope (from <code>avg_slopes()</code>). 0.311 is the difference for a one-unit change in <code>x</code> (the default of <code>avg_comparisons()</code>). 0.450 is the difference for a one-standard-deviation change. 0.284 compares <code>x = 0.25</code> with <code>x = 0.75</code>.</li>
 <li><strong>Prompt 11</strong> shouldn’t change a file. <strong>Prompts 12 and 13</strong> should change <code>logit.R</code> only.</li>
 </ul>

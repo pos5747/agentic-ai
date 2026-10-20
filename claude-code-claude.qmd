@@ -27,7 +27,9 @@ If the installer prints a command that adds a folder to your PATH, run that comm
 **Check.** Run
 
 ```sh
-claude -p --model haiku "Reply with only the word hello."
+claude -p --model sonnet "Reply with only the word hello."
 ```
 
 It should print `hello`. Then go to [A First Example](first-example.qmd).
+
+If you get stuck, copy the command and everything it printed and send it to Bryson or me.

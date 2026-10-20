@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Choose Your Setup – Getting Started with Agentic AI</title>
+<title>Choose your setup – Getting Started with Agentic AI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -165,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Choose Your Setup</h1>
+<h1 class="title">Choose your setup</h1>
 </div>
 
 
@@ -183,14 +183,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Before we can get started with agentic AI, we need a <strong>model</strong> and an <strong>interface</strong>. The right choices depend on your budget (in dollars), perhaps your computer’s memory (if you are using local models), and how “smart” you need the model to be.</p>
-<p>The open source models below (e.g., qwen) are far inferior to Claude’s frontier models (Fable, Opus) and even well below Sonnet. They are potentially useful for some rare tasks that require local computing; we’ll use them to experiment for free. But I highly recommend a Claude subscription for $20/month (which will give you some meaningful Sonnet usage) or $100/month (which will give you significant Opus usage).</p>
+<p>The open-source models below (e.g., qwen) are far inferior to Claude’s frontier models (Fable, Opus) and even well below Sonnet. They are potentially useful for some rare tasks that require local computing; we’ll use them to experiment for free. But I highly recommend a Claude subscription for $20/month (which will give you some meaningful Sonnet usage) or $100/month (which will give you significant Opus usage).</p>
 <section id="choose-a-model" class="level2">
 <h2 class="anchored" data-anchor-id="choose-a-model">Choose a model</h2>
 <p>The <strong>model</strong> is the “AI” part of “agentic AI.”</p>
 <ul>
 <li><strong>gpt-oss</strong> (gpt-oss:20b, from OpenAI) is free and runs on your own computer. It needs 16 GB of memory. Choose it if you want a free model and your computer has 16 GB of memory or more but less than 32 GB. This model “works,” but not very well. It will make a lot of mistakes and is slow (compared to, say, Sonnet below).</li>
 <li><strong>qwen</strong> (qwen3-coder:30b, from Alibaba) is free and runs on your own computer. It needs 32 GB of memory. Choose it if you want a free model and your computer has 32 GB of memory or more. This model works substantially better than gpt-oss, but is functional only for the simplest tasks and very slow (compared to, say, Sonnet below).</li>
-<li><strong>Claude</strong> (a family of proprietary models from Anthropic including Haiku, Sonnet, Opus, and Fable) runs on Anthropic’s servers, so it will work on any computer. You must have <em>at least</em> a Claude “Pro” subscription ($20/month), and probably a Claude “Max” ($100/month) subscription. Each plan has a 5-hour and weekly usage limit. The limits for the $20 plan are something like 20% of the limits for the $100 plan and only enough for meaningful Sonnet usage (Opus will burn through your usage too quickly.) Sonnet models are functional, but require specific instructions and concrete tasks. Opus has better “judgement” to fill in gaps in instructions.</li>
+<li><strong>Claude</strong> (a family of proprietary models from Anthropic including Haiku, Sonnet, Opus, and Fable) runs on Anthropic’s servers, so it will work on any computer. You must have <em>at least</em> a Claude “Pro” subscription ($20/month), and probably a Claude “Max” ($100/month) subscription. Each plan has a 5-hour and weekly usage limit. The limits for the $20 plan are something like 20% of the limits for the $100 plan and only enough for meaningful Sonnet usage (Opus will burn through your usage too quickly). Sonnet models are functional, but require specific instructions and concrete tasks. Opus has better “judgment” to fill in gaps in instructions.</li>
 </ul>
 <p>Start with Claude Pro and Sonnet ($20/month), unless you want to keep it free and just experiment.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="What about OpenAI?">
@@ -241,7 +241,7 @@ How to check your memory
 <p>We have two interfaces.</p>
 <ul>
 <li><strong>OpenCode</strong> is an open-source interface. Choose it only if you prefer to use open-source software.</li>
-<li><strong>Claude Code</strong> is Anthropic’s program. It’s proprietary. Choose it if you’re fine with proprietary software. You can use it with open source models, and it does not require a Claude subscription.</li>
+<li><strong>Claude Code</strong> is Anthropic’s program. It’s proprietary. Choose it if you’re fine with proprietary software. You can use it with open-source models, and it does not require a Claude subscription.</li>
 </ul>
 <p>Start with Claude Code.</p>
 </section>
@@ -254,15 +254,15 @@ How to check your memory
 <th></th>
 <th><strong>gpt-oss</strong><br>free, 16 GB</th>
 <th><strong>qwen</strong><br>free, 32 GB</th>
-<th><strong>Claude</strong><br>Pro, $20 a month gets you a little; $100 a month for functional usage</th>
+<th><strong>Claude</strong><br>Pro ($20/month) gets you a little; Max ($100/month) for functional usage</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>OpenCode</strong><br>open source</td>
+<td><strong>OpenCode</strong><br>open-source</td>
 <td><a href="./opencode-gptoss.html">OpenCode + gpt-oss</a></td>
 <td><a href="./opencode-qwen.html">OpenCode + qwen</a></td>
-<td>not available</td>
+<td>not available<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
 </tr>
 <tr class="even">
 <td><strong>Claude Code</strong><br>proprietary</td>
@@ -276,7 +276,13 @@ How to check your memory
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Anthropic allows a subscription only in its own programs, so OpenCode can’t use Claude with a Pro or Max subscription.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

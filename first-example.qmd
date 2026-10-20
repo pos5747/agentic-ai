@@ -41,7 +41,7 @@ folder for this exercise holds only simulated data.)
 
    ```sh
    cd ~/Documents/GitHub/agentic-ai-example
-   claude --model haiku --permission-mode manual
+   claude --model sonnet --permission-mode manual
    ```
 
 3. Paste the prompt. In this mode, Claude Code asks before it runs a command
@@ -54,7 +54,8 @@ folder for this exercise holds only simulated data.)
    changes.
 
 Each reply takes about 5 to 20 seconds, plus the time you take to read the
-requests.
+requests. (`--model sonnet` now runs Sonnet 5.5, a newer model than the
+lecture's Sonnet 5.)
 
 ## Claude Code + qwen
 
@@ -81,7 +82,6 @@ system tray on Windows).
 6. Look at the *Changes* tab, write down which files changed, and discard the
    changes.
 
-[CTK: how long a reply takes with Claude Code and qwen; not yet timed.]
 Sometimes the model writes out a tool call as text instead of running it, and
 the reply stops there. If that happens, write it down as a run that failed and
 go on to the next prompt.
@@ -111,7 +111,6 @@ system tray on Windows).
 6. Look at the *Changes* tab, write down which files changed, and discard the
    changes.
 
-[CTK: how long a reply takes with Claude Code and gpt-oss; not yet timed.]
 Sometimes the model writes out a tool call as text instead of running it, and
 the reply stops there. If that happens, write it down as a run that failed and
 go on to the next prompt.
@@ -141,7 +140,7 @@ system tray on Windows).
 6. Look at the *Changes* tab, write down which files changed, and discard the
    changes.
 
-Each reply takes about one to five minutes. Sometimes the model writes out a
+Each reply takes about 30 seconds to a few minutes. Sometimes the model writes out a
 tool call as text (e.g., `<function=read>`) instead of running it, and the
 reply stops there. If that happens, write it down as a run that failed and go
 on to the next prompt.

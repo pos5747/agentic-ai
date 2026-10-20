@@ -39,8 +39,8 @@ empty, skip this step.)
 A commit adds the current version of the checked files to git's record. You
 don't need to click *Push origin*. Your commits stay on your computer.
 
-**Move the terminal into the folder.** The agents work in the folder you start
-them from. In the terminal, run
+**Move the terminal into the folder.** The agent works in the folder you start
+it from. In the terminal, run
 
 ```sh
 cd ~/Documents/GitHub/agentic-ai-example
@@ -49,7 +49,7 @@ cd ~/Documents/GitHub/agentic-ai-example
 (If your *Local Path* was a different folder, use that folder in the `cd`
 command, here and below.)
 
-**Look at what the agent changed, then undo it.** The agents sometimes edit
+**Look at what the agent changed, then undo it.** The agent sometimes edits
 the script, change the data, or create new files, even when you only ask a
 question. After each prompt, open GitHub Desktop and click the *Changes* tab.
 It lists every file the agent changed or created. Click a file to see the

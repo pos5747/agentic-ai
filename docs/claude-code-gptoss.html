@@ -195,10 +195,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://ollama.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> pull gpt-oss:20b</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://claude.ai/install.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(It may ask for your Mac password; the typing doesn’t show.)</p>
+<p>If the installer prints a command that adds a folder to your PATH, run that command too.</p>
 <p><strong>Set the context length.</strong> Click the Ollama icon (in the menu bar on a Mac, or the system tray on Windows) &gt; <em>Settings</em>, and move the <em>Context length</em> slider to <em>64k</em>.</p>
 <p><strong>Check.</strong> Open a new terminal window and run</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> launch claude <span class="at">--model</span> gpt-oss:20b <span class="at">--yes</span> <span class="at">--</span> <span class="at">-p</span> <span class="st">"Reply with only the word hello."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>It should print <code>hello</code>. (It can take a minute or two.) Then go to <a href="./first-example.html">A First Example</a>.</p>
+<p>It should print <code>hello</code>. (It can take a minute or two.)</p>
+<p>Then run <code>ollama ps</code> and make sure the <em>CONTEXT</em> column says <code>65536</code>. Then go to <a href="./first-example.html">A First Example</a>.</p>
+<p>If you get stuck, copy the command and everything it printed and send it to Bryson or me.</p>
 
 
 

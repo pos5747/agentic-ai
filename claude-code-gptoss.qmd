@@ -24,6 +24,10 @@ ollama pull gpt-oss:20b
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
+(It may ask for your Mac password; the typing doesn't show.)
+
+If the installer prints a command that adds a folder to your PATH, run that command too.
+
 **Set the context length.** Click the Ollama icon (in the menu bar on a Mac, or the system tray on Windows) > *Settings*, and move the *Context length* slider to *64k*.
 
 **Check.** Open a new terminal window and run
@@ -32,4 +36,8 @@ curl -fsSL https://claude.ai/install.sh | bash
 ollama launch claude --model gpt-oss:20b --yes -- -p "Reply with only the word hello."
 ```
 
-It should print `hello`. (It can take a minute or two.) Then go to [A First Example](first-example.qmd).
+It should print `hello`. (It can take a minute or two.)
+
+Then run `ollama ps` and make sure the *CONTEXT* column says `65536`. Then go to [A First Example](first-example.qmd).
+
+If you get stuck, copy the command and everything it printed and send it to Bryson or me.
