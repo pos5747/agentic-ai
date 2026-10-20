@@ -189,25 +189,23 @@ Line 4: `binomal` should be `binomial`. R stops with `object 'binomal' not found
 Line 7: without `type = "response"`, `predict()` returns the log-odds (1.729), not the probability (0.849). R prints no error.
 :::
 
-## Start the agent
+## Start the agent {.smaller}
 
 ```
 $ cd agentic-ai-example
 $ claude --model sonnet
 ```
 
-Here, we're going to use Sonnet, which is a sufficiently good model to do what we want with very few mistakes.
+**The model**
 
-I'll show you the result for the first prompt, and then summarize 15 prompts.
+- Here, we're going to use Sonnet, which is a sufficiently good model to do what we want with very few mistakes.
+- The example is more illustrative of potential failures when we try weaker models.
+- These runs used Sonnet 5, the `sonnet` model when I ran them (Sep 25). Sonnet 5.5 came out on Sep 28, so `--model sonnet` now runs Sonnet 5.5, a newer model than the one in these runs.
 
-The example is more illustrative of potential failures when we try weaker models.
+**The next six slides**
 
-::: {.small}
-These runs were done in September on an earlier version of the script, which had only `x` (its answer was 0.787), so the prompts didn't mention `z`. The repository now has `z` too. We'll re-run the prompts on the new script after class.
-:::
-
-These runs used Sonnet 5, the `sonnet` model when I ran them (Sep 25). Sonnet 5.5 came out on Sep 28, so `--model sonnet` now runs Sonnet 5.5, a newer model than the one in these runs.
-
+- I'll show you the result for the first run of each prompt, and then summarize all 15 runs.
+- Except for the IQR prompt, these runs were done in September on an earlier version of the script, which had only `x` (its answer was 0.787), so the prompts didn't mention `z`. The repository now has `z` too. We'll re-run the prompts on the new script after class.
 
 ## Describe {.smaller}
 
