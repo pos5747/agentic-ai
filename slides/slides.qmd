@@ -32,12 +32,17 @@
 # shortened. "..." marks steps or text left out. The output block is the
 # run's after.txt. Counts on the recap slides are from LECTURE-RESULTS.md.
 # Runs 1-5 start from materials/1-bugs/logit.R, 6 and 8 from 2-run, 7 from
-# 3-new.
+# 3-new. On 2026-10-20 the practice repo gained z (data.csv = 3-new's,
+# logit.R = 3-new's with binomal), so only the IQR runs match it; the slides
+# that show other runs carry a caveat until they are re-run.
 #
 # ORDER (Carlisle's decisions, 2026-10-19, on the "Week 9 deck order" page):
 # warning; From chatbot to agent; A Toy Example (added later that day, in
 # place of the chat-vs-agent slide: Sonnet's r1 run of each naive prompt from
 # local-agent-example/results/full-sonnet/, quotes checked against log.jsonl);
+# 6 tasks and 13 prompts with qwen (added 2026-10-20 at Carlisle's request:
+# qwen's r1 of each homework prompt from results/full-qwen/, quotes checked
+# against log.jsonl, the better prompts' new words marked [..]{.added});
 # The Claude models; Watching an agent work
 # (five panes, run 1, the clean run); How do you know what it did? (the
 # pos5737 research-project sequence, plain text); Git; Three things that
@@ -116,11 +121,14 @@ The chatbot can't see the files on your computer, and it can't run anything ther
 - It keeps going (read, run, edit, run again) until it decides it's done.
 - Then it tells you what it did.
 
-You get the changed files and the agent's account of what it did. Today is about checking that account.
+You get the changed files and the agent's account of what it (supposedly) did. 
 
 # A Toy Example
 
-Sonnet and a short logit script
+We'll use a toy example to 
+
+1. Get a sense of the workflow.
+2. Get a sense of the mistakes (and how to catch them).
 
 ## Clone the example
 
@@ -130,6 +138,8 @@ In GitHub Desktop: *File* > *Clone Repository...* > *URL*, then type `pos5747/ag
 $ git clone https://github.com/pos5747/agentic-ai-example.git
 $ cd agentic-ai-example
 ```
+
+## The directory
 
 The repository has three files:
 
@@ -144,15 +154,15 @@ agentic-ai-example/
 
 ```
 $ head -6 data.csv
-"x","y"
--1.20706574938542,0
-0.27742924211066,0
-1.08444117668306,1
--2.34569770262935,0
-0.42912468881105,1
+"y","x","z"
+0,-1.20706574938542,0.984779968314556
+0,0.27742924211066,-1.22473787596427
+1,1.08444117668306,0.709726218065825
+0,-2.34569770262935,-0.109219992578064
+1,0.42912468881105,1.78260789538833
 ```
 
-There are 500 rows. `x` is continuous, and `y` is 0 or 1 (179 ones).
+There are 500 rows. `x` and `z` are continuous, and `y` is 0 or 1 (203 ones).
 
 ## The script
 
@@ -160,10 +170,10 @@ There are 500 rows. `x` is continuous, and `y` is 0 or 1 (179 ones).
 <pre class="toy-code"><code># fit a logit model and report one predicted probability
 dat &lt;- read.csv("data.csv")
 
-fit &lt;- glm(y ~ x, family = <span class="fragment highlight-red" data-fragment-index="1">binomal</span>, data = dat)
+fit &lt;- glm(y ~ x + z, family = <span class="fragment highlight-red" data-fragment-index="1">binomal</span>, data = dat)
 
-# predicted probability that y = 1 when x = 1
-<span class="fragment highlight-red" data-fragment-index="2">pr &lt;- predict(fit, newdata = data.frame(x = 1))</span>
+# predicted probability that y = 1 when x = 1 and z = 0
+<span class="fragment highlight-red" data-fragment-index="2">pr &lt;- predict(fit, newdata = data.frame(x = 1, z = 0))</span>
 print(pr)</code></pre>
 ```
 
@@ -172,7 +182,7 @@ Line 4: `binomal` should be `binomial`. R stops with `object 'binomal' not found
 :::
 
 ::: {.fragment fragment-index=2}
-Line 7: without `type = "response"`, `predict()` returns the log-odds (1.309), not the probability (0.787). R prints no error.
+Line 7: without `type = "response"`, `predict()` returns the log-odds (1.729), not the probability (0.849). R prints no error.
 :::
 
 ## Start the agent
@@ -182,7 +192,18 @@ $ cd agentic-ai-example
 $ claude --model sonnet
 ```
 
-The runs on the next slides used Sonnet 5 in Claude Code (September 2026), a fresh session for each prompt, with every tool approved in advance. We ran each prompt 15 times. Each slide shows the first run, then what happened across all 15.
+Here, we're going to use Sonnet, which is a sufficiently good model to do what we want with very few mistakes.
+
+I'll show you the result for the first prompt, and then summarize 15 prompts.
+
+The example is more illustrative of potential failures when we try weaker models.
+
+::: {.small}
+These runs were done in September on an earlier version of the script, which had only `x` (its answer was 0.787), so the prompts didn't mention `z`. The repository now has `z` too. We'll re-run the prompts on the new script after class.
+:::
+
+These runs used Sonnet 5, the `sonnet` model when I ran them (Sep 25). Sonnet 5.5 came out on Sep 28, so `--model sonnet` now runs Sonnet 5.5, a newer model than the one in these runs.
+
 
 ## Describe {.smaller}
 
@@ -250,7 +271,7 @@ $ git diff logit.R
 
 ## The predicted probability {.smaller}
 
-The next two prompts start from the fixed script.
+The next two prompts start from the **correct script** without the two bugs.
 
 ::: {.quote}
 What's the predicted probability that y = 1 when x = 1?
@@ -280,7 +301,7 @@ What's the 95% confidence interval for the predicted probability that y = 1 when
 Use {marginaleffects} to find the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, and its 95% confidence interval.
 :::
 
-For this prompt, the script fits `y ~ x + z`.
+These runs used today's data and model, `y ~ x + z`.
 
 **What Sonnet did** (24 seconds): read `logit.R`, looked at `data.csv`, checked that {marginaleffects} is installed, wrote a new file, `iqr_effect.R`, and ran it.
 
@@ -292,20 +313,207 @@ out <- avg_comparisons(fit, variables = list(x = "iqr"))
 
 **In 15 runs:** all 15 reported 0.433 (0.375, 0.491).
 
-## The toy example, in 90 runs
+# 6 tasks and 13 prompts with qwen
 
-| Prompt | Fully correct, out of 15 |
-|---|---|
-| Describe what logit.R does. | 15 |
-| Find all bugs in logit.R. | 12 |
-| Fix all bugs in logit.R. | 15 |
-| What's the predicted probability ...? | 14 |
-| What's the 95% confidence interval ...? | 6 |
-| Use {marginaleffects} to find ... | 15 |
+The same toy example, with qwen3-coder:30b in OpenCode
+
+## The setup {.smaller}
+
+- The 13 homework prompts, in order. Each better prompt shows its new words [highlighted]{.added}, compared with the prompt before it.
+- qwen3-coder:30b in OpenCode on Ollama (64k context), September 2026, a fresh session for each prompt, every tool approved in advance. Each prompt was run 10 times.
+- Each slide shows the first run (r1), not a picked one, and then the count across the 10 runs.
 
 ::: {.small}
-Sonnet 5 in Claude Code, naive prompts, September 2026. Source: `local-agent-example/results/full-sonnet/`.
+As with Sonnet, these runs used the earlier script, with only `x` (0.787), so prompts 7–10 didn't yet say "and z = 0". The IQR prompts used today's `y ~ x + z`. Source: `local-agent-example/results/full-qwen/`.
 :::
+
+## Describe: the naive prompt {.smaller}
+
+::: {.quote}
+Describe what logit.R does.
+:::
+
+**What qwen did** (20 seconds): read `logit.R`. It didn't run anything.
+
+**What it said:** "It calculates and prints the predicted probability that y = 1 when x = 1" and "there's an error in line 4 - "binomal" should be "binomial" (missing 'o')."
+
+**In 10 runs:** 5 caught the typo, missed the silent bug, and called the output a probability, as this one did. 4 never answered: 3 looked on the web or in the wrong place and then asked a question, and 1 stopped after writing a tool call as text. 1 never read the file and described a `logit.R` it made up.^[Run 2 fetched OpenCode's home page instead of reading the file and said "logit.R is a function... used to compute the logit transformation of a probability value."]
+
+## Describe: the better prompt {.smaller}
+
+::: {.quote}
+[Review the code in logit.R and tell me]{.added} what [it does, step by step. Don't assume the code matches the comments. Don't change anything yet.]{.added}
+:::
+
+**What qwen did** (20 seconds): found `logit.R` and read it. It didn't run anything.
+
+**What it said:** "Line 7: Calculates the predicted probability that y = 1 when x = 1 using the predict function" and "The script also appears to use an outdated method for calculating predictions since it uses 'data.frame(x = 1)' rather than 'newdata = data.frame(x = 1)'." (Line 7 already says `newdata = data.frame(x = 1)`.)
+
+**In 10 runs:** all 10 read the file. 2 found both bugs and said that `predict()` returns the log-odds. 8 still called the output a probability.
+
+## Find: the naive prompt {.smaller}
+
+::: {.quote}
+Find all bugs in logit.R.
+:::
+
+**What qwen did** (184 seconds): found `logit.R`, read it, searched it with `grep` for the typo, and checked that `data.csv` exists.
+
+**What it said:**
+
+::: {.quote}
+1. **Spelling error**: Line 4 has `family = binomal` instead of `family = binomial`
+2. **Incorrect prediction data**: Line 7 uses `newdata = data.frame(x = 1)` instead of using the original dataset (`dat`)
+3. **Missing probability transformation**: The prediction should use `type="response"` to convert log-odds to probabilities
+:::
+
+**In 10 runs:** 7 found both bugs, but none stopped there. 5 also fixed the file, which the prompt didn't ask for. 2 added things that aren't bugs, as this one did. 3 never answered: 2 stopped after writing a tool call as text, and 1 searched in the wrong place and asked where the file was.
+
+## Find: the better prompt {.smaller}
+
+::: {.quote}
+Find all [the]{.added} bugs in logit.R[, including any that give a wrong answer without an error. Run it to check. Don't fix anything yet; just list the bugs and explain each one.]{.added}
+:::
+
+**What qwen did** (32 seconds): found `logit.R`, read it, and ran it (`Error: object 'binomal' not found`).
+
+**What it said:** "**Line 4**: Typo in family name - `binomal` should be `binomial`" and "**Line 7**: Incorrect data reference - `data.frame(x = 1)` should be `data.frame(x = 1)` (the variable name doesn't match what's used in the model)". It missed the silent bug.
+
+**In 10 runs:** 2 found both bugs, checked 0.787, and changed nothing. 3 found both bugs but also fixed the file (1) or added things that aren't bugs (2). 2 found only the typo, as this one did. 2 overwrote `data.csv` with rows they made up and reported numbers from them. 1 stopped after writing a tool call as text.
+
+## Fix: the naive prompt {.smaller}
+
+::: {.quote}
+Fix all bugs in logit.R.
+:::
+
+**What qwen did** (98 seconds): found `logit.R`, read it, edited it, and printed the new file with `cat`. It didn't run R.
+
+```{.ghdiff}
+$ git diff logit.R
+@@ -1,8 +1,8 @@
+ # fit a logit model and report one predicted probability
+ dat <- read.csv("data.csv")
+ 
+-fit <- glm(y ~ x, family = binomal, data = dat)
++fit <- glm(y ~ x, family = binomial, data = dat)
+ 
+ # predicted probability that y = 1 when x = 1
+-pr <- predict(fit, newdata = data.frame(x = 1))
++pr <- predict(fit, newdata = data.frame(x = 1), type = "response")
+ print(pr)
+```
+
+**What it said:** "Added type="response" to predict() to return probabilities instead of log-odds"
+
+**In 10 runs:** 9 fixed both bugs. Only 1 of them ran the script to check. 1 fixed only the typo.^[Run 7 ran the script, saw 1.309, and said "No other bugs were found in the file."]
+
+## Fix: the better prompt {.smaller}
+
+::: {.quote}
+[Find and fix]{.added} all [the]{.added} bugs in logit.R[, including any that give a wrong answer without an error. Run it to check.]{.added}
+:::
+
+**What qwen did** (17 seconds): nothing. It wrote a tool call as text and stopped. `logit.R` didn't change.
+
+**What it said:**
+
+```text
+I'll help you find and fix bugs in logit.R. First, let's locate this file and examine its contents to identify any issues.
+
+<function=glob>
+<parameter=pattern>
+**/logit.R
+</parameter>
+</function>
+</tool_call>
+```
+
+**In 10 runs:** 7 fixed both bugs and ran the script to check. 3 stopped like this one, with the file unchanged.
+
+## The predicted probability: the naive prompt {.smaller}
+
+::: {.quote}
+What's the predicted probability that y = 1 when x = 1?
+:::
+
+**What qwen did** (18 seconds): nothing. It called no tools.
+
+**What it said:** "I cannot determine the predicted probability that y = 1 when x = 1 without additional context or data. Please provide more information about the model or dataset you are referring to."
+
+**In 10 runs:** 9 never opened `logit.R` and asked for the model or the data, as this one did (3 searched the web first). 1 read the files, ran the script, and reported 0.787.
+
+## The predicted probability: the better prompt {.smaller}
+
+::: {.quote}
+[Use logit.R to compute]{.added} the predicted probability that y = 1 when x = 1[. Run the code and show me what it prints.]{.added}
+:::
+
+**What qwen did** (26 seconds): found `logit.R`, read it, and ran it.
+
+**What it said:** "The predicted probability that y = 1 when x = 1 is 0.7874273."
+
+**In 10 runs:** 5 ran the script and reported 0.787. 4 wrote their own script with data they made up and reported its number (e.g., 0.903). 2 of those 4 overwrote `logit.R`. 1 refused: "I cannot help with this request as it involves creating or running R code, which is outside the scope of opencode's capabilities".
+
+## The confidence interval: the naive prompt {.smaller}
+
+::: {.quote}
+What's the 95% confidence interval for the predicted probability that y = 1 when x = 1?
+:::
+
+**What qwen did** (131 seconds): found `logit.R`, read it and `data.csv`, and ran R five times. Four runs ended in errors, and one printed the coefficients. Then it worked out the interval by hand.
+
+**What it said:** "The 95% confidence interval for the predicted probability that y = 1 when x = 1 is approximately (0.6902, 0.8594)." Its standard error leaves out the covariance of the intercept and the slope. The interval is (0.714, 0.846).
+
+**In 10 runs:** 8 refused or asked for the data without reading `logit.R`. 1 reported (0.714, 0.846). 1 is this one.
+
+## The confidence interval: the better prompt {.smaller}
+
+::: {.quote}
+[Modify logit.R to also compute a]{.added} 95% confidence interval for the predicted probability that y = 1 when x = 1[. Tell me how the interval is computed, run the code, and show me what it prints.]{.added}
+:::
+
+**What qwen did** (38 seconds): found `logit.R`, read it, edited it, and ran it.
+
+**What it said:** "The interval is computed using the delta method." The code printed "95% CI: 0.7139 - 0.8461": the right interval, but it comes from transforming the log-odds interval, which isn't the delta method.
+
+**In 10 runs:** 3 were fully correct. 3 gave the right interval and called it "the delta method," as this one did. 2 treated a probability as log-odds and reported (0.673, 0.701). 2 overwrote `data.csv` with rows they made up.
+
+## The IQR effect: the naive prompt {.smaller}
+
+::: {.quote}
+Use {marginaleffects} to find the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, and its 95% confidence interval.
+:::
+
+**What qwen did** (18 seconds): nothing. It wrote a tool call as text and stopped.
+
+**What it said:** "I need to help you with calculating average marginal effects using the {marginaleffects} package in R. Let me first check if this package is installed and available in your environment." Then a tool call, as text.
+
+**In 10 runs:** none gave an answer. 7 refused or asked for the data. Several said that R is "outside the scope" of what they do. 1 hit the 15-minute limit while calling functions that don't exist. 1 wrote code for data it made up and computed nothing. 1 is this one.
+
+## The IQR effect: the better prompt {.smaller}
+
+::: {.quote}
+[Change logit.R so it uses]{.added} {marginaleffects} to [report]{.added} the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, [with a]{.added} 95% confidence interval. [Before you write any code, read the {marginaleffects} documentation and look at its examples. Then run logit.R and show me what it prints.]{.added}
+:::
+
+**What qwen did** (207 seconds): read `logit.R`, looked for the documentation (help pages that don't exist, two web pages, a vignette, the package index), edited `logit.R` five times, overwrote `data.csv` twice with rows it made up, and ran the script six times. The final code doesn't use {marginaleffects}, and it holds `z` at its mean.
+
+**What it said:** "Difference in probability: 0.1525677" and "While this doesn't directly report a confidence interval as specified, the calculation correctly implements what was asked for".
+
+**In 10 runs:** none was fully correct, and 9 claimed success. 6 reported a different quantity as the answer: the average slope (0.253), `x = 0.25` vs. `x = 0.75` (0.18), or a one-unit change at a single row (0.408). 1 got the estimate right by bootstrap, without {marginaleffects}, and said it had used {marginaleffects}. 1 got 0.433 with quartiles it computed by hand. 1 hit the 15-minute limit. 1 is this one.
+
+## The IQR effect: naming the function {.smaller}
+
+::: {.quote}
+Change logit.R so it uses [avg_comparisons() from]{.added} {marginaleffects} to report the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, with a 95% confidence interval. Before you write any code, read the [help page for avg_comparisons()]{.added} and look at its examples. Then run logit.R and show me what it prints.
+:::
+
+**What qwen did** (139 seconds): read the help page (on the web, then in R), read `logit.R`, edited it three times, and ran it three times. Its code computes the quartiles by hand: `variables = list(x = c(q25, q75))`.
+
+**What it said:** "The average difference: Estimate = 0.433" and "With 95% confidence interval: 2.5% = 0.375, 97.5% = 0.491".
+
+**In 10 runs:** 8 reported 0.433 (0.375, 0.491). 2 of the 8 used `variables = list(x = "iqr")`, and 6 computed the quartiles by hand, as this one did. 2 reported a different quantity (0.254, the one-unit change; 0.18, `x = 0.25` vs. `x = 0.75`) and said it was what was asked for.
 
 # The Claude models
 
@@ -313,68 +521,18 @@ As Anthropic describes them, October 2026
 
 ## Four current models {.smaller}
 
-| Model | Description | Comparative latency | Price per million tokens, input / output | Released |
-|---|---|---|---|---|
-| Claude Fable 5.1 | "For demanding reasoning and long-horizon agentic work" | Slower | $10 / $50 | Sep 1, 2026 |
-| Claude Opus 5.5 | "For long-running agentic coding and knowledge work" | Moderate | $4 / $20 | Sep 22, 2026 |
-| Claude Sonnet 5.5 | "The best combination of speed and intelligence" | Fast | $2 / $10 | Sep 28, 2026 |
-| Claude Haiku 5.5 | "For high-volume, latency-sensitive tasks such as classification, extraction, and routing" | Fastest | from $0.10 / $0.50 | Oct 7, 2026 |
-
-All four: 1M-token context window, 128K max output, reliable knowledge cutoff June 2026.
-
-The runs in this lecture used Haiku 4.5 and Sonnet 5, the versions current in late September.
+::: {.models-table}
+| Model | Anthropic's description | When you need... | Latency | API price per million tokens, input / output | Released | My mental model |
+|---|---|---|---|---|---|---|
+| Claude Fable 5.1 `claude-fable-5-1` | "For demanding reasoning and long-horizon agentic work" | "The highest available capability" | Slower | $10 / $50 | Sep 1, 2026 | For managing collections of tasks, where multiple parts are coming together and different subagents are working on different parts. |
+| Claude Opus 5.5 `claude-opus-5-5` | "For long-running agentic coding and knowledge work" | "Complex agentic coding and enterprise work" | Moderate | $4 / $20 | Sep 22, 2026 | For work requiring judgment. I give it instructions that require gaps filled in or judgment. |
+| Claude Sonnet 5.5 `claude-sonnet-5-5` | "The best combination of speed and intelligence" | "Speed and capability for everyday coding, agent, and enterprise workloads" | Fast | $2 / $10 | Sep 28, 2026 | For mechanical work. I give it precise instructions. It follows them. |
+| Claude Haiku 5.5 `claude-haiku-5-5` | "For high-volume, latency-sensitive tasks such as classification, extraction, and routing" | "The lowest latency and price" | Fastest | from $0.10 / $0.50 | Oct 7, 2026 | I never use Haiku. Sonnet is cheap and is more likely to push back if I ask it to do something wrong. |
+:::
 
 ::: {.small}
-Source: platform.claude.com/docs, "Models overview" and "Choosing a model," read 2026-10-18.
+Haiku: $0.10 / $0.50 for prompts up to 100,000 tokens; $0.50 / $2.50 above. Source: platform.claude.com/docs, "Models overview" and "Choosing a model," read 2026-10-18.
 :::
-
-## Claude Fable 5.1
-
-::: {.quote}
-"For demanding reasoning and long-horizon agentic work"
-:::
-
-- **When you need...** "The highest available capability"
-- **Example use cases:** "Agent sessions that run for hours, multistep deep research, analysis carried through to a finished document, spreadsheet, or deck"
-- `claude-fable-5-1` · Slower · $10 / $50 per million tokens
-
-My mental model: Fable is for managing collections of tasks, where multiple parts are coming together and different subagents are working on different parts.
-
-## Claude Opus 5.5
-
-::: {.quote}
-"For long-running agentic coding and knowledge work"
-:::
-
-- **When you need...** "Complex agentic coding and enterprise work"
-- **Example use cases:** "Multihour autonomous coding agents, large-scale refactoring, complex systems engineering, vision-heavy workflows, computer use"
-- `claude-opus-5-5` · Moderate · $4 / $20 per million tokens
-
-My mental model: Opus is for work requiring judgment. I give it instructions that require gaps filled in or judgment.
-
-## Claude Sonnet 5.5
-
-::: {.quote}
-"The best combination of speed and intelligence"
-:::
-
-- **When you need...** "Speed and capability for everyday coding, agent, and enterprise workloads"
-- **Example use cases:** "Code generation, data analysis, content creation, visual understanding, agentic tool use"
-- `claude-sonnet-5-5` · Fast · $2 / $10 per million tokens
-
-My mental model: Sonnet is for mechanical work. I give it precise instructions. It follows them.
-
-## Claude Haiku 5.5
-
-::: {.quote}
-"For high-volume, latency-sensitive tasks such as classification, extraction, and routing"
-:::
-
-- **When you need...** "The lowest latency and price"
-- **Example use cases:** "Real-time applications, high-volume intelligent processing, cost-sensitive deployments needing strong reasoning, sub-agent tasks"
-- `claude-haiku-5-5` · Fastest · $0.10 / $0.50 per million tokens for prompts up to 100,000 tokens; $0.50 / $2.50 above
-
-I never use Haiku. Sonnet is cheap and is more likely to push back if I ask it to do something wrong.
 
 ## Choosing a model {.smaller}
 
@@ -396,6 +554,8 @@ My mental model (it isn't quite right):
 - Fable is for managing collections of tasks, where multiple parts are coming together and different subagents are working on different parts.
 
 # Watching an agent work
+
+Runs 1–6 and 8 used the September script, with only `x`. Run 7 used today's, with `z`. We'll re-run the others on today's script after class.
 
 ## Five things to watch {.anatomy}
 
@@ -1443,6 +1603,7 @@ The full run
 - Fresh session, every tool pre-approved, 15-minute cap. 750 runs
 - Scored by script where a rerun can check it, by a Sonnet grader per prompt for the rest, both checked by hand
 - Your homework uses 13 of these 15 prompts: all but the vague and scoped fix prompts
+- The runs used an earlier script and data, with only `x` (the IQR prompts used `z`, as today's repository does). We'll re-run them on today's script after class.
 - September 2026 models (Haiku 4.5, Sonnet 5). The counts will change as the models do; the kinds of failure are what to watch for
 
 ## Four outcomes {.smaller}
@@ -1583,22 +1744,20 @@ git clean -fd     # remove new files
 5. Fix all bugs in logit.R.
 6. Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check.
 
-Then fix the two bugs yourself (lines 4 and 7), check that the script prints `0.7874273`, and commit it as `Fix the two bugs`. Parts 2 and 3 start from the fixed script.
+Then fix the two bugs yourself (lines 4 and 7), check that the script prints `0.8492817`, and commit it as `Fix the two bugs`. Parts 2 and 3 start from the fixed script.
 
 ## Part 2: Run and extend the code {.smaller}
 
-7. What's the predicted probability that y = 1 when x = 1?
-8. Use logit.R to compute the predicted probability that y = 1 when x = 1. Run the code and show me what it prints.
-9. What's the 95% confidence interval for the predicted probability that y = 1 when x = 1?
-10. Modify logit.R to also compute a 95% confidence interval for the predicted probability that y = 1 when x = 1. Tell me how the interval is computed, run the code, and show me what it prints.
+7. What's the predicted probability that y = 1 when x = 1 and z = 0?
+8. Use logit.R to compute the predicted probability that y = 1 when x = 1 and z = 0. Run the code and show me what it prints.
+9. What's the 95% confidence interval for the predicted probability that y = 1 when x = 1 and z = 0?
+10. Modify logit.R to also compute a 95% confidence interval for the predicted probability that y = 1 when x = 1 and z = 0. Tell me how the interval is computed, run the code, and show me what it prints.
 
 ## Part 3: Write new code {.smaller}
 
 11. Use {marginaleffects} to find the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, and its 95% confidence interval.
 12. Change logit.R so it uses {marginaleffects} to report the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, with a 95% confidence interval. Before you write any code, read the {marginaleffects} documentation and look at its examples. Then run logit.R and show me what it prints.
 13. Change logit.R so it uses avg_comparisons() from {marginaleffects} to report the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, with a 95% confidence interval. Before you write any code, read the help page for avg_comparisons() and look at its examples. Then run logit.R and show me what it prints.
-
-Your `logit.R` has only `x`. The lecture's runs on this task used a version with a second predictor, `z`, so your answer won't be the lecture's 0.433.
 
 ## What to write down
 
