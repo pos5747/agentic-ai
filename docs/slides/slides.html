@@ -791,6 +791,10 @@ color: var(--ink);
 
 .reveal .models-table table { font-size: 0.62em; }
 .reveal .models-table td code { display: block; font-size: 0.85em; }
+
+.reveal .slides section.smaller.tight { font-size: 0.63em; }
+.reveal .slides section.tight p, .reveal .slides section.tight li { margin-top: 0.15em; margin-bottom: 0.15em; }
+.reveal .slides section.tight pre { margin: 0.3em auto; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1440,7 +1444,10 @@ $ claude --model sonnet</code></pre>
 <li><strong>Line 7: <code>predict(fit, ...)</code></strong> is missing <code>type = &quot;response&quot;</code>. By default <code>predict.glm</code> returns the link-scale value (log-odds), not a probability […]</li>
 </ul>
 </div>
-<p><strong>In 15 runs:</strong> all 15 described the script and flagged both bugs.</p>
+<p><strong>In 15 runs:</strong></p>
+<ul>
+<li>All 15 described the script and flagged both bugs.</li>
+</ul>
 </section>
 <section id="find" class="slide level2 smaller">
 <h2>Find</h2>
@@ -1452,7 +1459,12 @@ $ claude --model sonnet</code></pre>
 <div class="quote">
 <p>I found two bugs in <code>logit.R</code>: 1. <strong>Line 4 — typo <code>binomal</code></strong> […] <code>glm()</code> will throw an error (<code>object &#39;binomal&#39; not found</code>) […] 2. <strong>Line 7 — missing <code>type = &quot;response&quot;</code></strong> […] As written, <code>pr</code> will be a log-odds value, not a probability in [0, 1].</p>
 </div>
-<p><strong>In 15 runs:</strong> 12 listed the two bugs and left the file alone. 2 also fixed the file, which the prompt didn’t ask for. 1 added a third bug that isn’t one.<sup>1</sup></p>
+<p><strong>In 15 runs:</strong></p>
+<ul>
+<li>12 listed the two bugs and left the file alone.</li>
+<li>2 also fixed the file, which the prompt didn’t ask for.</li>
+<li>1 added a third bug that isn’t one.<sup>1</sup></li>
+</ul>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Run 11 opened with “This is a short script with three bugs.” Its third was that “<code>data.csv</code> is read with an unvalidated relative path,” which it then called “more of a robustness gap than a bug.” It didn’t change the file.</p></li></ol></aside></section>
 <section id="fix" class="slide level2 smaller">
 <h2>Fix</h2>
@@ -1462,7 +1474,11 @@ $ claude --model sonnet</code></pre>
 <p><strong>What Sonnet did</strong> (25 seconds): read <code>logit.R</code> and <code>data.csv</code>, edited <code>logit.R</code>, and ran <code>Rscript logit.R</code>.</p>
 <div class="ghdiff"><table><tbody><tr class="cmd"><td colspan="4">$ git diff logit.R</td></tr><tr class="hunk"><td class="ln"></td><td class="ln"></td><td colspan="2">@@ -1,8 +1,8 @@</td></tr><tr class="ctx"><td class="ln">1</td><td class="ln">1</td><td class="sign"></td><td class="txt"># fit a logit model and report one predicted probability</td></tr><tr class="ctx"><td class="ln">2</td><td class="ln">2</td><td class="sign"></td><td class="txt">dat &lt;- read.csv(&quot;data.csv&quot;)</td></tr><tr class="ctx"><td class="ln">3</td><td class="ln">3</td><td class="sign"></td><td class="txt"></td></tr><tr class="del"><td class="ln">4</td><td class="ln"></td><td class="sign">−</td><td class="txt">fit &lt;- glm(y ~ x, family = binomal, data = dat)</td></tr><tr class="add"><td class="ln"></td><td class="ln">4</td><td class="sign">+</td><td class="txt">fit &lt;- glm(y ~ x, family = binomial, data = dat)</td></tr><tr class="ctx"><td class="ln">5</td><td class="ln">5</td><td class="sign"></td><td class="txt"></td></tr><tr class="ctx"><td class="ln">6</td><td class="ln">6</td><td class="sign"></td><td class="txt"># predicted probability that y = 1 when x = 1</td></tr><tr class="del"><td class="ln">7</td><td class="ln"></td><td class="sign">−</td><td class="txt">pr &lt;- predict(fit, newdata = data.frame(x = 1))</td></tr><tr class="add"><td class="ln"></td><td class="ln">7</td><td class="sign">+</td><td class="txt">pr &lt;- predict(fit, newdata = data.frame(x = 1), type = &quot;response&quot;)</td></tr><tr class="ctx"><td class="ln">8</td><td class="ln">8</td><td class="sign"></td><td class="txt">print(pr)</td></tr></tbody></table></div>
 <p><strong>What it said:</strong> “Fixed and verified: it now outputs a valid probability (0.787) instead of erroring or returning a log-odds value.”</p>
-<p><strong>In 15 runs:</strong> all 15 fixed both bugs, ran the script, and reported 0.787. None changed <code>data.csv</code>.</p>
+<p><strong>In 15 runs:</strong></p>
+<ul>
+<li>All 15 fixed both bugs, ran the script, and reported 0.787.</li>
+<li>None changed <code>data.csv</code>.</li>
+</ul>
 </section>
 <section id="the-predicted-probability" class="slide level2 smaller">
 <h2>The predicted probability</h2>
@@ -1472,16 +1488,25 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What Sonnet did</strong> (8 seconds): listed the folder, read <code>logit.R</code> and <code>data.csv</code>, and ran <code>Rscript logit.R</code>.</p>
 <p><strong>What it said:</strong> “The predicted probability that y = 1 when x = 1 is <strong>≈0.787</strong> (0.7874273), from the fitted logistic regression <code>glm(y ~ x, family = binomial, data = dat)</code>.”</p>
-<p><strong>In 15 runs:</strong> 14 ran the script and reported 0.787. 1 never looked in the folder and asked a question instead.<sup>1</sup></p>
+<p><strong>In 15 runs:</strong></p>
+<ul>
+<li>14 ran the script and reported 0.787.</li>
+<li>1 never looked in the folder and asked a question instead.<sup>1</sup></li>
+</ul>
 <aside><ol class="aside-footnotes"><li id="fn2"><p>Run 15 called no tools. It said “There’s no working directory content (empty, non-git repo),” although <code>logit.R</code> and <code>data.csv</code> were in the folder, and asked for the model or the data.</p></li></ol></aside></section>
-<section id="the-confidence-interval" class="slide level2">
+<section id="the-confidence-interval" class="slide level2 smaller">
 <h2>The confidence interval</h2>
 <div class="quote">
 <p>What’s the 95% confidence interval for the predicted probability that y = 1 when x = 1?</p>
 </div>
 <p><strong>What Sonnet did</strong> (4 seconds): nothing. It called no tools.</p>
 <p><strong>What it said:</strong> “I don’t have any prior context in this conversation about a model, dataset, or regression you’ve run […] Could you point me to the data/model […] I can compute the CI once I see it.”</p>
-<p><strong>In 15 runs:</strong> 7 asked for the data or the code without looking in the folder, as this one did. 6 reported (0.714, 0.846) without mislabeling the method. 2 reported the same interval but called it “the delta method,” which it isn’t.</p>
+<p><strong>In 15 runs:</strong></p>
+<ul>
+<li>7 asked for the data or the code without looking in the folder, as this one did.</li>
+<li>6 reported (0.714, 0.846) without mislabeling the method.</li>
+<li>2 reported the same interval but called it “the delta method,” which it isn’t.</li>
+</ul>
 </section>
 <section id="the-iqr-effect" class="slide level2 smaller">
 <h2>The IQR effect</h2>
@@ -1492,7 +1517,10 @@ $ claude --model sonnet</code></pre>
 <p><strong>What Sonnet did</strong> (24 seconds): read <code>logit.R</code>, looked at <code>data.csv</code>, checked that {marginaleffects} is installed, wrote a new file, <code>iqr_effect.R</code>, and ran it.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>out <span class="ot">&lt;-</span> <span class="fu">avg_comparisons</span>(fit, <span class="at">variables =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="st">&quot;iqr&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>What it said:</strong> “Estimate: <strong>0.433</strong>” and “95% CI: <strong>[0.375, 0.491]</strong>” (and “Script saved as <code>iqr_effect.R</code> in the working directory.”)</p>
-<p><strong>In 15 runs:</strong> all 15 reported 0.433 (0.375, 0.491).</p>
+<p><strong>In 15 runs:</strong></p>
+<ul>
+<li>All 15 reported 0.433 (0.375, 0.491).</li>
+</ul>
 </section></section>
 <section>
 <section id="tasks-and-13-prompts-with-qwen" class="title-slide slide level1 center">
@@ -1517,7 +1545,12 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (20 seconds): read <code>logit.R</code>. It didn’t run anything.</p>
 <p><strong>What it said:</strong> “It calculates and prints the predicted probability that y = 1 when x = 1” and “there’s an error in line 4 -”binomal” should be “binomial” (missing ‘o’).”</p>
-<p><strong>In 10 runs:</strong> 5 caught the typo, missed the silent bug, and called the output a probability, as this one did. 4 never answered: 3 looked on the web or in the wrong place and then asked a question, and 1 stopped after writing a tool call as text. 1 never read the file and described a <code>logit.R</code> it made up.<sup>1</sup></p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>5 caught the typo, missed the silent bug, and called the output a probability, as this one did.</li>
+<li>4 never answered: 3 looked on the web or in the wrong place and then asked a question, and 1 stopped after writing a tool call as text.</li>
+<li>1 never read the file and described a <code>logit.R</code> it made up.<sup>1</sup></li>
+</ul>
 <aside><ol class="aside-footnotes"><li id="fn3"><p>Run 2 fetched OpenCode’s home page instead of reading the file and said “logit.R is a function… used to compute the logit transformation of a probability value.”</p></li></ol></aside></section>
 <section id="describe-the-better-prompt" class="slide level2 smaller">
 <h2>Describe: the better prompt</h2>
@@ -1526,9 +1559,14 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (20 seconds): found <code>logit.R</code> and read it. It didn’t run anything.</p>
 <p><strong>What it said:</strong> “Line 7: Calculates the predicted probability that y = 1 when x = 1 using the predict function” and “The script also appears to use an outdated method for calculating predictions since it uses ‘data.frame(x = 1)’ rather than ‘newdata = data.frame(x = 1)’.” (Line 7 already says <code>newdata = data.frame(x = 1)</code>.)</p>
-<p><strong>In 10 runs:</strong> all 10 read the file. 2 found both bugs and said that <code>predict()</code> returns the log-odds. 8 still called the output a probability.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>All 10 read the file.</li>
+<li>2 found both bugs and said that <code>predict()</code> returns the log-odds.</li>
+<li>8 still called the output a probability.</li>
+</ul>
 </section>
-<section id="find-the-naive-prompt" class="slide level2 smaller">
+<section id="find-the-naive-prompt" class="slide level2 smaller tight">
 <h2>Find: the naive prompt</h2>
 <div class="quote">
 <p>Find all bugs in logit.R.</p>
@@ -1542,7 +1580,13 @@ $ claude --model sonnet</code></pre>
 <li><strong>Missing probability transformation</strong>: The prediction should use <code>type=&quot;response&quot;</code> to convert log-odds to probabilities</li>
 </ol>
 </div>
-<p><strong>In 10 runs:</strong> 7 found both bugs, but none stopped there. 5 also fixed the file, which the prompt didn’t ask for. 2 added things that aren’t bugs, as this one did. 3 never answered: 2 stopped after writing a tool call as text, and 1 searched in the wrong place and asked where the file was.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>7 found both bugs, but none stopped there.</li>
+<li>5 also fixed the file, which the prompt didn’t ask for.</li>
+<li>2 added things that aren’t bugs, as this one did.</li>
+<li>3 never answered: 2 stopped after writing a tool call as text, and 1 searched in the wrong place and asked where the file was.</li>
+</ul>
 </section>
 <section id="find-the-better-prompt" class="slide level2 smaller">
 <h2>Find: the better prompt</h2>
@@ -1551,9 +1595,16 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (32 seconds): found <code>logit.R</code>, read it, and ran it (<code>Error: object &#39;binomal&#39; not found</code>).</p>
 <p><strong>What it said:</strong> “<strong>Line 4</strong>: Typo in family name - <code>binomal</code> should be <code>binomial</code>” and “<strong>Line 7</strong>: Incorrect data reference - <code>data.frame(x = 1)</code> should be <code>data.frame(x = 1)</code> (the variable name doesn’t match what’s used in the model)”. It missed the silent bug.</p>
-<p><strong>In 10 runs:</strong> 2 found both bugs, checked 0.787, and changed nothing. 3 found both bugs but also fixed the file (1) or added things that aren’t bugs (2). 2 found only the typo, as this one did. 2 overwrote <code>data.csv</code> with rows they made up and reported numbers from them. 1 stopped after writing a tool call as text.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>2 found both bugs, checked 0.787, and changed nothing.</li>
+<li>3 found both bugs but also fixed the file (1) or added things that aren’t bugs (2).</li>
+<li>2 found only the typo, as this one did.</li>
+<li>2 overwrote <code>data.csv</code> with rows they made up and reported numbers from them.</li>
+<li>1 stopped after writing a tool call as text.</li>
+</ul>
 </section>
-<section id="fix-the-naive-prompt" class="slide level2 smaller">
+<section id="fix-the-naive-prompt" class="slide level2 smaller tight">
 <h2>Fix: the naive prompt</h2>
 <div class="quote">
 <p>Fix all bugs in logit.R.</p>
@@ -1561,7 +1612,14 @@ $ claude --model sonnet</code></pre>
 <p><strong>What qwen did</strong> (98 seconds): found <code>logit.R</code>, read it, edited it, and printed the new file with <code>cat</code>. It didn’t run R.</p>
 <div class="ghdiff"><table><tbody><tr class="cmd"><td colspan="4">$ git diff logit.R</td></tr><tr class="hunk"><td class="ln"></td><td class="ln"></td><td colspan="2">@@ -1,8 +1,8 @@</td></tr><tr class="ctx"><td class="ln">1</td><td class="ln">1</td><td class="sign"></td><td class="txt"># fit a logit model and report one predicted probability</td></tr><tr class="ctx"><td class="ln">2</td><td class="ln">2</td><td class="sign"></td><td class="txt">dat &lt;- read.csv(&quot;data.csv&quot;)</td></tr><tr class="ctx"><td class="ln">3</td><td class="ln">3</td><td class="sign"></td><td class="txt"></td></tr><tr class="del"><td class="ln">4</td><td class="ln"></td><td class="sign">−</td><td class="txt">fit &lt;- glm(y ~ x, family = binomal, data = dat)</td></tr><tr class="add"><td class="ln"></td><td class="ln">4</td><td class="sign">+</td><td class="txt">fit &lt;- glm(y ~ x, family = binomial, data = dat)</td></tr><tr class="ctx"><td class="ln">5</td><td class="ln">5</td><td class="sign"></td><td class="txt"></td></tr><tr class="ctx"><td class="ln">6</td><td class="ln">6</td><td class="sign"></td><td class="txt"># predicted probability that y = 1 when x = 1</td></tr><tr class="del"><td class="ln">7</td><td class="ln"></td><td class="sign">−</td><td class="txt">pr &lt;- predict(fit, newdata = data.frame(x = 1))</td></tr><tr class="add"><td class="ln"></td><td class="ln">7</td><td class="sign">+</td><td class="txt">pr &lt;- predict(fit, newdata = data.frame(x = 1), type = &quot;response&quot;)</td></tr><tr class="ctx"><td class="ln">8</td><td class="ln">8</td><td class="sign"></td><td class="txt">print(pr)</td></tr></tbody></table></div>
 <p><strong>What it said:</strong> “Added type=”response” to predict() to return probabilities instead of log-odds”</p>
-<p><strong>In 10 runs:</strong> 9 fixed both bugs. Only 1 of them ran the script to check. 1 fixed only the typo.<sup>1</sup></p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>9 fixed both bugs.
+<ul>
+<li>Only 1 of them ran the script to check.</li>
+</ul></li>
+<li>1 fixed only the typo.<sup>1</sup></li>
+</ul>
 <aside><ol class="aside-footnotes"><li id="fn4"><p>Run 7 ran the script, saw 1.309, and said “No other bugs were found in the file.”</p></li></ol></aside></section>
 <section id="fix-the-better-prompt" class="slide level2 smaller">
 <h2>Fix: the better prompt</h2>
@@ -1578,7 +1636,11 @@ $ claude --model sonnet</code></pre>
 <span id="cb6-6"><a></a>&lt;/parameter&gt;</span>
 <span id="cb6-7"><a></a>&lt;/function&gt;</span>
 <span id="cb6-8"><a></a>&lt;/tool_call&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>In 10 runs:</strong> 7 fixed both bugs and ran the script to check. 3 stopped like this one, with the file unchanged.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>7 fixed both bugs and ran the script to check.</li>
+<li>3 stopped like this one, with the file unchanged.</li>
+</ul>
 </section>
 <section id="the-predicted-probability-the-naive-prompt" class="slide level2 smaller">
 <h2>The predicted probability: the naive prompt</h2>
@@ -1587,7 +1649,11 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (18 seconds): nothing. It called no tools.</p>
 <p><strong>What it said:</strong> “I cannot determine the predicted probability that y = 1 when x = 1 without additional context or data. Please provide more information about the model or dataset you are referring to.”</p>
-<p><strong>In 10 runs:</strong> 9 never opened <code>logit.R</code> and asked for the model or the data, as this one did (3 searched the web first). 1 read the files, ran the script, and reported 0.787.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>9 never opened <code>logit.R</code> and asked for the model or the data, as this one did (3 searched the web first).</li>
+<li>1 read the files, ran the script, and reported 0.787.</li>
+</ul>
 </section>
 <section id="the-predicted-probability-the-better-prompt" class="slide level2 smaller">
 <h2>The predicted probability: the better prompt</h2>
@@ -1596,7 +1662,15 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (26 seconds): found <code>logit.R</code>, read it, and ran it.</p>
 <p><strong>What it said:</strong> “The predicted probability that y = 1 when x = 1 is 0.7874273.”</p>
-<p><strong>In 10 runs:</strong> 5 ran the script and reported 0.787. 4 wrote their own script with data they made up and reported its number (e.g., 0.903). 2 of those 4 overwrote <code>logit.R</code>. 1 refused: “I cannot help with this request as it involves creating or running R code, which is outside the scope of opencode’s capabilities”.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>5 ran the script and reported 0.787.</li>
+<li>4 wrote their own script with data they made up and reported its number (e.g., 0.903).
+<ul>
+<li>2 of those 4 overwrote <code>logit.R</code>.</li>
+</ul></li>
+<li>1 refused: “I cannot help with this request as it involves creating or running R code, which is outside the scope of opencode’s capabilities”.</li>
+</ul>
 </section>
 <section id="the-confidence-interval-the-naive-prompt" class="slide level2 smaller">
 <h2>The confidence interval: the naive prompt</h2>
@@ -1605,7 +1679,12 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (131 seconds): found <code>logit.R</code>, read it and <code>data.csv</code>, and ran R five times. Four runs ended in errors, and one printed the coefficients. Then it worked out the interval by hand.</p>
 <p><strong>What it said:</strong> “The 95% confidence interval for the predicted probability that y = 1 when x = 1 is approximately (0.6902, 0.8594).” Its standard error leaves out the covariance of the intercept and the slope. The interval is (0.714, 0.846).</p>
-<p><strong>In 10 runs:</strong> 8 refused or asked for the data without reading <code>logit.R</code>. 1 reported (0.714, 0.846). 1 is this one.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>8 refused or asked for the data without reading <code>logit.R</code>.</li>
+<li>1 reported (0.714, 0.846).</li>
+<li>1 is this one.</li>
+</ul>
 </section>
 <section id="the-confidence-interval-the-better-prompt" class="slide level2 smaller">
 <h2>The confidence interval: the better prompt</h2>
@@ -1614,7 +1693,13 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (38 seconds): found <code>logit.R</code>, read it, edited it, and ran it.</p>
 <p><strong>What it said:</strong> “The interval is computed using the delta method.” The code printed “95% CI: 0.7139 - 0.8461”: the right interval, but it comes from transforming the log-odds interval, which isn’t the delta method.</p>
-<p><strong>In 10 runs:</strong> 3 were fully correct. 3 gave the right interval and called it “the delta method,” as this one did. 2 treated a probability as log-odds and reported (0.673, 0.701). 2 overwrote <code>data.csv</code> with rows they made up.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>3 were fully correct.</li>
+<li>3 gave the right interval and called it “the delta method,” as this one did.</li>
+<li>2 treated a probability as log-odds and reported (0.673, 0.701).</li>
+<li>2 overwrote <code>data.csv</code> with rows they made up.</li>
+</ul>
 </section>
 <section id="the-iqr-effect-the-naive-prompt" class="slide level2 smaller">
 <h2>The IQR effect: the naive prompt</h2>
@@ -1623,16 +1708,34 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (18 seconds): nothing. It wrote a tool call as text and stopped.</p>
 <p><strong>What it said:</strong> “I need to help you with calculating average marginal effects using the {marginaleffects} package in R. Let me first check if this package is installed and available in your environment.” Then a tool call, as text.</p>
-<p><strong>In 10 runs:</strong> none gave an answer. 7 refused or asked for the data. Several said that R is “outside the scope” of what they do. 1 hit the 15-minute limit while calling functions that don’t exist. 1 wrote code for data it made up and computed nothing. 1 is this one.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>None gave an answer.</li>
+<li>7 refused or asked for the data.
+<ul>
+<li>Several said that R is “outside the scope” of what they do.</li>
+</ul></li>
+<li>1 hit the 15-minute limit while calling functions that don’t exist.</li>
+<li>1 wrote code for data it made up and computed nothing.</li>
+<li>1 is this one.</li>
+</ul>
 </section>
-<section id="the-iqr-effect-the-better-prompt" class="slide level2 smaller">
+<section id="the-iqr-effect-the-better-prompt" class="slide level2 smaller tight">
 <h2>The IQR effect: the better prompt</h2>
 <div class="quote">
 <p><span class="added">Change logit.R so it uses</span> {marginaleffects} to <span class="added">report</span> the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, <span class="added">with a</span> 95% confidence interval. <span class="added">Before you write any code, read the {marginaleffects} documentation and look at its examples. Then run logit.R and show me what it prints.</span></p>
 </div>
 <p><strong>What qwen did</strong> (207 seconds): read <code>logit.R</code>, looked for the documentation (help pages that don’t exist, two web pages, a vignette, the package index), edited <code>logit.R</code> five times, overwrote <code>data.csv</code> twice with rows it made up, and ran the script six times. The final code doesn’t use {marginaleffects}, and it holds <code>z</code> at its mean.</p>
 <p><strong>What it said:</strong> “Difference in probability: 0.1525677” and “While this doesn’t directly report a confidence interval as specified, the calculation correctly implements what was asked for”.</p>
-<p><strong>In 10 runs:</strong> none was fully correct, and 9 claimed success. 6 reported a different quantity as the answer: the average slope (0.253), <code>x = 0.25</code> vs. <code>x = 0.75</code> (0.18), or a one-unit change at a single row (0.408). 1 got the estimate right by bootstrap, without {marginaleffects}, and said it had used {marginaleffects}. 1 got 0.433 with quartiles it computed by hand. 1 hit the 15-minute limit. 1 is this one.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>None was fully correct, and 9 claimed success.</li>
+<li>6 reported a different quantity as the answer: the average slope (0.253), <code>x = 0.25</code> vs. <code>x = 0.75</code> (0.18), or a one-unit change at a single row (0.408).</li>
+<li>1 got the estimate right by bootstrap, without {marginaleffects}, and said it had used {marginaleffects}.</li>
+<li>1 got 0.433 with quartiles it computed by hand.</li>
+<li>1 hit the 15-minute limit.</li>
+<li>1 is this one.</li>
+</ul>
 </section>
 <section id="the-iqr-effect-naming-the-function" class="slide level2 smaller">
 <h2>The IQR effect: naming the function</h2>
@@ -1641,7 +1744,12 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What qwen did</strong> (139 seconds): read the help page (on the web, then in R), read <code>logit.R</code>, edited it three times, and ran it three times. Its code computes the quartiles by hand: <code>variables = list(x = c(q25, q75))</code>.</p>
 <p><strong>What it said:</strong> “The average difference: Estimate = 0.433” and “With 95% confidence interval: 2.5% = 0.375, 97.5% = 0.491”.</p>
-<p><strong>In 10 runs:</strong> 8 reported 0.433 (0.375, 0.491). 2 of the 8 used <code>variables = list(x = &quot;iqr&quot;)</code>, and 6 computed the quartiles by hand, as this one did. 2 reported a different quantity (0.254, the one-unit change; 0.18, <code>x = 0.25</code> vs. <code>x = 0.75</code>) and said it was what was asked for.</p>
+<p><strong>In 10 runs:</strong></p>
+<ul>
+<li>8 reported 0.433 (0.375, 0.491).</li>
+<li>2 of the 8 used <code>variables = list(x = &quot;iqr&quot;)</code>, and 6 computed the quartiles by hand, as this one did.</li>
+<li>2 reported a different quantity (0.254, the one-unit change; 0.18, <code>x = 0.25</code> vs. <code>x = 0.75</code>) and said it was what was asked for.</li>
+</ul>
 </section></section>
 <section>
 <section id="the-claude-models" class="title-slide slide level1 center">

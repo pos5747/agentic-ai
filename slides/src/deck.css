@@ -73,3 +73,7 @@
 /* the merged "Four current models" table (2026-10-20) */
 .reveal .models-table table { font-size: 0.62em; }
 .reveal .models-table td code { display: block; font-size: 0.85em; }
+/* results slides with long bullet lists (2026-10-20) */
+.reveal .slides section.smaller.tight { font-size: 0.63em; }
+.reveal .slides section.tight p, .reveal .slides section.tight li { margin-top: 0.15em; margin-bottom: 0.15em; }
+.reveal .slides section.tight pre { margin: 0.3em auto; }
