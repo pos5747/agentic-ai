@@ -130,6 +130,10 @@ We'll use a toy example to
 1. Get a sense of the workflow.
 2. Get a sense of the mistakes (and how to catch them).
 
+::: {.callout-note title="A note on z"}
+On Oct 20, I added a second predictor, `z`, to the repository, so `logit.R` now fits `y ~ x + z`. The homework (A First Example) uses the new script: prompts 7–10 say "and z = 0," and the answers are updated. The runs in this lecture are from September. The IQR runs used the new script. All the others (describe, find, fix, probability, and CI, in the five-pane runs and in the full results) used the old script, with only `x`. Those evaluations need to be updated, and I'll re-run them on the new script.
+:::
+
 ## Clone the example
 
 In GitHub Desktop: *File* > *Clone Repository...* > *URL*, then type `pos5747/agentic-ai-example`. Or, in the terminal:
