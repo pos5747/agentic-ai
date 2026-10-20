@@ -40,11 +40,11 @@
 # local-agent-example/results/full-sonnet/, quotes checked against log.jsonl);
 # The Claude models; Watching an agent work
 # (five panes, run 1, the clean run); How do you know what it did? (the
-# pos5737 research-project sequence, plain text, Git); Three things that
+# pos5737 research-project sequence, plain text); Git; Three things that
 # can go wrong (runs 2-4, with "Run 3: status" and "Run 3: the diff of the
 # data" after run 3); Four more runs (5-8); Four models, fifteen prompts;
 # Step by step (all 13 kept); Across steps; Your turn (the homework
-# walkthrough, from local-agent-example/TRY-IT.md); How published work
+# walkthrough; the full steps are on the site's A First Example page); How published work
 # acknowledges AI; The habit (closing); Appendix (exit ticket candidates,
 # caveats).
 #
@@ -89,7 +89,7 @@ filters:
 ## A warning
 
 ::: {.callout-warning}
-I feel a bit out "over my skis" with this content.
+I feel a bit "out over my skis" with this content.
 
 - For most of my lectures, I'm something like an "expert" on the topic.
 - For agentic AI, I'm merely a "user."
@@ -102,10 +102,10 @@ Adjust your weights accordingly.
 ## A chatbot
 
 - You describe your problem and paste in some code.
-- It answers in text.
+- The model answers in text.
 - You copy its code into your script and run it yourself.
 
-The chatbot can't see your files, and it can't run anything. It knows only what you tell it.
+The chatbot can't see the files on your computer, and it can't run anything there. It knows only what you tell it.
 
 ## An agent
 
@@ -248,7 +248,7 @@ $ git diff logit.R
 
 ## Prompt 4: the predicted probability {.smaller}
 
-The next three prompts start from the fixed script.
+The next two prompts start from the fixed script.
 
 ::: {.quote}
 What's the predicted probability that y = 1 when x = 1?
@@ -270,7 +270,7 @@ What's the 95% confidence interval for the predicted probability that y = 1 when
 
 **What it said:** "I don't have any prior context in this conversation about a model, dataset, or regression you've run [...] Could you point me to the data/model [...] I can compute the CI once I see it."
 
-**In 15 runs:** 7 asked for the data or the code without looking in the folder, as this one did. 6 reported (0.714, 0.846) and described the method correctly. 2 reported the same interval but called it "the delta method," which it isn't.
+**In 15 runs:** 7 asked for the data or the code without looking in the folder, as this one did. 6 reported (0.714, 0.846) without mislabeling the method. 2 reported the same interval but called it "the delta method," which it isn't.
 
 ## Prompt 6: the IQR effect {.smaller}
 
@@ -280,7 +280,7 @@ Use {marginaleffects} to find the average difference in the probability that y =
 
 For this prompt, the script fits `y ~ x + z`.
 
-**What Sonnet did** (24 seconds): read `logit.R` and `data.csv`, checked that {marginaleffects} is installed, wrote a new file, `iqr_effect.R`, and ran it.
+**What Sonnet did** (24 seconds): read `logit.R`, looked at `data.csv`, checked that {marginaleffects} is installed, wrote a new file, `iqr_effect.R`, and ran it.
 
 ```r
 out <- avg_comparisons(fit, variables = list(x = "iqr"))
@@ -400,7 +400,7 @@ My mental model (it isn't quite right):
 ```{.panes}
 code  | RStudio        | The code         | Why the output is what it is.   | Read what changed, not the whole file.
 out   | R              | The output       | What the code actually does.    | Only if you ran it yourself.
-diff  | GitHub Desktop | The diff         | What the agent actually changed. | Only files that git tracks.
+diff  | GitHub Desktop | The diff         | What the agent actually changed. | Not files that git ignores.
 chat  | Claude Code    | The conversation | What the agent says it did.     | A claim. Check it against the other four.
 files | project folder | The files        | Whether anything else changed.  | A data file should almost never change.
 ```
@@ -473,7 +473,7 @@ logit.R   M
 ```
 
 ```{.captions}
-The same folder, before the fix.
+A project folder with one script and one data file.
 You type the scoped prompt. | Nothing else changes.
 The agent replies. | One file changes, in two places.
 You run the code. | 0.787 is a probability.
@@ -644,6 +644,10 @@ An agent reads files, runs code, edits files, and tells you what it did. All of 
 "you should use tools that give you more control over the process of data analysis and writing."
 :::
 
+::: {.small}
+Kieran Healy, *The Plain Person's Guide to Plain Text Social Science*, [plain-text.co](https://plain-text.co/).
+:::
+
 ## Agents and the process {.smaller}
 
 Agents can help make the process principled, implemented, and documented. They help most with *implemented*.
@@ -687,7 +691,7 @@ turnout/
 ```
 
 ::: {.small}
-I recommend working in practice in GitHub Desktop, but I'll use the terminal to help keep things compact when talking about git.
+In practice, I recommend GitHub Desktop, but I'll use the terminal to help keep things compact when talking about git.
 :::
 
 ## What git does
@@ -703,12 +707,12 @@ And it can put the files back the way they were at the last commit (*discard*).
 
 . . .
 
-This is what makes it reasonable to let an agent edit your files. You can always see what it did, and you can always undo it.
+This is what makes it reasonable to let an agent edit your files. You can see what it did to the files in the folder, and you can undo it back to your last commit.
 
 ## Commit
 
 ```
-$ git log --oneline
+$ git log --oneline     # later, after fixing the bugs by hand
 1e64e11 Fix the family typo and report the probability
 1a9fe22 Add logit.R and data.csv
 ```
@@ -723,7 +727,7 @@ I used to commit relatively infrequently with messages that were not very detail
 Terminal: `git commit -am "Fix the family typo and report the probability"` (the `-a` includes every changed file that git already tracks). GitHub Desktop: type the message in the *Summary* box and click *Commit to main*. The history is in the *History* tab.
 :::
 
-## Example of When History Can Be Helpful
+## Example of when history can be helpful
 
 This can be extremely helpful, for example, when writing an R&R memo. You have a complete database of 100s or 1,000s of changes and a sense of why each revision was made. 
 
@@ -780,7 +784,7 @@ On branch main
 nothing to commit, working tree clean
 ```
 
-`git restore .` puts every tracked file back the way it was at the last commit. `logit.R` is back, and `git status` reports no changes.
+`git restore .` puts every tracked file back the way it was at the last commit. `logit.R` is back to its last committed version, and `git status` reports no changes.
 
 Discarding can't be undone. If a change is worth keeping, commit it first.
 
@@ -864,7 +868,7 @@ logit.R   M
 ```
 
 ```{.captions}
-A project folder with one script and one data file.
+The same folder, before the fix.
 You type a prompt. | Nothing else changes.
 The agent replies. | The code, the diff, and the files change with it.
 You run the code. | Only now is there output of your own.
@@ -948,7 +952,7 @@ The same folder, before the fix.
 You type a better prompt. | Nothing else changes.
 The agent replies. | The code and the diff change. So does a file we did not ask about.
 You run the code. | It prints something that looks like a probability.
-The code is right and the number is wrong. | It comes from 10 invented rows. The real data gives 0.787.
+The code is right and the number is wrong. | It comes from 10 invented rows. The real data gives 0.787. Run 1's last sentence is what prevents this.
 ```
 
 ## Run 3: status
@@ -1063,7 +1067,7 @@ All three times, the conversation said it worked.
 
 ## Four more runs {.opener}
 
-The same small script and the same five panes.
+The same small script (or a close variant) and the same five panes.
 
 New prompts, new tasks, two more models.
 
@@ -1391,7 +1395,7 @@ Every pane agrees, and the name is wrong. | Back-transforming a link-scale inter
 ## Four more runs, and what showed it {.recap}
 
 ```{.rows}
-"Both bugs are fixed" | We asked it to find them, not to fix them. | Sonnet: 3 of 15 runs edited the file. | diff
+"Both bugs are fixed" | We asked it to find them, not to fix them. | Sonnet: 2 of 15 runs edited the file. | diff
 "Running it with R gives: [1] 0.5263029" | It never ran R. The script prints 0.787. | gpt-oss: 4 of 10 runs. | out
 "the average difference in probability" | It computed a slope. The difference is 0.433. | qwen: 7 of 10 runs reported a wrong quantity. | code
 "This is the delta method" | It is not. The code and the interval are fine. | Haiku: 10 of 15 runs. | none
@@ -1406,7 +1410,7 @@ The full run
 ## What was run
 
 - One eight-line `logit.R` with two bugs: `binomal` (loud) and `predict()` on the link scale printed as "the predicted probability" (silent, 1.309 instead of 0.787)
-- Six steps: summarize, find, fix, probability, confidence interval, IQR effect. Naive and better prompts for each; fix has four
+- Six steps: summarize, find, fix, probability, confidence interval, IQR effect. Naive and better prompts for each; fix has four, IQR three
 - Haiku and Sonnet in Claude Code 2.1.282, 15 reps per prompt. qwen3-coder:30b and gpt-oss:20b in OpenCode on Ollama, 64k context, 10 reps
 - Fresh session, every tool pre-approved, 15-minute cap. 750 runs
 - Scored by script where a rerun can check it, by a Sonnet grader per prompt for the rest, both checked by hand
@@ -1431,7 +1435,7 @@ The lecture's shape at every step: the naive prompt shows the mistakes, the bett
 | stopped with no answer | 10 | 8 | 42 | 20 |
 | data.csv overwritten | 4 | 0 | 5 | 1 |
 | median seconds | 14 | 14 | 32 | 27 |
-| total | $8.58 | $20.23 | 3.1 h | 1.6 h |
+| total (API cost or agent time) | $8.58 | $20.23 | 3.1 h | 1.6 h |
 
 ## Fully correct, out of n {.smaller}
 
@@ -1485,10 +1489,10 @@ IQR rows include the rubric's "right number, wrong way" stage: 10 of Haiku's 13 
 
 - Haiku reads accurately (15/15) and repeats the comment: 15/15 say it prints the predicted probability, 0/15 notice the log-odds
 - Sonnet finds the silent bug by reading, 15/15
-- qwen 0/6 of the runs that found the file; gpt-oss 1/10
+- noticed the log-odds: qwen 0/6 of the runs that found the file; gpt-oss 1/10
 
 ::: {.quote}
-Haiku, print-naive-r2: "3. Predicts the probability that `y = 1` when `x = 1` 4. Prints that predicted probability"
+Haiku, print-naive-r2: "3. Predicts the probability that `y = 1` when `x = 1` / 4. Prints that predicted probability"
 :::
 
 ## Summarize: beats 2 and 3
@@ -1504,14 +1508,14 @@ One sentence does the work (Haiku, 10 reps each):
 
 What remains: qwen 8/10 and gpt-oss 6/10 still claim a correct description.
 
-**The check:** run the script. It errors on line 5.
+**The check:** run the script. It errors on line 4.
 
 ## Find: beat 1
 
 "Find all bugs in logit.R."
 
 - Haiku: both bugs 15/15, touches nothing
-- Sonnet: both bugs 15/15, and edits the file in 3/15 when asked only to find
+- Sonnet: both bugs 15/15, and edits the file in 2/15 when asked only to find
 - qwen fixes the file in 5/10; gpt-oss pads the list in 6/10
 
 ::: {.quote}
@@ -1593,7 +1597,7 @@ gpt-oss, fix-scope-r5 (one edit, no shell command, no repository): "Bugs fixed. 
 
 "What's the predicted probability that y = 1 when x = 1?"
 
-- Haiku 15/15 on both prompts; Sonnet 14/15 (one answered without looking)
+- Haiku 15/15 on both prompts; Sonnet 14/15 (one asked for the data without looking)
 - qwen naive: 1/10; 9/10 ask for the model instead of opening the file
 - "Use logit.R… show me what it prints": qwen 5/10, gpt-oss 6/10, and a new failure. qwen invents its own data 4/10; gpt-oss never runs R 4/10 and prints an output it made up
 
@@ -1605,9 +1609,9 @@ gpt-oss, prob-better-r6 (no Rscript in the transcript): "Running it with R gives
 
 ## Confidence interval: beats 1 and 2
 
-- Naive: Haiku correct 11/15, refuses 4/15 (asks for the data in the folder). Sonnet refuses 7/15. Nothing wrong is claimed
-- Naming the file alone: 10/10 fully correct
-- The better prompt adds "tell me how the interval is computed": every model prints a correct interval (Haiku 15/15, Sonnet 15/15)
+- Naive: Haiku correct 11/15, refuses 4/15 (asks for the data in the folder). Sonnet refuses 7/15. Haiku claims nothing wrong; Sonnet calls the interval "the delta method" in 2/15
+- Naming the file alone: 10/10 correct interval (3 also rewrote logit.R)
+- The better prompt adds "tell me how the interval is computed": both Claude models print a correct interval (Haiku 15/15, Sonnet 15/15)
 
 ## Confidence interval: beat 3
 
@@ -1655,7 +1659,7 @@ Two remainders.
 qwen, iqr-base-r4, the output of `avg_slopes()`: "Estimate: 0.253 (the average difference in probability) … This represents the change in probability that y = 1 when x moves from its 25th to 75th percentile, averaged across all observed values in the data."
 :::
 
-**The check:** the average difference by hand; the interval against the package's SE. A width 20× too narrow needs no code.
+**The check:** the average difference by hand; the interval against the package's SE. A width 15× too narrow needs no code.
 
 # Across steps
 
@@ -1671,14 +1675,14 @@ qwen, iqr-base-r4, the output of `avg_slopes()`: "Estimate: 0.253 (the average d
 | naming the file | CI, IQR | refusals (4/15 → 0) | |
 | "Tell me how the interval is computed" | CI | | "delta method" 10/15 |
 | "read the documentation" | IQR | | 53 s and $0.11 per run |
-| naming the function | IQR | wrong comparisons (3 → 13/15) | |
+| naming the function | IQR | wrong comparisons (right comparison 3 → 13/15) | |
 
 Each ingredient removes a visible failure. Two of them add an invisible one.
 
 ## Each model's signature
 
 - **Haiku:** does what the prompt says and no more. Fixes the typo and says "Fixed!"; calls a link interval "the delta method"; makes data when it decides the data is missing
-- **Sonnet:** wrong numbers essentially gone. Scope remains: edits on a find prompt 3/15, restructures the CI script 11/15, refuses the vaguer prompts more often
+- **Sonnet:** wrong numbers essentially gone. Scope remains: edits on a find prompt 2/15, restructures the CI script 11/15, refuses the vaguer prompts more often
 - **qwen:** 64/150 runs print a tool call as text, 23 stop there. Five data.csv overwrites. Confident wrong quantities on the IQR task
 - **gpt-oss:** says it did things it didn't. Never-edited files reported fixed, fabricated R output, "committed to the repository" with no repository
 
@@ -1689,9 +1693,10 @@ The homework: 13 prompts and one short R script
 ## The setup {.smaller}
 
 - The repository is [pos5747/agentic-ai-example](https://github.com/pos5747/agentic-ai-example). It has three files: `logit.R` (today's script, with both bugs), `data.csv`, and `agentic-ai-example.Rproj`.
-- You'll give 13 prompts to Claude Code. If your computer has 32 GB of memory, you'll give seven of them again to a local model (qwen3-coder, through OpenCode).
-- You'll use three programs: R code in RStudio, the agents in the terminal, and the changes in GitHub Desktop.
-- The handout has every step. Plan on about 75 minutes.
+- First, install a model and an interface, R, and git: [pos5747.github.io/agentic-ai/setup.html](https://pos5747.github.io/agentic-ai/setup.html).
+- You'll give all 13 prompts to the agent you chose.
+- You'll use three programs: R code in RStudio, the agent in the terminal, and the changes in GitHub Desktop.
+- Every step is on A First Example ([pos5747.github.io/agentic-ai/first-example.html](https://pos5747.github.io/agentic-ai/first-example.html)).
 
 ## Step 1: Clone the repository {.smaller}
 
@@ -1725,12 +1730,14 @@ If the *Changes* tab is already empty, skip this step. You don't need to click *
 
 ```
 cd ~/Documents/GitHub/agentic-ai-example
-claude --model haiku --permission-mode manual
+claude --model sonnet --permission-mode manual
 ```
 
 - Paste the prompt. In this mode, Claude Code asks before it runs a command or edits a file. Read each request, then choose *Yes*. (Don't choose the option that tells it not to ask again.)
 - Write down about how long the reply took and what it says.
 - Quit with `/exit`. Start a fresh session for every prompt.
+- `--model sonnet` now runs Sonnet 5.5, a newer model than the lecture's Sonnet 5.
+- Other setups: the command is in your tab on A First Example. OpenCode doesn't ask before it acts; quit it with `ctrl+c`.
 
 ## Step 5: Look, then undo {.smaller}
 
@@ -1773,6 +1780,8 @@ Then fix the two bugs yourself (lines 4 and 7), check that the script prints `0.
 12. Change logit.R so it uses {marginaleffects} to report the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, with a 95% confidence interval. Before you write any code, read the {marginaleffects} documentation and look at its examples. Then run logit.R and show me what it prints.
 13. Change logit.R so it uses avg_comparisons() from {marginaleffects} to report the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, with a 95% confidence interval. Before you write any code, read the help page for avg_comparisons() and look at its examples. Then run logit.R and show me what it prints.
 
+Your `logit.R` has only `x`. The lecture's runs on this task used a version with a second predictor, `z`, so your answer won't be the lecture's 0.433.
+
 ## What to write down
 
 For each run:
@@ -1782,7 +1791,7 @@ For each run:
 - which files changed that you didn't ask the agent to change
 - whether the agent said it succeeded
 
-The answers are at the end of the handout. Check them after you've run every prompt. Bring your notes to class.
+The answers are at the end of A First Example. Check them after you've run every prompt.
 
 # How published work acknowledges AI
 
@@ -1844,13 +1853,13 @@ Final messages with known answers; mark the unsupported sentence.
 
 | run | says | the transcript shows |
 |---|---|---|
-| Haiku fix-vague r1 | "Fixed!" | Rscript printed 1.309 |
-| Haiku fix-better r8 | the data file was missing | it was there; a shell command overwrote it |
-| Haiku ci-better r1 | "delta method" | `plogis()` of a link-scale interval |
-| qwen iqr-base r4 | "0.253 (the average difference in probability)" | `avg_slopes()` |
-| gpt-oss prob-better r6 | `$ Rscript logit.R` `[1] 0.5263029` | no Rscript call |
+| Haiku fix-vague r1 (run 2) | "Fixed!" | Rscript printed 1.309 |
+| Haiku fix-better r8 (run 3) | the data file was missing | it was there; a shell command overwrote it |
+| Haiku ci-better r1 (run 8) | "delta method" | `plogis()` of a link-scale interval |
+| qwen iqr-base r4 (run 7) | "0.253 (the average difference in probability)" | `avg_slopes()` |
+| gpt-oss prob-better r6 (run 6) | `$ Rscript logit.R` `[1] 0.5263029` | no Rscript call |
 | gpt-oss fix-scope r5 | "committed to the repository" | no git command, no repository |
-| Haiku fix-scope r6 | fixed both, prints 0.787 | it did (the control) |
+| Haiku fix-scope r6 (run 1) | fixed both, prints 0.787 | it did (the control) |
 
 Predict first: how often does "Fix it" fix the silent bug? How often does the better CI prompt name the method correctly?
 

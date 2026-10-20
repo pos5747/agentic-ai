@@ -1286,7 +1286,7 @@ margin-right: 0; }
 <p><strong>Warning</strong></p>
 </div>
 <div class="callout-content">
-<p>I feel a bit out “over my skis” with this content.</p>
+<p>I feel a bit “out over my skis” with this content.</p>
 <ul>
 <li>For most of my lectures, I’m something like an “expert” on the topic.</li>
 <li>For agentic AI, I’m merely a “user.”</li>
@@ -1305,10 +1305,10 @@ margin-right: 0; }
 <h2>A chatbot</h2>
 <ul>
 <li>You describe your problem and paste in some code.</li>
-<li>It answers in text.</li>
+<li>The model answers in text.</li>
 <li>You copy its code into your script and run it yourself.</li>
 </ul>
-<p>The chatbot can’t see your files, and it can’t run anything. It knows only what you tell it.</p>
+<p>The chatbot can’t see the files on your computer, and it can’t run anything there. It knows only what you tell it.</p>
 </section>
 <section id="an-agent" class="slide level2">
 <h2>An agent</h2>
@@ -1411,7 +1411,7 @@ $ claude --model sonnet</code></pre>
 </section>
 <section id="prompt-4-the-predicted-probability" class="slide level2 smaller">
 <h2>Prompt 4: the predicted probability</h2>
-<p>The next three prompts start from the fixed script.</p>
+<p>The next two prompts start from the fixed script.</p>
 <div class="quote">
 <p>What’s the predicted probability that y = 1 when x = 1?</p>
 </div>
@@ -1426,7 +1426,7 @@ $ claude --model sonnet</code></pre>
 </div>
 <p><strong>What Sonnet did</strong> (4 seconds): nothing. It called no tools.</p>
 <p><strong>What it said:</strong> “I don’t have any prior context in this conversation about a model, dataset, or regression you’ve run […] Could you point me to the data/model […] I can compute the CI once I see it.”</p>
-<p><strong>In 15 runs:</strong> 7 asked for the data or the code without looking in the folder, as this one did. 6 reported (0.714, 0.846) and described the method correctly. 2 reported the same interval but called it “the delta method,” which it isn’t.</p>
+<p><strong>In 15 runs:</strong> 7 asked for the data or the code without looking in the folder, as this one did. 6 reported (0.714, 0.846) without mislabeling the method. 2 reported the same interval but called it “the delta method,” which it isn’t.</p>
 </section>
 <section id="prompt-6-the-iqr-effect" class="slide level2 smaller">
 <h2>Prompt 6: the IQR effect</h2>
@@ -1434,7 +1434,7 @@ $ claude --model sonnet</code></pre>
 <p>Use {marginaleffects} to find the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, and its 95% confidence interval.</p>
 </div>
 <p>For this prompt, the script fits <code>y ~ x + z</code>.</p>
-<p><strong>What Sonnet did</strong> (24 seconds): read <code>logit.R</code> and <code>data.csv</code>, checked that {marginaleffects} is installed, wrote a new file, <code>iqr_effect.R</code>, and ran it.</p>
+<p><strong>What Sonnet did</strong> (24 seconds): read <code>logit.R</code>, looked at <code>data.csv</code>, checked that {marginaleffects} is installed, wrote a new file, <code>iqr_effect.R</code>, and ran it.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>out <span class="ot">&lt;-</span> <span class="fu">avg_comparisons</span>(fit, <span class="at">variables =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="st">&quot;iqr&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>What it said:</strong> “Estimate: <strong>0.433</strong>” and “95% CI: <strong>[0.375, 0.491]</strong>” (and “Script saved as <code>iqr_effect.R</code> in the working directory.”)</p>
 <p><strong>In 15 runs:</strong> all 15 reported 0.433 (0.375, 0.491).</p>
@@ -1640,7 +1640,7 @@ $ claude --model sonnet</code></pre>
 <div class="pane-body">
 <div class="big">The diff</div>
 <div class="tells">What the agent actually changed.</div>
-<div class="but">Only files that git tracks.</div>
+<div class="but">Not files that git ignores.</div>
 </div>
 </div>
 <div class="pane chat">
@@ -1762,7 +1762,7 @@ $ claude --model sonnet</code></pre>
 </div>
 </div>
 <div class="status">
-<span class="fragment until quiet" data-fragment-index="0">The same folder, before the fix.</span>
+<span class="fragment until quiet" data-fragment-index="0">A project folder with one script and one data file.</span>
 <span class="fragment now quiet" data-fragment-index="0"><b>1 · You type the scoped prompt.</b>Nothing else changes.</span>
 <span class="fragment now quiet" data-fragment-index="1"><b>2 · The agent replies.</b>One file changes, in two places.</span>
 <span class="fragment now quiet" data-fragment-index="2"><b>3 · You run the code.</b>0.787 is a probability.</span>
@@ -1905,6 +1905,9 @@ $ claude --model sonnet</code></pre>
 <div class="quote">
 <p>“you should use tools that give you more control over the process of data analysis and writing.”</p>
 </div>
+<div class="small">
+<p>Kieran Healy, <em>The Plain Person’s Guide to Plain Text Social Science</em>, <a href="https://plain-text.co/">plain-text.co</a>.</p>
+</div>
 </div>
 </section>
 <section id="agents-and-the-process" class="slide level2 smaller">
@@ -1947,7 +1950,7 @@ $ claude --model sonnet</code></pre>
 ├── turnout.qmd
 └── bibliography.bib</code></pre>
 <div class="small">
-<p>I recommend working in practice in GitHub Desktop, but I’ll use the terminal to help keep things compact when talking about git.</p>
+<p>In practice, I recommend GitHub Desktop, but I’ll use the terminal to help keep things compact when talking about git.</p>
 </div>
 </section>
 <section id="what-git-does" class="slide level2">
@@ -1960,12 +1963,12 @@ $ claude --model sonnet</code></pre>
 </ul>
 <p>And it can put the files back the way they were at the last commit (<em>discard</em>).</p>
 <div class="fragment">
-<p>This is what makes it reasonable to let an agent edit your files. You can always see what it did, and you can always undo it.</p>
+<p>This is what makes it reasonable to let an agent edit your files. You can see what it did to the files in the folder, and you can undo it back to your last commit.</p>
 </div>
 </section>
 <section id="commit" class="slide level2">
 <h2>Commit</h2>
-<pre><code>$ git log --oneline
+<pre><code>$ git log --oneline     # later, after fixing the bugs by hand
 1e64e11 Fix the family typo and report the probability
 1a9fe22 Add logit.R and data.csv</code></pre>
 <p>Each line is one commit: a short id, then the message. The newest commit is at the top.</p>
@@ -1989,7 +1992,7 @@ $ claude --model sonnet</code></pre>
 </div>
 </section>
 <section id="example-of-when-history-can-be-helpful" class="slide level2">
-<h2>Example of When History Can Be Helpful</h2>
+<h2>Example of when history can be helpful</h2>
 <p>This can be extremely helpful, for example, when writing an R&amp;R memo. You have a complete database of 100s or 1,000s of changes and a sense of why each revision was made.</p>
 <p>As I’m responding to reviewers, Claude has access to all of the review comments, my notes on those comments, and my general plan for revisions. It knows what comment or subcomment we are working on now. When I commit, it knows what I think I have addressed and what changes were made. (It can also make judgments about whether I have thoroughly addressed the concern, but more importantly, it’s creating a record of revisions and their reasons in the context of the R&amp;R.)</p>
 </section>
@@ -2021,7 +2024,7 @@ Changes not staged for commit:
 $ git status
 On branch main
 nothing to commit, working tree clean</code></pre>
-<p><code>git restore .</code> puts every tracked file back the way it was at the last commit. <code>logit.R</code> is back, and <code>git status</code> reports no changes.</p>
+<p><code>git restore .</code> puts every tracked file back the way it was at the last commit. <code>logit.R</code> is back to its last committed version, and <code>git status</code> reports no changes.</p>
 <p>Discarding can’t be undone. If a change is worth keeping, commit it first.</p>
 <div class="small">
 <p>GitHub Desktop: <em>Branch</em> &gt; <em>Discard All Changes…</em> In the terminal, <code>git restore .</code> leaves files that git doesn’t track yet (new files an agent created). <code>git clean -fd</code> removes those.</p>
@@ -2133,7 +2136,7 @@ nothing to commit, working tree clean</code></pre>
 </div>
 </div>
 <div class="status">
-<span class="fragment until quiet" data-fragment-index="0">A project folder with one script and one data file.</span>
+<span class="fragment until quiet" data-fragment-index="0">The same folder, before the fix.</span>
 <span class="fragment now quiet" data-fragment-index="0"><b>1 · You type a prompt.</b>Nothing else changes.</span>
 <span class="fragment now quiet" data-fragment-index="1"><b>2 · The agent replies.</b>The code, the diff, and the files change with it.</span>
 <span class="fragment now quiet" data-fragment-index="2"><b>3 · You run the code.</b>Only now is there output of your own.</span>
@@ -2251,7 +2254,7 @@ Warning messages:
 <span class="fragment now quiet" data-fragment-index="0"><b>1 · You type a better prompt.</b>Nothing else changes.</span>
 <span class="fragment now quiet" data-fragment-index="1"><b>2 · The agent replies.</b>The code and the diff change. So does a file we did not ask about.</span>
 <span class="fragment now quiet" data-fragment-index="2"><b>3 · You run the code.</b>It prints something that looks like a probability.</span>
-<span class="fragment now quiet" data-fragment-index="3"><b>The code is right and the number is wrong.</b>It comes from 10 invented rows. The real data gives 0.787.</span>
+<span class="fragment now quiet" data-fragment-index="3"><b>The code is right and the number is wrong.</b>It comes from 10 invented rows. The real data gives 0.787. Run 1&#39;s last sentence is what prevents this.</span>
 </div>
 </div>
 </section>
@@ -2392,7 +2395,7 @@ print(pr)</div>
 <div class="teaser open">
 <div class="tbody">
 <div class="ttitle">Four more runs</div>
-<div class="setup">The same small script and the same five panes.<br>New prompts, new tasks, two more models.</div>
+<div class="setup">The same small script (or a close variant) and the same five panes.<br>New prompts, new tasks, two more models.</div>
 <div class="tease q fragment"><div class="mini"><div class="mcol"><i class="code"></i><i class="out"></i></div><div class="mcol"><i class="diff"></i><i class="chat"></i></div><i class="files"></i></div><span>One gets past every pane.</span></div>
 </div>
 </div>
@@ -2822,7 +2825,7 @@ Point estimate:  0.7874273
 <div class="rgrid">
 <div class="rhead">The agent said</div><div class="rhead">What happened</div><div class="rhead">The pane that showed it</div>
 <div class="said">&quot;Both bugs are fixed&quot;</div>
-<div class="was">We asked it to find them, not to fix them.<span class="freq">Sonnet: 3 of 15 runs edited the file.</span></div>
+<div class="was">We asked it to find them, not to fix them.<span class="freq">Sonnet: 2 of 15 runs edited the file.</span></div>
 <div class="pane-hit fragment" data-fragment-index="0"><div class="mini"><div class="mcol"><i class="code"></i><i class="out"></i></div><div class="mcol"><i class="diff hit"></i><i class="chat"></i></div><i class="files"></i></div><span class="diff">the diff</span></div>
 <div class="said">&quot;Running it with R gives: [1] 0.5263029&quot;</div>
 <div class="was">It never ran R. The script prints 0.787.<span class="freq">gpt-oss: 4 of 10 runs.</span></div>
@@ -2848,7 +2851,7 @@ judge.</div>
 <h2>What was run</h2>
 <ul>
 <li>One eight-line <code>logit.R</code> with two bugs: <code>binomal</code> (loud) and <code>predict()</code> on the link scale printed as “the predicted probability” (silent, 1.309 instead of 0.787)</li>
-<li>Six steps: summarize, find, fix, probability, confidence interval, IQR effect. Naive and better prompts for each; fix has four</li>
+<li>Six steps: summarize, find, fix, probability, confidence interval, IQR effect. Naive and better prompts for each; fix has four, IQR three</li>
 <li>Haiku and Sonnet in Claude Code 2.1.282, 15 reps per prompt. qwen3-coder:30b and gpt-oss:20b in OpenCode on Ollama, 64k context, 10 reps</li>
 <li>Fresh session, every tool pre-approved, 15-minute cap. 750 runs</li>
 <li>Scored by script where a rerun can check it, by a Sonnet grader per prompt for the rest, both checked by hand</li>
@@ -2921,7 +2924,7 @@ judge.</div>
 <td>27</td>
 </tr>
 <tr class="odd">
-<td>total</td>
+<td>total (API cost or agent time)</td>
 <td>$8.58</td>
 <td>$20.23</td>
 <td>3.1 h</td>
@@ -3218,10 +3221,10 @@ judge.</div>
 <ul>
 <li>Haiku reads accurately (15/15) and repeats the comment: 15/15 say it prints the predicted probability, 0/15 notice the log-odds</li>
 <li>Sonnet finds the silent bug by reading, 15/15</li>
-<li>qwen 0/6 of the runs that found the file; gpt-oss 1/10</li>
+<li>noticed the log-odds: qwen 0/6 of the runs that found the file; gpt-oss 1/10</li>
 </ul>
 <div class="quote">
-<p>Haiku, print-naive-r2: “3. Predicts the probability that <code>y = 1</code> when <code>x = 1</code> 4. Prints that predicted probability”</p>
+<p>Haiku, print-naive-r2: “3. Predicts the probability that <code>y = 1</code> when <code>x = 1</code> / 4. Prints that predicted probability”</p>
 </div>
 </section>
 <section id="summarize-beats-2-and-3" class="slide level2">
@@ -3258,14 +3261,14 @@ judge.</div>
 </tbody>
 </table>
 <p>What remains: qwen 8/10 and gpt-oss 6/10 still claim a correct description.</p>
-<p><strong>The check:</strong> run the script. It errors on line 5.</p>
+<p><strong>The check:</strong> run the script. It errors on line 4.</p>
 </section>
 <section id="find-beat-1" class="slide level2">
 <h2>Find: beat 1</h2>
 <p>“Find all bugs in logit.R.”</p>
 <ul>
 <li>Haiku: both bugs 15/15, touches nothing</li>
-<li>Sonnet: both bugs 15/15, and edits the file in 3/15 when asked only to find</li>
+<li>Sonnet: both bugs 15/15, and edits the file in 2/15 when asked only to find</li>
 <li>qwen fixes the file in 5/10; gpt-oss pads the list in 6/10</li>
 </ul>
 <div class="quote">
@@ -3338,7 +3341,7 @@ x,y
 <h2>Probability</h2>
 <p>“What’s the predicted probability that y = 1 when x = 1?”</p>
 <ul>
-<li>Haiku 15/15 on both prompts; Sonnet 14/15 (one answered without looking)</li>
+<li>Haiku 15/15 on both prompts; Sonnet 14/15 (one asked for the data without looking)</li>
 <li>qwen naive: 1/10; 9/10 ask for the model instead of opening the file</li>
 <li>“Use logit.R… show me what it prints”: qwen 5/10, gpt-oss 6/10, and a new failure. qwen invents its own data 4/10; gpt-oss never runs R 4/10 and prints an output it made up</li>
 </ul>
@@ -3350,9 +3353,9 @@ x,y
 <section id="confidence-interval-beats-1-and-2" class="slide level2">
 <h2>Confidence interval: beats 1 and 2</h2>
 <ul>
-<li>Naive: Haiku correct 11/15, refuses 4/15 (asks for the data in the folder). Sonnet refuses 7/15. Nothing wrong is claimed</li>
-<li>Naming the file alone: 10/10 fully correct</li>
-<li>The better prompt adds “tell me how the interval is computed”: every model prints a correct interval (Haiku 15/15, Sonnet 15/15)</li>
+<li>Naive: Haiku correct 11/15, refuses 4/15 (asks for the data in the folder). Sonnet refuses 7/15. Haiku claims nothing wrong; Sonnet calls the interval “the delta method” in 2/15</li>
+<li>Naming the file alone: 10/10 correct interval (3 also rewrote logit.R)</li>
+<li>The better prompt adds “tell me how the interval is computed”: both Claude models print a correct interval (Haiku 15/15, Sonnet 15/15)</li>
 </ul>
 </section>
 <section id="confidence-interval-beat-3" class="slide level2">
@@ -3432,7 +3435,7 @@ x,y
 <div class="quote">
 <p>qwen, iqr-base-r4, the output of <code>avg_slopes()</code>: “Estimate: 0.253 (the average difference in probability) … This represents the change in probability that y = 1 when x moves from its 25th to 75th percentile, averaged across all observed values in the data.”</p>
 </div>
-<p><strong>The check:</strong> the average difference by hand; the interval against the package’s SE. A width 20× too narrow needs no code.</p>
+<p><strong>The check:</strong> the average difference by hand; the interval against the package’s SE. A width 15× too narrow needs no code.</p>
 </section></section>
 <section>
 <section id="across-steps" class="title-slide slide level1 center">
@@ -3508,7 +3511,7 @@ x,y
 <tr class="odd">
 <td>naming the function</td>
 <td>IQR</td>
-<td>wrong comparisons (3 → 13/15)</td>
+<td>wrong comparisons (right comparison 3 → 13/15)</td>
 <td></td>
 </tr>
 </tbody>
@@ -3519,7 +3522,7 @@ x,y
 <h2>Each model’s signature</h2>
 <ul>
 <li><strong>Haiku:</strong> does what the prompt says and no more. Fixes the typo and says “Fixed!”; calls a link interval “the delta method”; makes data when it decides the data is missing</li>
-<li><strong>Sonnet:</strong> wrong numbers essentially gone. Scope remains: edits on a find prompt 3/15, restructures the CI script 11/15, refuses the vaguer prompts more often</li>
+<li><strong>Sonnet:</strong> wrong numbers essentially gone. Scope remains: edits on a find prompt 2/15, restructures the CI script 11/15, refuses the vaguer prompts more often</li>
 <li><strong>qwen:</strong> 64/150 runs print a tool call as text, 23 stop there. Five data.csv overwrites. Confident wrong quantities on the IQR task</li>
 <li><strong>gpt-oss:</strong> says it did things it didn’t. Never-edited files reported fixed, fabricated R output, “committed to the repository” with no repository</li>
 </ul>
@@ -3533,9 +3536,10 @@ x,y
 <h2>The setup</h2>
 <ul>
 <li>The repository is <a href="https://github.com/pos5747/agentic-ai-example">pos5747/agentic-ai-example</a>. It has three files: <code>logit.R</code> (today’s script, with both bugs), <code>data.csv</code>, and <code>agentic-ai-example.Rproj</code>.</li>
-<li>You’ll give 13 prompts to Claude Code. If your computer has 32 GB of memory, you’ll give seven of them again to a local model (qwen3-coder, through OpenCode).</li>
-<li>You’ll use three programs: R code in RStudio, the agents in the terminal, and the changes in GitHub Desktop.</li>
-<li>The handout has every step. Plan on about 75 minutes.</li>
+<li>First, install a model and an interface, R, and git: <a href="https://pos5747.github.io/agentic-ai/setup.html">pos5747.github.io/agentic-ai/setup.html</a>.</li>
+<li>You’ll give all 13 prompts to the agent you chose.</li>
+<li>You’ll use three programs: R code in RStudio, the agent in the terminal, and the changes in GitHub Desktop.</li>
+<li>Every step is on A First Example (<a href="https://pos5747.github.io/agentic-ai/first-example.html">pos5747.github.io/agentic-ai/first-example.html</a>).</li>
 </ul>
 </section>
 <section id="step-1-clone-the-repository" class="slide level2 smaller">
@@ -3566,11 +3570,13 @@ x,y
 <section id="step-4-run-a-prompt" class="slide level2 smaller">
 <h2>Step 4: Run a prompt</h2>
 <pre><code>cd ~/Documents/GitHub/agentic-ai-example
-claude --model haiku --permission-mode manual</code></pre>
+claude --model sonnet --permission-mode manual</code></pre>
 <ul>
 <li>Paste the prompt. In this mode, Claude Code asks before it runs a command or edits a file. Read each request, then choose <em>Yes</em>. (Don’t choose the option that tells it not to ask again.)</li>
 <li>Write down about how long the reply took and what it says.</li>
 <li>Quit with <code>/exit</code>. Start a fresh session for every prompt.</li>
+<li><code>--model sonnet</code> now runs Sonnet 5.5, a newer model than the lecture’s Sonnet 5.</li>
+<li>Other setups: the command is in your tab on A First Example. OpenCode doesn’t ask before it acts; quit it with <code>ctrl+c</code>.</li>
 </ul>
 </section>
 <section id="step-5-look-then-undo" class="slide level2 smaller">
@@ -3615,6 +3621,7 @@ git clean -fd     # remove new files</code></pre>
 <li>Change logit.R so it uses {marginaleffects} to report the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, with a 95% confidence interval. Before you write any code, read the {marginaleffects} documentation and look at its examples. Then run logit.R and show me what it prints.</li>
 <li>Change logit.R so it uses avg_comparisons() from {marginaleffects} to report the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, with a 95% confidence interval. Before you write any code, read the help page for avg_comparisons() and look at its examples. Then run logit.R and show me what it prints.</li>
 </ol>
+<p>Your <code>logit.R</code> has only <code>x</code>. The lecture’s runs on this task used a version with a second predictor, <code>z</code>, so your answer won’t be the lecture’s 0.433.</p>
 </section>
 <section id="what-to-write-down" class="slide level2">
 <h2>What to write down</h2>
@@ -3625,7 +3632,7 @@ git clean -fd     # remove new files</code></pre>
 <li>which files changed that you didn’t ask the agent to change</li>
 <li>whether the agent said it succeeded</li>
 </ul>
-<p>The answers are at the end of the handout. Check them after you’ve run every prompt. Bring your notes to class.</p>
+<p>The answers are at the end of A First Example. Check them after you’ve run every prompt.</p>
 </section></section>
 <section>
 <section id="how-published-work-acknowledges-ai" class="title-slide slide level1 center">
@@ -3703,27 +3710,27 @@ git clean -fd     # remove new files</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Haiku fix-vague r1</td>
+<td>Haiku fix-vague r1 (run 2)</td>
 <td>“Fixed!”</td>
 <td>Rscript printed 1.309</td>
 </tr>
 <tr class="even">
-<td>Haiku fix-better r8</td>
+<td>Haiku fix-better r8 (run 3)</td>
 <td>the data file was missing</td>
 <td>it was there; a shell command overwrote it</td>
 </tr>
 <tr class="odd">
-<td>Haiku ci-better r1</td>
+<td>Haiku ci-better r1 (run 8)</td>
 <td>“delta method”</td>
 <td><code>plogis()</code> of a link-scale interval</td>
 </tr>
 <tr class="even">
-<td>qwen iqr-base r4</td>
+<td>qwen iqr-base r4 (run 7)</td>
 <td>“0.253 (the average difference in probability)”</td>
 <td><code>avg_slopes()</code></td>
 </tr>
 <tr class="odd">
-<td>gpt-oss prob-better r6</td>
+<td>gpt-oss prob-better r6 (run 6)</td>
 <td><code>$ Rscript logit.R</code> <code>[1] 0.5263029</code></td>
 <td>no Rscript call</td>
 </tr>
@@ -3733,7 +3740,7 @@ git clean -fd     # remove new files</code></pre>
 <td>no git command, no repository</td>
 </tr>
 <tr class="odd">
-<td>Haiku fix-scope r6</td>
+<td>Haiku fix-scope r6 (run 1)</td>
 <td>fixed both, prints 0.787</td>
 <td>it did (the control)</td>
 </tr>
