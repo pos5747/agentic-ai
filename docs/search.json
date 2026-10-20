@@ -179,7 +179,7 @@
     "href": "slides/slides.html#section-2",
     "title": "An Introduction to Agentic AI",
     "section": "",
-    "text": "raw data\n\n\n\nthe process\n⟶\n\n100s of decisions1000s of lines of code\n\n\n\nmanuscript"
+    "text": "raw data\n\n\n\n\n\n\nthe process\n\n100s of decisions 1000s of lines of code\n\n\n\n\n\n\nmanuscript"
   },
   {
     "objectID": "slides/slides.html#section-3",
@@ -193,14 +193,14 @@
     "href": "slides/slides.html#section-4",
     "title": "An Introduction to Agentic AI",
     "section": "",
-    "text": "raw data\n\n\n\nthe process\n⟶\n\n100s of decisions1000s of lines of code\ntidyingmodelingplotting\nprincipledimplementeddocumented\n\n\n\nmanuscript"
+    "text": "raw data\n\n\n\n\n\n\nthe process\n100s of decisions 1000s of lines of code\n\ntidying modeling plotting\n\n\nprincipled implemented documented\n\n\n\n\n\n\nmanuscript"
   },
   {
     "objectID": "slides/slides.html#section-5",
     "href": "slides/slides.html#section-5",
     "title": "An Introduction to Agentic AI",
     "section": "",
-    "text": "principled if you made correct decisions\nimplemented if you did what you decided to do\ndocumented if you can check that you did what you decided to do"
+    "text": "principled if you made correct decisions\n\n\nimplemented if you did what you decided to do\n\n\ndocumented if you can check that you did what you decided to do"
   },
   {
     "objectID": "slides/slides.html#the-paper-is-advertising",

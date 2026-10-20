@@ -4,25 +4,49 @@
 .reveal .slides section .smaller table { font-size: 0.6em; }
 .reveal pre code { font-size: 0.8em; }
 
-/* "What does a research project look like?" sequence, after Carlisle's
-   pos5737 01-sl-tools deck (pdf pp. 46-52), added 2026-10-19 */
-.reveal .big-title { color: #fff; font-weight: 700; font-size: 2.4em; line-height: 1.15; text-align: center; }
-.reveal .discuss { color: #fff; text-align: center; font-size: 1.35em; line-height: 1.3; }
-.reveal .discuss .discuss-label { display: block; text-align: left; font-size: 0.45em; margin-bottom: 2.2em; }
-.reveal .discuss .discuss-note { display: block; text-align: right; font-size: 0.45em; margin-top: 2.2em; }
-.reveal .rpm { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; gap: 0.8em; font-size: 0.9em; }
-.reveal .rpm-end { text-align: center; }
-.reveal .rpm-end p { margin: 0.2em 0; }
-.reveal .rpm-end img { max-height: 400px; margin: 0; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35); }
-.reveal .rpm-mid { text-align: center; }
-.reveal .rpm-mid p { margin: 0; }
-.reveal .rpm-arrow { font-size: 1.8em; line-height: 1; }
-.reveal .rpm-box { background: #000; color: #fff; padding: 0.4em 0.6em; font-size: 0.6em; line-height: 1.35; }
-.reveal .rpm-box p { margin: 0.5em 0; }
-.reveal .pid { text-align: center; }
-.reveal .pid p { margin: 0 0 0.9em 0; }
-.reveal .pid .pid-term { display: block; font-size: 1.7em; font-weight: 600; line-height: 1.1; }
-.reveal .pid .pid-def { display: block; font-size: 0.8em; }
+/* "What does a research project look like?" sequence. Content after
+   Carlisle's pos5737 01-sl-tools deck (pdf pp. 46-52); restyled in the deck's
+   own palette 2026-10-19: ink #1f2933, amber #b45309, muted #616e7c. The
+   diagram is plain HTML/CSS, not Mermaid, so its parts can be fragments. */
+.reveal .slides section > h2:empty { display: none; }
+
+/* Full-color slides: the question (ink) and the discussion prompts (amber) */
+.reveal .big-title { color: #fff; font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif; font-weight: 600; font-size: 2.6em; line-height: 1.1; text-align: center; letter-spacing: -0.01em; }
+.reveal .big-title::after { content: ""; display: block; width: 1.6em; height: 0.08em; margin: 0.35em auto 0; border-radius: 0.04em; background: #f59e0b; }
+.reveal .discuss { color: #fff; text-align: center; font-size: 1.3em; line-height: 1.3; max-width: 1000px; margin: 0 auto; }
+.reveal .discuss p { margin: 0; }
+.reveal .discuss .discuss-label { display: inline-block; font-size: 0.42em; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.35em 1em; border: 2px solid rgba(255, 255, 255, 0.85); border-radius: 999px; margin-bottom: 1.6em; }
+.reveal .discuss p:nth-child(2) { font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif; font-weight: 600; font-size: 1.1em; line-height: 1.15; }
+.reveal .discuss .discuss-note { display: block; font-size: 0.48em; margin-top: 1.8em; opacity: 0.85; }
+
+/* The diagram: raw data -> the process -> manuscript */
+.reveal .rp-flow { display: flex; align-items: center; justify-content: center; gap: 0; }
+.reveal .rp-node { text-align: center; }
+.reveal .rp-node p { margin: 0; }
+.reveal .rp-node img { display: block; height: 320px; width: auto; max-width: none; max-height: none; margin: 0 auto; border-radius: 6px; border: 1px solid #d9dde3; box-shadow: 0 10px 28px rgba(31, 41, 51, 0.18); }
+.reveal .rp-label { display: block; font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif; font-weight: 600; font-size: 0.62em; letter-spacing: 0.14em; text-transform: uppercase; color: #616e7c; margin-bottom: 0.7em; }
+.reveal .rp-arrow { flex: 0 0 64px; height: 4px; margin: 1.2em 22px 0 10px; background: #b45309; position: relative; }
+.reveal .rp-arrow::after { content: ""; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); border-left: 18px solid #b45309; border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
+.reveal .rp-process { width: 470px; min-height: 320px; margin-top: 1.25em; box-sizing: border-box; padding: 0.7em 0.8em; background: #1f2933; color: #fff; border-radius: 16px; box-shadow: 0 14px 34px rgba(31, 41, 51, 0.28); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.reveal .rp-process p { margin: 0; }
+.reveal .rp-process .rp-label { color: #f59e0b; margin-bottom: 0.9em; }
+.reveal .rp-big { display: block; font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif; font-weight: 600; font-size: 0.82em; line-height: 1.2; }
+.reveal .rp-steps, .reveal .rp-goals { margin-top: 1em; font-size: 0.5em; }
+.reveal .rp-steps > p, .reveal .rp-goals > p { display: flex; justify-content: center; flex-wrap: nowrap; gap: 0.35em; }
+.reveal .rp-chip { padding: 0.2em 0.6em; border: 1.5px solid rgba(255, 255, 255, 0.55); border-radius: 999px; }
+.reveal .rp-steps > p { gap: 1.5em; }
+.reveal .rp-goals { font-size: 0.47em; }
+.reveal .rp-chip + .rp-chip { position: relative; }
+.reveal .rp-chip + .rp-chip::before { content: "\203A"; position: absolute; left: -1.05em; top: 50%; transform: translateY(-50%); color: #f59e0b; font-weight: 700; }
+.reveal .rp-goal { white-space: nowrap; padding: 0.2em 0.55em; background: #b45309; border-radius: 999px; font-weight: 700; }
+
+/* principled / implemented / documented: three cards, in the order the
+   amber chips appear on the diagram */
+.reveal .pid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; text-align: left; }
+.reveal .pid-item { min-height: 5.5em; background: #fbf6ef; border-top: 6px solid #b45309; border-radius: 4px 4px 12px 12px; padding: 0.8em 0.8em 1em; }
+.reveal .pid-item p { margin: 0; }
+.reveal .pid .pid-term { display: block; font-family: "Barlow Semi Condensed", "Arial Narrow", sans-serif; font-size: 1.45em; font-weight: 600; line-height: 1.1; margin-bottom: 0.45em; }
+.reveal .pid .pid-def { display: block; font-size: 0.85em; line-height: 1.3; color: #3e4c59; }
 
 /* "A Toy Example": the buggy script, with the two bugs turned red by fragments (2026-10-19) */
 .reveal pre.toy-code { font-size: 0.6em; box-shadow: none; background: #f6f6f6; padding: 0.6em 0.8em; }

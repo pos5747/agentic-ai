@@ -484,13 +484,13 @@ All five panes agree. | The prompt said which data to use and not to touch any o
 
 Research projects, plain text, and git
 
-## {.center background-color="#7470b5"}
+## {.center background-color="#1f2933"}
 
 ::: {.big-title}
 What does a research project look like?
 :::
 
-## {.center background-color="#1e9c77"}
+## {.center background-color="#b45309"}
 
 ::: {.discuss}
 [think + write + discuss]{.discuss-label}
@@ -502,29 +502,36 @@ What are the three essential components of a great research* project?
 
 ## {.center}
 
-::: {.rpm}
-::: {.rpm-end}
-raw data
+::::: {.rp-flow}
+:::: {.rp-node}
+[raw data]{.rp-label}
 
 ![](img/raw-data.png)
-:::
-::: {.rpm-mid}
-**the process**
+::::
 
-[⟶]{.rpm-arrow}
+::: {.rp-arrow}
+:::
 
-::: {.rpm-box .fragment}
-100s of decisions<br>1000s of lines of code
+:::: {.rp-process}
+[the process]{.rp-label}
+
+::: {.fragment}
+[100s of decisions]{.rp-big}
+[1000s of lines of code]{.rp-big}
 :::
+::::
+
+::: {.rp-arrow}
 :::
-::: {.rpm-end}
-manuscript
+
+:::: {.rp-node}
+[manuscript]{.rp-label}
 
 ![](img/manuscript.png)
-:::
-:::
+::::
+:::::
 
-## {.center background-color="#1e9c77"}
+## {.center background-color="#b45309"}
 
 ::: {.discuss}
 [think + write + discuss]{.discuss-label}
@@ -536,43 +543,62 @@ What characteristics should the process* have?
 
 ## {.center}
 
-::: {.rpm}
-::: {.rpm-end}
-raw data
+::::: {.rp-flow}
+:::: {.rp-node}
+[raw data]{.rp-label}
 
 ![](img/raw-data.png)
+::::
+
+::: {.rp-arrow}
 :::
-::: {.rpm-mid}
-**the process**
 
-[⟶]{.rpm-arrow}
+:::: {.rp-process}
+[the process]{.rp-label}
 
-::: {.rpm-box}
-100s of decisions<br>1000s of lines of code
+[100s of decisions]{.rp-big}
+[1000s of lines of code]{.rp-big}
 
-[tidying<br>modeling<br>plotting]{.fragment}
-
-[principled<br>implemented<br>documented]{.fragment}
+::: {.rp-steps .fragment}
+[tidying]{.rp-chip}
+[modeling]{.rp-chip}
+[plotting]{.rp-chip}
 :::
+
+::: {.rp-goals .fragment}
+[principled]{.rp-goal}
+[implemented]{.rp-goal}
+[documented]{.rp-goal}
 :::
-::: {.rpm-end}
-manuscript
+::::
+
+::: {.rp-arrow}
+:::
+
+:::: {.rp-node}
+[manuscript]{.rp-label}
 
 ![](img/manuscript.png)
-:::
-:::
+::::
+:::::
 
 ## {.center}
 
 ::: {.pid}
+:::: {.pid-item}
 [principled]{.pid-term}
 [if you made correct decisions]{.pid-def}
+::::
 
+:::: {.pid-item}
 [implemented]{.pid-term}
 [if you did what you decided to do]{.pid-def}
+::::
 
+:::: {.pid-item}
 [documented]{.pid-term}
 [if you can check that you did what you decided to do]{.pid-def}
+::::
 :::
 
 ## The paper is advertising
