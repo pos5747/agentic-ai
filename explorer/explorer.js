@@ -269,9 +269,18 @@
     if (r.dataChanged) {
       if (r.dataWrites && r.dataWrites.length) {
         for (const w of r.dataWrites) {
-          out.push(el("details", { class: "rx-file" }, el("summary", {}, WRITE_LABEL[w.how], el("code", {}, "data.csv")), el("pre", { class: "rx-out" }, w.text)));
+          out.push(
+            el(
+              "details",
+              { class: "rx-file" },
+              el("summary", {}, WRITE_LABEL[w.how], el("code", {}, "data.csv")),
+              el("pre", { class: "rx-out" }, w.text),
+              el("div", { class: "rx-resp-label" }, "The tool's response:"),
+              el("pre", { class: "rx-out" }, w.resp || "(none)")
+            )
+          );
         }
-      } else out.push(el("p", { class: "rx-empty" }, "The log does not show what it wrote."));
+      } else out.push(el("p", { class: "rx-empty" }, "See the conversation for how it changed."));
     }
     for (const f of r.newFiles) {
       out.push(el("details", { class: "rx-file" }, el("summary", {}, "New file: ", el("code", {}, f.name)), el("pre", { class: "rx-out" }, f.text)));
