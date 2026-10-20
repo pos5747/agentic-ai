@@ -1824,6 +1824,60 @@ $ claude --model sonnet</code></pre>
 <p>Haiku: $0.10 / $0.50 for prompts up to 100,000 tokens; $0.50 / $2.50 above. Source: platform.claude.com/docs, “Models overview” and “Choosing a model,” read 2026-10-18.</p>
 </div>
 </section>
+<section id="two-local-models" class="slide level2 smaller">
+<h2>Two local models</h2>
+<div class="models-table">
+<table class="caption-top">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Ollama’s description</th>
+<th>What it’s for</th>
+<th>Memory / download</th>
+<th>Median seconds per run (our runs)</th>
+<th>API price</th>
+<th>Released</th>
+<th>My mental model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>qwen3-coder:30b</code> (Alibaba; 30.5B parameters, 3.3B active)</td>
+<td>“Alibaba’s performant long context models for agentic and coding tasks.”</td>
+<td>“Exceptional agentic capabilities for real-world software engineering tasks.”</td>
+<td>32 GB / 19 GB</td>
+<td>32</td>
+<td>None: it runs on your computer</td>
+<td>Jul 31, 2025</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>gpt-oss:20b</code> (OpenAI; 21B parameters, 3.6B active)</td>
+<td>“OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.”</td>
+<td>“designed for lower latency, local, or specialized use-cases”</td>
+<td>16 GB / 14 GB</td>
+<td>27</td>
+<td>None: it runs on your computer</td>
+<td>Aug 5, 2025</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="small">
+<p>Both are open-weight (Apache 2.0) and run through Ollama. Memory is what our setup pages ask for; the download is Ollama’s. Median seconds are from the September runs in OpenCode on an M2 Max with 32 GB (Haiku and Sonnet: 14). Sources: ollama.com/library/qwen3-coder and /gpt-oss; the Hugging Face model cards (release dates are the repositories’ creation dates), read 2026-10-20.</p>
+</div>
+</section>
 <section id="choosing-a-model" class="slide level2 smaller">
 <h2>Choosing a model</h2>
 <div class="quote">
@@ -1842,169 +1896,6 @@ $ claude --model sonnet</code></pre>
 <li>Opus is for work requiring judgment. I give it instructions that require gaps filled in or judgment.</li>
 <li>Fable is for managing collections of tasks, where multiple parts are coming together and different subagents are working on different parts.</li>
 </ul>
-</section></section>
-<section>
-<section id="watching-an-agent-work" class="title-slide slide level1 center">
-<h1>Watching an agent work</h1>
-<p>Runs 1–6 and 8 used the September script, with only <code>x</code>. Run 7 used today’s, with <code>z</code>. We’ll re-run the others on today’s script after class.</p>
-</section>
-<section id="five-things-to-watch" class="slide level2 gui-slide">
-<h2>Five things to watch</h2>
-<div class="agent-gui anatomy">
-<div class="bar"><span class="title">Five things to watch</span><span class="path">~/project</span></div>
-<div class="col left">
-<div class="pane code">
-<div class="pane-title"><span class="role">The code</span><span class="name">RStudio</span></div>
-<div class="pane-body">
-<div class="big">The code</div>
-<div class="tells">Why the output is what it is.</div>
-<div class="but">Read what changed, not the whole file.</div>
-</div>
-</div>
-<div class="pane out">
-<div class="pane-title"><span class="role">The output</span><span class="name">R</span></div>
-<div class="pane-body">
-<div class="big">The output</div>
-<div class="tells">What the code actually does.</div>
-<div class="but">Only if you ran it yourself.</div>
-</div>
-</div>
-</div>
-<div class="col right">
-<div class="pane diff">
-<div class="pane-title"><span class="role">The diff</span><span class="name">GitHub Desktop</span></div>
-<div class="pane-body">
-<div class="big">The diff</div>
-<div class="tells">What the agent actually changed.</div>
-<div class="but">Not files that git ignores.</div>
-</div>
-</div>
-<div class="pane chat">
-<div class="pane-title"><span class="role">The conversation</span><span class="name">Claude Code</span></div>
-<div class="pane-body">
-<div class="big">The conversation</div>
-<div class="tells">What the agent says it did.</div>
-<div class="but">A claim. Check it against the other four.</div>
-</div>
-</div>
-</div>
-<div class="pane files">
-<div class="pane-title"><span class="role">The files</span><span class="name">project folder</span></div>
-<div class="pane-body">
-<div class="big">The files</div>
-<div class="tells">Whether anything else changed.</div>
-<div class="but">A data file should almost never change.</div>
-</div>
-</div>
-<div class="status"><span>One project folder of plain-text files. Five views of it.</span></div>
-</div>
-</section>
-<section id="run-1" class="slide level2 gui-slide" data-count="1" data-of="8">
-<h2>Run 1</h2>
-<div class="teaser">
-<div class="count"><span class="num">1</span><span class="of">of 8</span></div>
-<div class="tbody">
-<div class="setup">An eight-line script, one data file, two bugs. We ask carefully.</div>
-<div class="tprompt"><span class="who">Claude Code · Haiku</span>Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, using the data in data.csv. Don&#39;t create or change any other file.</div>
-<div class="tease fragment">The agent will say it prints the correct probability.</div>
-<div class="tease q fragment"><div class="mini"><div class="mcol"><i class="code"></i><i class="out"></i></div><div class="mcol"><i class="diff"></i><i class="chat"></i></div><i class="files"></i></div><span>Check all five panes.</span></div>
-</div>
-</div>
-</section>
-<section id="a-scoped-prompt" class="slide level2 gui-slide" data-agent="Claude Code · Haiku" data-code="1.25" data-out="1" data-diff="0.5" data-chat="1.5">
-<h2>1 · A scoped prompt</h2>
-<div class="agent-gui tex2jax_ignore" style="--code: 1.25; --out: 1; --diff: 0.5; --chat: 1.5;">
-<div class="bar"><span class="title">1 · A scoped prompt</span><span class="path">~/project</span></div>
-<div class="col left">
-<div class="pane code">
-<div class="pane-title"><span class="role">The code</span><span class="name">RStudio · logit.R</span></div>
-<div class="pane-body">
-<div class="fragment until quiet" data-fragment-index="1">
-<div class="ln"><span class="n">1</span><span class="cm"># fit a logit model and report one predicted probability</span></div>
-<div class="ln"><span class="n">2</span>dat &lt;- read.csv(<span class="st">&quot;data.csv&quot;</span>)</div>
-<div class="ln"><span class="n">3</span></div>
-<div class="ln"><span class="n">4</span>fit &lt;- glm(y ~ x, family = binomal, data = dat)</div>
-<div class="ln"><span class="n">5</span></div>
-<div class="ln"><span class="n">6</span><span class="cm"># predicted probability that y = 1 when x = 1</span></div>
-<div class="ln"><span class="n">7</span>pr &lt;- predict(fit, newdata = data.frame(x = 1))</div>
-<div class="ln"><span class="n">8</span>print(pr)</div>
-</div>
-<div class="fragment step" data-fragment-index="1">
-<div class="ln"><span class="n">1</span><span class="cm"># fit a logit model and report one predicted probability</span></div>
-<div class="ln"><span class="n">2</span>dat &lt;- read.csv(<span class="st">&quot;data.csv&quot;</span>)</div>
-<div class="ln"><span class="n">3</span></div>
-<div class="ln"><span class="n">4</span>fit &lt;- glm(y ~ x, family = binomial, data = dat)</div>
-<div class="ln"><span class="n">5</span></div>
-<div class="ln"><span class="n">6</span><span class="cm"># predicted probability that y = 1 when x = 1</span></div>
-<div class="ln"><span class="n">7</span>pr &lt;- predict(fit, newdata = data.frame(x = 1), type = <span class="st">&quot;response&quot;</span>)</div>
-<div class="ln"><span class="n">8</span>print(pr)</div>
-</div>
-</div>
-</div>
-<div class="pane out">
-<div class="pane-title"><span class="role">The output</span><span class="name">R · you run it</span></div>
-<div class="pane-body"><span class="idle fragment until quiet" data-fragment-index="2">Not run yet.</span><span class="fragment step" data-fragment-index="2"><span class="cmd">$ Rscript logit.R</span>
-        1
-0.7874273</span></div>
-</div>
-</div>
-<div class="col right">
-<div class="pane diff">
-<div class="pane-title"><span class="role">The diff</span><span class="name">GitHub Desktop</span></div>
-<div class="pane-body">
-<div class="idle fragment until quiet" data-fragment-index="1">No changes yet.</div>
-<div class="fragment step" data-fragment-index="1">
-<div class="dfile"><span>logit.R</span><span class="cnt">+2 −2</span></div>
-<div class="dl del">-fit &lt;- glm(y ~ x, family = binomal, data = dat)</div>
-<div class="dl add">+fit &lt;- glm(y ~ x, family = binomial, data = dat)</div>
-<div class="dl del">-pr &lt;- predict(fit, newdata = data.frame(x = 1))</div>
-<div class="dl add">+pr &lt;- predict(fit, newdata = data.frame(x = 1), type = &quot;response&quot;)</div>
-</div>
-</div>
-</div>
-<div class="pane chat">
-<div class="pane-title"><span class="role">The conversation</span><span class="name">Claude Code · Haiku</span></div>
-<div class="pane-body">
-<div class="idle fragment until quiet" data-fragment-index="0">No prompt yet.</div>
-<div class="msg user fragment step" data-fragment-index="0">Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, <span class="fragment flag" data-fragment-index="3">using the data in data.csv. Don&#39;t create or change any other file.</span></div>
-<div class="fragment step" data-fragment-index="1">
-<div class="msg cut">…</div>
-<div class="msg tool">Bash(Rscript logit.R)</div>
-<div class="msg res">       1
-1.309487</div>
-<div class="msg say">The script runs but produces a wrong answer. The output is 1.309487, which is outside the range [0, 1] for a probability. This is the log-odds, not a probability. I need to add <span class="ic">type = &quot;response&quot;</span> to get the predicted probability:</div>
-<div class="msg tool">Edit(logit.R)</div>
-<div class="msg cut">…</div>
-<div class="msg tool">Bash(Rscript logit.R)</div>
-<div class="msg res">        1
-0.7874273</div>
-<div class="msg cut">…</div>
-<div class="msg say">The script now runs successfully and outputs the correct predicted probability.</div>
-</div>
-</div>
-</div>
-</div>
-<div class="pane files">
-<div class="pane-title"><span class="role">The files</span><span class="name">project folder</span></div>
-<div class="pane-body">
-<div class="fsec">Project</div>
-<div class="f dir"><span>project/</span></div>
-<div class="f child"><span>data.csv</span></div>
-<div class="f child"><span>logit.R</span><span class="badge fragment step" data-fragment-index="1">M</span></div>
-<div class="fsec">Changes</div>
-<div class="f fragment until quiet" data-fragment-index="1"><span>none</span></div>
-<div class="f fragment step quiet" data-fragment-index="1"><span>1 file</span></div>
-<div class="legend"><b>M</b> modified<br><b>A</b> added<br><b>D</b> deleted</div>
-</div>
-</div>
-<div class="status">
-<span class="fragment until quiet" data-fragment-index="0">A project folder with one script and one data file.</span>
-<span class="fragment now quiet" data-fragment-index="0"><b>1 · You type the scoped prompt.</b>Nothing else changes.</span>
-<span class="fragment now quiet" data-fragment-index="1"><b>2 · The agent replies.</b>One file changes, in two places.</span>
-<span class="fragment now quiet" data-fragment-index="2"><b>3 · You run the code.</b>0.787 is a probability.</span>
-<span class="fragment now quiet" data-fragment-index="3"><b>All five panes agree.</b>The prompt said which data to use and not to touch any other file.</span>
-</div>
-</div>
 </section></section>
 <section>
 <section id="how-do-you-know-what-it-did" class="title-slide slide level1 center">
@@ -2282,6 +2173,169 @@ nothing to commit, working tree clean</code></pre>
 <p>Discarding can’t be undone. If a change is worth keeping, commit it first.</p>
 <div class="small">
 <p>GitHub Desktop: <em>Branch</em> &gt; <em>Discard All Changes…</em> In the terminal, <code>git restore .</code> leaves files that git doesn’t track yet (new files an agent created). <code>git clean -fd</code> removes those.</p>
+</div>
+</section></section>
+<section>
+<section id="watching-an-agent-work" class="title-slide slide level1 center">
+<h1>Watching an agent work</h1>
+<p>Runs 1–6 and 8 used the September script, with only <code>x</code>. Run 7 used today’s, with <code>z</code>. We’ll re-run the others on today’s script after class.</p>
+</section>
+<section id="five-things-to-watch" class="slide level2 gui-slide">
+<h2>Five things to watch</h2>
+<div class="agent-gui anatomy">
+<div class="bar"><span class="title">Five things to watch</span><span class="path">~/project</span></div>
+<div class="col left">
+<div class="pane code">
+<div class="pane-title"><span class="role">The code</span><span class="name">RStudio</span></div>
+<div class="pane-body">
+<div class="big">The code</div>
+<div class="tells">Why the output is what it is.</div>
+<div class="but">Read what changed, not the whole file.</div>
+</div>
+</div>
+<div class="pane out">
+<div class="pane-title"><span class="role">The output</span><span class="name">R</span></div>
+<div class="pane-body">
+<div class="big">The output</div>
+<div class="tells">What the code actually does.</div>
+<div class="but">Only if you ran it yourself.</div>
+</div>
+</div>
+</div>
+<div class="col right">
+<div class="pane diff">
+<div class="pane-title"><span class="role">The diff</span><span class="name">GitHub Desktop</span></div>
+<div class="pane-body">
+<div class="big">The diff</div>
+<div class="tells">What the agent actually changed.</div>
+<div class="but">Not files that git ignores.</div>
+</div>
+</div>
+<div class="pane chat">
+<div class="pane-title"><span class="role">The conversation</span><span class="name">Claude Code</span></div>
+<div class="pane-body">
+<div class="big">The conversation</div>
+<div class="tells">What the agent says it did.</div>
+<div class="but">A claim. Check it against the other four.</div>
+</div>
+</div>
+</div>
+<div class="pane files">
+<div class="pane-title"><span class="role">The files</span><span class="name">project folder</span></div>
+<div class="pane-body">
+<div class="big">The files</div>
+<div class="tells">Whether anything else changed.</div>
+<div class="but">A data file should almost never change.</div>
+</div>
+</div>
+<div class="status"><span>One project folder of plain-text files. Five views of it.</span></div>
+</div>
+</section>
+<section id="run-1" class="slide level2 gui-slide" data-count="1" data-of="8">
+<h2>Run 1</h2>
+<div class="teaser">
+<div class="count"><span class="num">1</span><span class="of">of 8</span></div>
+<div class="tbody">
+<div class="setup">An eight-line script, one data file, two bugs. We ask carefully.</div>
+<div class="tprompt"><span class="who">Claude Code · Haiku</span>Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, using the data in data.csv. Don&#39;t create or change any other file.</div>
+<div class="tease fragment">The agent will say it prints the correct probability.</div>
+<div class="tease q fragment"><div class="mini"><div class="mcol"><i class="code"></i><i class="out"></i></div><div class="mcol"><i class="diff"></i><i class="chat"></i></div><i class="files"></i></div><span>Check all five panes.</span></div>
+</div>
+</div>
+</section>
+<section id="a-scoped-prompt" class="slide level2 gui-slide" data-agent="Claude Code · Haiku" data-code="1.25" data-out="1" data-diff="0.5" data-chat="1.5">
+<h2>1 · A scoped prompt</h2>
+<div class="agent-gui tex2jax_ignore" style="--code: 1.25; --out: 1; --diff: 0.5; --chat: 1.5;">
+<div class="bar"><span class="title">1 · A scoped prompt</span><span class="path">~/project</span></div>
+<div class="col left">
+<div class="pane code">
+<div class="pane-title"><span class="role">The code</span><span class="name">RStudio · logit.R</span></div>
+<div class="pane-body">
+<div class="fragment until quiet" data-fragment-index="1">
+<div class="ln"><span class="n">1</span><span class="cm"># fit a logit model and report one predicted probability</span></div>
+<div class="ln"><span class="n">2</span>dat &lt;- read.csv(<span class="st">&quot;data.csv&quot;</span>)</div>
+<div class="ln"><span class="n">3</span></div>
+<div class="ln"><span class="n">4</span>fit &lt;- glm(y ~ x, family = binomal, data = dat)</div>
+<div class="ln"><span class="n">5</span></div>
+<div class="ln"><span class="n">6</span><span class="cm"># predicted probability that y = 1 when x = 1</span></div>
+<div class="ln"><span class="n">7</span>pr &lt;- predict(fit, newdata = data.frame(x = 1))</div>
+<div class="ln"><span class="n">8</span>print(pr)</div>
+</div>
+<div class="fragment step" data-fragment-index="1">
+<div class="ln"><span class="n">1</span><span class="cm"># fit a logit model and report one predicted probability</span></div>
+<div class="ln"><span class="n">2</span>dat &lt;- read.csv(<span class="st">&quot;data.csv&quot;</span>)</div>
+<div class="ln"><span class="n">3</span></div>
+<div class="ln"><span class="n">4</span>fit &lt;- glm(y ~ x, family = binomial, data = dat)</div>
+<div class="ln"><span class="n">5</span></div>
+<div class="ln"><span class="n">6</span><span class="cm"># predicted probability that y = 1 when x = 1</span></div>
+<div class="ln"><span class="n">7</span>pr &lt;- predict(fit, newdata = data.frame(x = 1), type = <span class="st">&quot;response&quot;</span>)</div>
+<div class="ln"><span class="n">8</span>print(pr)</div>
+</div>
+</div>
+</div>
+<div class="pane out">
+<div class="pane-title"><span class="role">The output</span><span class="name">R · you run it</span></div>
+<div class="pane-body"><span class="idle fragment until quiet" data-fragment-index="2">Not run yet.</span><span class="fragment step" data-fragment-index="2"><span class="cmd">$ Rscript logit.R</span>
+        1
+0.7874273</span></div>
+</div>
+</div>
+<div class="col right">
+<div class="pane diff">
+<div class="pane-title"><span class="role">The diff</span><span class="name">GitHub Desktop</span></div>
+<div class="pane-body">
+<div class="idle fragment until quiet" data-fragment-index="1">No changes yet.</div>
+<div class="fragment step" data-fragment-index="1">
+<div class="dfile"><span>logit.R</span><span class="cnt">+2 −2</span></div>
+<div class="dl del">-fit &lt;- glm(y ~ x, family = binomal, data = dat)</div>
+<div class="dl add">+fit &lt;- glm(y ~ x, family = binomial, data = dat)</div>
+<div class="dl del">-pr &lt;- predict(fit, newdata = data.frame(x = 1))</div>
+<div class="dl add">+pr &lt;- predict(fit, newdata = data.frame(x = 1), type = &quot;response&quot;)</div>
+</div>
+</div>
+</div>
+<div class="pane chat">
+<div class="pane-title"><span class="role">The conversation</span><span class="name">Claude Code · Haiku</span></div>
+<div class="pane-body">
+<div class="idle fragment until quiet" data-fragment-index="0">No prompt yet.</div>
+<div class="msg user fragment step" data-fragment-index="0">Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, <span class="fragment flag" data-fragment-index="3">using the data in data.csv. Don&#39;t create or change any other file.</span></div>
+<div class="fragment step" data-fragment-index="1">
+<div class="msg cut">…</div>
+<div class="msg tool">Bash(Rscript logit.R)</div>
+<div class="msg res">       1
+1.309487</div>
+<div class="msg say">The script runs but produces a wrong answer. The output is 1.309487, which is outside the range [0, 1] for a probability. This is the log-odds, not a probability. I need to add <span class="ic">type = &quot;response&quot;</span> to get the predicted probability:</div>
+<div class="msg tool">Edit(logit.R)</div>
+<div class="msg cut">…</div>
+<div class="msg tool">Bash(Rscript logit.R)</div>
+<div class="msg res">        1
+0.7874273</div>
+<div class="msg cut">…</div>
+<div class="msg say">The script now runs successfully and outputs the correct predicted probability.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pane files">
+<div class="pane-title"><span class="role">The files</span><span class="name">project folder</span></div>
+<div class="pane-body">
+<div class="fsec">Project</div>
+<div class="f dir"><span>project/</span></div>
+<div class="f child"><span>data.csv</span></div>
+<div class="f child"><span>logit.R</span><span class="badge fragment step" data-fragment-index="1">M</span></div>
+<div class="fsec">Changes</div>
+<div class="f fragment until quiet" data-fragment-index="1"><span>none</span></div>
+<div class="f fragment step quiet" data-fragment-index="1"><span>1 file</span></div>
+<div class="legend"><b>M</b> modified<br><b>A</b> added<br><b>D</b> deleted</div>
+</div>
+</div>
+<div class="status">
+<span class="fragment until quiet" data-fragment-index="0">A project folder with one script and one data file.</span>
+<span class="fragment now quiet" data-fragment-index="0"><b>1 · You type the scoped prompt.</b>Nothing else changes.</span>
+<span class="fragment now quiet" data-fragment-index="1"><b>2 · The agent replies.</b>One file changes, in two places.</span>
+<span class="fragment now quiet" data-fragment-index="2"><b>3 · You run the code.</b>0.787 is a probability.</span>
+<span class="fragment now quiet" data-fragment-index="3"><b>All five panes agree.</b>The prompt said which data to use and not to touch any other file.</span>
+</div>
 </div>
 </section>
 <section id="three-things-that-can-go-wrong" class="slide level2 gui-slide">

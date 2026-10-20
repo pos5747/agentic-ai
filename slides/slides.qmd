@@ -43,10 +43,10 @@
 # 6 tasks and 13 prompts with qwen (added 2026-10-20 at Carlisle's request:
 # qwen's r1 of each homework prompt from results/full-qwen/, quotes checked
 # against log.jsonl, the better prompts' new words marked [..]{.added});
-# The Claude models; Watching an agent work
-# (five panes, run 1, the clean run); How do you know what it did? (the
-# pos5737 research-project sequence, plain text); Git; Three things that
-# can go wrong (runs 2-4, with "Run 3: status" and "Run 3: the diff of the
+# The Claude models (incl. "Two local models", 2026-10-20); How do you know
+# what it did? (the pos5737 research-project sequence, plain text); Git;
+# Watching an agent work (five panes, run 1, the clean run; moved after Git
+# 2026-10-20 at Carlisle's request); Three things that can go wrong (runs 2-4, with "Run 3: status" and "Run 3: the diff of the
 # data" after run 3); Four more runs (5-8); Four models, fifteen prompts;
 # Across steps; Your turn (the homework
 # walkthrough; the full steps are on the site's A First Example page); How published work
@@ -615,6 +615,19 @@ As Anthropic describes them, October 2026
 Haiku: $0.10 / $0.50 for prompts up to 100,000 tokens; $0.50 / $2.50 above. Source: platform.claude.com/docs, "Models overview" and "Choosing a model," read 2026-10-18.
 :::
 
+## Two local models {.smaller}
+
+::: {.models-table}
+| Model | Ollama's description | What it's for | Memory / download | Median seconds per run (our runs) | API price | Released | My mental model |
+|---|---|---|---|---|---|---|---|
+| `qwen3-coder:30b` (Alibaba; 30.5B parameters, 3.3B active) | "Alibaba's performant long context models for agentic and coding tasks." | "Exceptional agentic capabilities for real-world software engineering tasks." | 32 GB / 19 GB | 32 | None: it runs on your computer | Jul 31, 2025 | |
+| `gpt-oss:20b` (OpenAI; 21B parameters, 3.6B active) | "OpenAI's open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases." | "designed for lower latency, local, or specialized use-cases" | 16 GB / 14 GB | 27 | None: it runs on your computer | Aug 5, 2025 | |
+:::
+
+::: {.small}
+Both are open-weight (Apache 2.0) and run through Ollama. Memory is what our setup pages ask for; the download is Ollama's. Median seconds are from the September runs in OpenCode on an M2 Max with 32 GB (Haiku and Sonnet: 14). Sources: ollama.com/library/qwen3-coder and /gpt-oss; the Hugging Face model cards (release dates are the repositories' creation dates), read 2026-10-20.
+:::
+
 ## Choosing a model {.smaller}
 
 ::: {.quote}
@@ -633,95 +646,6 @@ My mental model (it isn't quite right):
 - Sonnet is for mechanical work. I give it precise instructions. It follows them.
 - Opus is for work requiring judgment. I give it instructions that require gaps filled in or judgment.
 - Fable is for managing collections of tasks, where multiple parts are coming together and different subagents are working on different parts.
-
-# Watching an agent work
-
-Runs 1–6 and 8 used the September script, with only `x`. Run 7 used today's, with `z`. We'll re-run the others on today's script after class.
-
-## Five things to watch {.anatomy}
-
-```{.panes}
-code  | RStudio        | The code         | Why the output is what it is.   | Read what changed, not the whole file.
-out   | R              | The output       | What the code actually does.    | Only if you ran it yourself.
-diff  | GitHub Desktop | The diff         | What the agent actually changed. | Not files that git ignores.
-chat  | Claude Code    | The conversation | What the agent says it did.     | A claim. Check it against the other four.
-files | project folder | The files        | Whether anything else changed.  | A data file should almost never change.
-```
-
-One project folder of plain-text files. Five views of it.
-
-## Run 1 {.teaser count="1" of="8"}
-
-An eight-line script, one data file, two bugs. We ask carefully.
-
-```{.prompt agent="Claude Code · Haiku"}
-Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, using the data in data.csv. Don't create or change any other file.
-```
-
-. . .
-
-The agent will say it prints the correct probability.
-
-Check all five panes.
-
-## 1 · A scoped prompt {.agent-gui agent="Claude Code · Haiku" code=1.25 out=1 diff=0.5 chat=1.5}
-
-```{.chat}
-> Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, ==using the data in data.csv. Don't create or change any other file.==
-...
-* Bash(Rscript logit.R)
-|        1
-| 1.309487
-The script runs but produces a wrong answer. The output is 1.309487, which is outside the range [0, 1] for a probability. This is the log-odds, not a probability. I need to add `type = "response"` to get the predicted probability:
-* Edit(logit.R)
-...
-* Bash(Rscript logit.R)
-|         1
-| 0.7874273
-...
-The script now runs successfully and outputs the correct predicted probability.
-```
-
-```{.code}
-# fit a logit model and report one predicted probability
-dat <- read.csv("data.csv")
-
-fit <- glm(y ~ x, family = binomal, data = dat)
-
-# predicted probability that y = 1 when x = 1
-pr <- predict(fit, newdata = data.frame(x = 1))
-print(pr)
-```
-
-```{.after}
-# fit a logit model and report one predicted probability
-dat <- read.csv("data.csv")
-
-fit <- glm(y ~ x, family = binomial, data = dat)
-
-# predicted probability that y = 1 when x = 1
-pr <- predict(fit, newdata = data.frame(x = 1), type = "response")
-print(pr)
-```
-
-```{.output}
-$ Rscript logit.R
-        1
-0.7874273
-```
-
-```{.files}
-data.csv
-logit.R   M
-```
-
-```{.captions}
-A project folder with one script and one data file.
-You type the scoped prompt. | Nothing else changes.
-The agent replies. | One file changes, in two places.
-You run the code. | 0.787 is a probability.
-All five panes agree. | The prompt said which data to use and not to touch any other file.
-```
 
 # How do you know what it did?
 
@@ -1060,6 +984,95 @@ Discarding can't be undone. If a change is worth keeping, commit it first.
 ::: {.small}
 GitHub Desktop: *Branch* > *Discard All Changes...* In the terminal, `git restore .` leaves files that git doesn't track yet (new files an agent created). `git clean -fd` removes those.
 :::
+
+# Watching an agent work
+
+Runs 1–6 and 8 used the September script, with only `x`. Run 7 used today's, with `z`. We'll re-run the others on today's script after class.
+
+## Five things to watch {.anatomy}
+
+```{.panes}
+code  | RStudio        | The code         | Why the output is what it is.   | Read what changed, not the whole file.
+out   | R              | The output       | What the code actually does.    | Only if you ran it yourself.
+diff  | GitHub Desktop | The diff         | What the agent actually changed. | Not files that git ignores.
+chat  | Claude Code    | The conversation | What the agent says it did.     | A claim. Check it against the other four.
+files | project folder | The files        | Whether anything else changed.  | A data file should almost never change.
+```
+
+One project folder of plain-text files. Five views of it.
+
+## Run 1 {.teaser count="1" of="8"}
+
+An eight-line script, one data file, two bugs. We ask carefully.
+
+```{.prompt agent="Claude Code · Haiku"}
+Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, using the data in data.csv. Don't create or change any other file.
+```
+
+. . .
+
+The agent will say it prints the correct probability.
+
+Check all five panes.
+
+## 1 · A scoped prompt {.agent-gui agent="Claude Code · Haiku" code=1.25 out=1 diff=0.5 chat=1.5}
+
+```{.chat}
+> Find and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, ==using the data in data.csv. Don't create or change any other file.==
+...
+* Bash(Rscript logit.R)
+|        1
+| 1.309487
+The script runs but produces a wrong answer. The output is 1.309487, which is outside the range [0, 1] for a probability. This is the log-odds, not a probability. I need to add `type = "response"` to get the predicted probability:
+* Edit(logit.R)
+...
+* Bash(Rscript logit.R)
+|         1
+| 0.7874273
+...
+The script now runs successfully and outputs the correct predicted probability.
+```
+
+```{.code}
+# fit a logit model and report one predicted probability
+dat <- read.csv("data.csv")
+
+fit <- glm(y ~ x, family = binomal, data = dat)
+
+# predicted probability that y = 1 when x = 1
+pr <- predict(fit, newdata = data.frame(x = 1))
+print(pr)
+```
+
+```{.after}
+# fit a logit model and report one predicted probability
+dat <- read.csv("data.csv")
+
+fit <- glm(y ~ x, family = binomial, data = dat)
+
+# predicted probability that y = 1 when x = 1
+pr <- predict(fit, newdata = data.frame(x = 1), type = "response")
+print(pr)
+```
+
+```{.output}
+$ Rscript logit.R
+        1
+0.7874273
+```
+
+```{.files}
+data.csv
+logit.R   M
+```
+
+```{.captions}
+A project folder with one script and one data file.
+You type the scoped prompt. | Nothing else changes.
+The agent replies. | One file changes, in two places.
+You run the code. | 0.787 is a probability.
+All five panes agree. | The prompt said which data to use and not to touch any other file.
+```
 
 ## Three things that can go wrong {.opener}
 

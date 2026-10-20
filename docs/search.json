@@ -203,32 +203,18 @@
     "text": "Four current models\n\n\n\n\n\n\n\n\n\n\n\n\n\nModel\nAnthropic’s description\nWhen you need…\nLatency\nAPI price per million tokens, input / output\nReleased\nMy mental model\n\n\n\n\nClaude Fable 5.1 claude-fable-5-1\n“For demanding reasoning and long-horizon agentic work”\n“The highest available capability”\nSlower\n$10 / $50\nSep 1, 2026\nFor managing collections of tasks, where multiple parts are coming together and different subagents are working on different parts.\n\n\nClaude Opus 5.5 claude-opus-5-5\n“For long-running agentic coding and knowledge work”\n“Complex agentic coding and enterprise work”\nModerate\n$4 / $20\nSep 22, 2026\nFor work requiring judgment. I give it instructions that require gaps filled in or judgment.\n\n\nClaude Sonnet 5.5 claude-sonnet-5-5\n“The best combination of speed and intelligence”\n“Speed and capability for everyday coding, agent, and enterprise workloads”\nFast\n$2 / $10\nSep 28, 2026\nFor mechanical work. I give it precise instructions. It follows them.\n\n\nClaude Haiku 5.5 claude-haiku-5-5\n“For high-volume, latency-sensitive tasks such as classification, extraction, and routing”\n“The lowest latency and price”\nFastest\nfrom $0.10 / $0.50\nOct 7, 2026\nI never use Haiku. Sonnet is cheap and is more likely to push back if I ask it to do something wrong.\n\n\n\n\n\nHaiku: $0.10 / $0.50 for prompts up to 100,000 tokens; $0.50 / $2.50 above. Source: platform.claude.com/docs, “Models overview” and “Choosing a model,” read 2026-10-18."
   },
   {
+    "objectID": "slides/slides.html#two-local-models",
+    "href": "slides/slides.html#two-local-models",
+    "title": "An Introduction to Agentic AI",
+    "section": "Two local models",
+    "text": "Two local models\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nModel\nOllama’s description\nWhat it’s for\nMemory / download\nMedian seconds per run (our runs)\nAPI price\nReleased\nMy mental model\n\n\n\n\nqwen3-coder:30b (Alibaba; 30.5B parameters, 3.3B active)\n“Alibaba’s performant long context models for agentic and coding tasks.”\n“Exceptional agentic capabilities for real-world software engineering tasks.”\n32 GB / 19 GB\n32\nNone: it runs on your computer\nJul 31, 2025\n\n\n\ngpt-oss:20b (OpenAI; 21B parameters, 3.6B active)\n“OpenAI’s open-weight models designed for powerful reasoning, agentic tasks, and versatile developer use cases.”\n“designed for lower latency, local, or specialized use-cases”\n16 GB / 14 GB\n27\nNone: it runs on your computer\nAug 5, 2025\n\n\n\n\n\n\nBoth are open-weight (Apache 2.0) and run through Ollama. Memory is what our setup pages ask for; the download is Ollama’s. Median seconds are from the September runs in OpenCode on an M2 Max with 32 GB (Haiku and Sonnet: 14). Sources: ollama.com/library/qwen3-coder and /gpt-oss; the Hugging Face model cards (release dates are the repositories’ creation dates), read 2026-10-20."
+  },
+  {
     "objectID": "slides/slides.html#choosing-a-model",
     "href": "slides/slides.html#choosing-a-model",
     "title": "An Introduction to Agentic AI",
     "section": "Choosing a model",
     "text": "Choosing a model\n\n“If you’re unsure which model to use, start with Claude Opus 5.5 for most workloads. Use Claude Fable 5.1 for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short.”\n\n\n“Tuning effort is often a better lever than switching models.”\n\n\n“Start efficiency-first”: “Begin implementation with Claude Haiku 5.5.” … “Upgrade only if necessary for specific capability gaps.”\n“Start capability-first”: “Implement with Claude Opus 5.5.” … “Consider increasing efficiency by lowering effort or downgrading models over time with greater workflow optimization.”\n\nMy mental model (it isn’t quite right):\n\nSonnet is for mechanical work. I give it precise instructions. It follows them.\nOpus is for work requiring judgment. I give it instructions that require gaps filled in or judgment.\nFable is for managing collections of tasks, where multiple parts are coming together and different subagents are working on different parts."
-  },
-  {
-    "objectID": "slides/slides.html#five-things-to-watch",
-    "href": "slides/slides.html#five-things-to-watch",
-    "title": "An Introduction to Agentic AI",
-    "section": "Five things to watch",
-    "text": "Five things to watch\n\nFive things to watch~/project\n\n\nThe codeRStudio\n\nThe code\nWhy the output is what it is.\nRead what changed, not the whole file.\n\n\n\nThe outputR\n\nThe output\nWhat the code actually does.\nOnly if you ran it yourself.\n\n\n\n\n\nThe diffGitHub Desktop\n\nThe diff\nWhat the agent actually changed.\nNot files that git ignores.\n\n\n\nThe conversationClaude Code\n\nThe conversation\nWhat the agent says it did.\nA claim. Check it against the other four.\n\n\n\n\nThe filesproject folder\n\nThe files\nWhether anything else changed.\nA data file should almost never change.\n\n\nOne project folder of plain-text files. Five views of it."
-  },
-  {
-    "objectID": "slides/slides.html#run-1",
-    "href": "slides/slides.html#run-1",
-    "title": "An Introduction to Agentic AI",
-    "section": "Run 1",
-    "text": "Run 1\n\n1of 8\n\nAn eight-line script, one data file, two bugs. We ask carefully.\nClaude Code · HaikuFind and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, using the data in data.csv. Don't create or change any other file.\nThe agent will say it prints the correct probability.\nCheck all five panes."
-  },
-  {
-    "objectID": "slides/slides.html#a-scoped-prompt",
-    "href": "slides/slides.html#a-scoped-prompt",
-    "title": "An Introduction to Agentic AI",
-    "section": "1 · A scoped prompt",
-    "text": "1 · A scoped prompt\n\n1 · A scoped prompt~/project\n\n\nThe codeRStudio · logit.R\n\n\n1# fit a logit model and report one predicted probability\n2dat &lt;- read.csv(\"data.csv\")\n3\n4fit &lt;- glm(y ~ x, family = binomal, data = dat)\n5\n6# predicted probability that y = 1 when x = 1\n7pr &lt;- predict(fit, newdata = data.frame(x = 1))\n8print(pr)\n\n\n1# fit a logit model and report one predicted probability\n2dat &lt;- read.csv(\"data.csv\")\n3\n4fit &lt;- glm(y ~ x, family = binomial, data = dat)\n5\n6# predicted probability that y = 1 when x = 1\n7pr &lt;- predict(fit, newdata = data.frame(x = 1), type = \"response\")\n8print(pr)\n\n\n\n\nThe outputR · you run it\nNot run yet.$ Rscript logit.R\n        1\n0.7874273\n\n\n\n\nThe diffGitHub Desktop\n\nNo changes yet.\n\nlogit.R+2 −2\n-fit &lt;- glm(y ~ x, family = binomal, data = dat)\n+fit &lt;- glm(y ~ x, family = binomial, data = dat)\n-pr &lt;- predict(fit, newdata = data.frame(x = 1))\n+pr &lt;- predict(fit, newdata = data.frame(x = 1), type = \"response\")\n\n\n\n\nThe conversationClaude Code · Haiku\n\nNo prompt yet.\nFind and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, using the data in data.csv. Don't create or change any other file.\n\n…\nBash(Rscript logit.R)\n       1\n1.309487\nThe script runs but produces a wrong answer. The output is 1.309487, which is outside the range [0, 1] for a probability. This is the log-odds, not a probability. I need to add type = \"response\" to get the predicted probability:\nEdit(logit.R)\n…\nBash(Rscript logit.R)\n        1\n0.7874273\n…\nThe script now runs successfully and outputs the correct predicted probability.\n\n\n\n\n\nThe filesproject folder\n\nProject\nproject/\ndata.csv\nlogit.RM\nChanges\nnone\n1 file\nM modifiedA addedD deleted\n\n\n\nA project folder with one script and one data file.\n1 · You type the scoped prompt.Nothing else changes.\n2 · The agent replies.One file changes, in two places.\n3 · You run the code.0.787 is a probability.\nAll five panes agree.The prompt said which data to use and not to touch any other file."
   },
   {
     "objectID": "slides/slides.html#section",
@@ -355,6 +341,27 @@
     "title": "An Introduction to Agentic AI",
     "section": "Discard",
     "text": "Discard\n$ git restore .\n$ git status\nOn branch main\nnothing to commit, working tree clean\ngit restore . puts every tracked file back the way it was at the last commit. logit.R is back to its last committed version, and git status reports no changes.\nDiscarding can’t be undone. If a change is worth keeping, commit it first.\n\nGitHub Desktop: Branch &gt; Discard All Changes… In the terminal, git restore . leaves files that git doesn’t track yet (new files an agent created). git clean -fd removes those."
+  },
+  {
+    "objectID": "slides/slides.html#five-things-to-watch",
+    "href": "slides/slides.html#five-things-to-watch",
+    "title": "An Introduction to Agentic AI",
+    "section": "Five things to watch",
+    "text": "Five things to watch\n\nFive things to watch~/project\n\n\nThe codeRStudio\n\nThe code\nWhy the output is what it is.\nRead what changed, not the whole file.\n\n\n\nThe outputR\n\nThe output\nWhat the code actually does.\nOnly if you ran it yourself.\n\n\n\n\n\nThe diffGitHub Desktop\n\nThe diff\nWhat the agent actually changed.\nNot files that git ignores.\n\n\n\nThe conversationClaude Code\n\nThe conversation\nWhat the agent says it did.\nA claim. Check it against the other four.\n\n\n\n\nThe filesproject folder\n\nThe files\nWhether anything else changed.\nA data file should almost never change.\n\n\nOne project folder of plain-text files. Five views of it."
+  },
+  {
+    "objectID": "slides/slides.html#run-1",
+    "href": "slides/slides.html#run-1",
+    "title": "An Introduction to Agentic AI",
+    "section": "Run 1",
+    "text": "Run 1\n\n1of 8\n\nAn eight-line script, one data file, two bugs. We ask carefully.\nClaude Code · HaikuFind and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, using the data in data.csv. Don't create or change any other file.\nThe agent will say it prints the correct probability.\nCheck all five panes."
+  },
+  {
+    "objectID": "slides/slides.html#a-scoped-prompt",
+    "href": "slides/slides.html#a-scoped-prompt",
+    "title": "An Introduction to Agentic AI",
+    "section": "1 · A scoped prompt",
+    "text": "1 · A scoped prompt\n\n1 · A scoped prompt~/project\n\n\nThe codeRStudio · logit.R\n\n\n1# fit a logit model and report one predicted probability\n2dat &lt;- read.csv(\"data.csv\")\n3\n4fit &lt;- glm(y ~ x, family = binomal, data = dat)\n5\n6# predicted probability that y = 1 when x = 1\n7pr &lt;- predict(fit, newdata = data.frame(x = 1))\n8print(pr)\n\n\n1# fit a logit model and report one predicted probability\n2dat &lt;- read.csv(\"data.csv\")\n3\n4fit &lt;- glm(y ~ x, family = binomial, data = dat)\n5\n6# predicted probability that y = 1 when x = 1\n7pr &lt;- predict(fit, newdata = data.frame(x = 1), type = \"response\")\n8print(pr)\n\n\n\n\nThe outputR · you run it\nNot run yet.$ Rscript logit.R\n        1\n0.7874273\n\n\n\n\nThe diffGitHub Desktop\n\nNo changes yet.\n\nlogit.R+2 −2\n-fit &lt;- glm(y ~ x, family = binomal, data = dat)\n+fit &lt;- glm(y ~ x, family = binomial, data = dat)\n-pr &lt;- predict(fit, newdata = data.frame(x = 1))\n+pr &lt;- predict(fit, newdata = data.frame(x = 1), type = \"response\")\n\n\n\n\nThe conversationClaude Code · Haiku\n\nNo prompt yet.\nFind and fix all the bugs in logit.R, including any that give a wrong answer without an error. Run it to check, using the data in data.csv. Don't create or change any other file.\n\n…\nBash(Rscript logit.R)\n       1\n1.309487\nThe script runs but produces a wrong answer. The output is 1.309487, which is outside the range [0, 1] for a probability. This is the log-odds, not a probability. I need to add type = \"response\" to get the predicted probability:\nEdit(logit.R)\n…\nBash(Rscript logit.R)\n        1\n0.7874273\n…\nThe script now runs successfully and outputs the correct predicted probability.\n\n\n\n\n\nThe filesproject folder\n\nProject\nproject/\ndata.csv\nlogit.RM\nChanges\nnone\n1 file\nM modifiedA addedD deleted\n\n\n\nA project folder with one script and one data file.\n1 · You type the scoped prompt.Nothing else changes.\n2 · The agent replies.One file changes, in two places.\n3 · You run the code.0.787 is a probability.\nAll five panes agree.The prompt said which data to use and not to touch any other file."
   },
   {
     "objectID": "slides/slides.html#three-things-that-can-go-wrong",
