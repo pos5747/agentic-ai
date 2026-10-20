@@ -15,5 +15,7 @@ Given the spirit of this topic, I've used agentic AI to develop these materials 
 
 [[A First Example]{.card-title}[Give an agent 13 prompts about a short R script.]{.card-text}](first-example.qmd){.card-link}
 
+[[Explore the runs]{.card-title}[See what four models did with each prompt, run by run.]{.card-text}](runs.qmd){.card-link}
+
 [[Resources]{.card-title}[What to read next.]{.card-text}](resources.qmd){.card-link}
 :::

@@ -18,6 +18,8 @@ website:
         text: Choose your setup
       - href: first-example.qmd
         text: A First Example
+      - href: runs.qmd
+        text: Explore the runs
       - href: resources.qmd
         text: Resources
     right:

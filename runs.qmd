@@ -1,0 +1,36 @@
+---
+title: "Explore the runs"
+subtitle: "750 runs, four models, fifteen prompts"
+toc: false
+css: explorer/explorer.css
+resources:
+  - explorer/runs.json
+  - explorer/explorer.js
+---
+
+The lecture's results come from 750 real runs. Pick a task and a prompt to see what each model did, then click a square to read that run.
+
+```{=html}
+<div id="explorer" class="column-page">
+  <div class="rx-controls">
+    <div class="rx-row">
+      <span class="rx-label">Task</span>
+      <div class="rx-pills" id="rx-tasks" role="group" aria-label="Task"></div>
+    </div>
+    <div class="rx-row">
+      <span class="rx-label">Prompt</span>
+      <div class="rx-pills" id="rx-prompts" role="group" aria-label="Prompt"></div>
+    </div>
+    <div class="rx-row">
+      <span class="rx-label">Model</span>
+      <div class="rx-pills" id="rx-models" role="group" aria-label="Model"></div>
+    </div>
+  </div>
+  <blockquote class="rx-prompt" id="rx-prompt-text"></blockquote>
+  <div class="rx-legend" id="rx-legend"></div>
+  <div class="rx-compare" id="rx-compare"><p class="rx-loading">Loading the runs…</p></div>
+  <div class="rx-list" id="rx-list"></div>
+  <section class="rx-run" id="rx-run" hidden></section>
+</div>
+<script src="explorer/explorer.js"></script>
+```
