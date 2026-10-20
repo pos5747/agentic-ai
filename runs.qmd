@@ -10,6 +10,10 @@ resources:
 
 The lecture's results come from 750 real runs. Pick a task and a prompt to see what each model did, then click a square to read that run.
 
+::: {.callout-note}
+These runs used an earlier version of the practice script and data, with only `x`. The exception is the IQR task, whose runs used today's `y ~ x + z`. The other runs will be redone on today's script.
+:::
+
 ```{=html}
 <div id="explorer" class="column-page">
   <div class="rx-controls">

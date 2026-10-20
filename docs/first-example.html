@@ -386,14 +386,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fit a logit model and report one predicted probability</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data.csv"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">family =</span> binomial, <span class="at">data =</span> dat)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x <span class="sc">+</span> z, <span class="at">family =</span> binomial, <span class="at">data =</span> dat)</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># predicted probability that y = 1 when x = 1</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># predicted probability that y = 1 when x = 1 and z = 0</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>), <span class="at">type =</span> <span class="st">"response"</span>)</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Save the file and click <em>Source</em>. You should see</p>
 <pre><code>        1 
-0.7874273 </code></pre>
+0.8492817 </code></pre>
 <p>Now commit the fix. In GitHub Desktop, the <em>Changes</em> tab should list <code>logit.R</code>, with two changed lines. Make sure <code>logit.R</code> is the only file with a check mark. Type <code>Fix the two bugs</code> in the <em>Summary</em> box and click <em>Commit to main</em>. (In the terminal, <code>git commit -am "Fix the two bugs"</code> does the same thing.)</p>
 <p>The commit adds your fixed script to git’s record. The <em>Changes</em> tab is empty again, and from here on, <em>Discard All Changes…</em> puts the folder back to the fixed script.</p>
 </section>
@@ -403,39 +403,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Prompts 7–9 ask for a number. They don’t ask the agent to change a file. Prompt 10 asks the agent to change <code>logit.R</code>.</p>
 <p><strong>Prompt 7.</strong></p>
 <blockquote class="blockquote">
-<p>What’s the predicted probability that y = 1 when x = 1?</p>
+<p>What’s the predicted probability that y = 1 when x = 1 and z = 0?</p>
 </blockquote>
 <p><strong>Prompt 8.</strong></p>
 <blockquote class="blockquote">
-<p>Use logit.R to compute the predicted probability that y = 1 when x = 1. Run the code and show me what it prints.</p>
+<p>Use logit.R to compute the predicted probability that y = 1 when x = 1 and z = 0. Run the code and show me what it prints.</p>
 </blockquote>
 <p><strong>Prompt 9.</strong></p>
 <blockquote class="blockquote">
-<p>What’s the 95% confidence interval for the predicted probability that y = 1 when x = 1?</p>
+<p>What’s the 95% confidence interval for the predicted probability that y = 1 when x = 1 and z = 0?</p>
 </blockquote>
 <p><strong>Prompt 10.</strong></p>
 <blockquote class="blockquote">
-<p>Modify logit.R to also compute a 95% confidence interval for the predicted probability that y = 1 when x = 1. Tell me how the interval is computed, run the code, and show me what it prints.</p>
+<p>Modify logit.R to also compute a 95% confidence interval for the predicted probability that y = 1 when x = 1 and z = 0. Tell me how the interval is computed, run the code, and show me what it prints.</p>
 </blockquote>
 <p><strong>Check the agent’s work.</strong> Before you discard the changes from prompt 10, click <em>Source</em> in RStudio to see what the agent’s script prints. After you’ve discarded the changes, compute the numbers yourself. In the RStudio console, run</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data.csv"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">family =</span> binomial, <span class="at">data =</span> dat)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x <span class="sc">+</span> z, <span class="at">family =</span> binomial, <span class="at">data =</span> dat)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the predicted probability, from the coefficients</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(fit) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(fit) <span class="sc">*</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)))</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># a 95% interval computed on the log-odds scale, then transformed</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span>), <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>), <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plogis</span>(p<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.96</span>, <span class="fl">1.96</span>) <span class="sc">*</span> p<span class="sc">$</span>se.fit)</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># a 95% interval computed on the probability scale (the delta method)</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span>), <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>), <span class="at">type =</span> <span class="st">"response"</span>, <span class="at">se.fit =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>r<span class="sc">$</span>fit <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.96</span>, <span class="fl">1.96</span>) <span class="sc">*</span> r<span class="sc">$</span>se.fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Does the agent’s probability match yours? Which of the two intervals matches the agent’s interval? Is that the method the agent said it used?</p>
 </section>
 <section id="part-3-write-new-code" class="level3">
 <h3 class="anchored" data-anchor-id="part-3-write-new-code">Part 3: Write new code</h3>
-<p>These three prompts ask for a quantity the script doesn’t compute. Prompt 11 doesn’t name a file. Prompts 12 and 13 ask the agent to change <code>logit.R</code>. Your <code>logit.R</code> has only <code>x</code>. The lecture’s runs on this task used a version with a second predictor, <code>z</code>, so your answer won’t be the lecture’s 0.433.</p>
+<p>These three prompts ask for a quantity the script doesn’t compute. Prompt 11 doesn’t name a file. Prompts 12 and 13 ask the agent to change <code>logit.R</code>.</p>
 <p><strong>Prompt 11.</strong></p>
 <blockquote class="blockquote">
 <p>Use {marginaleffects} to find the average difference in the probability that y = 1 when x moves from its 25th to its 75th percentile, averaged across the observed values in the data, and its 95% confidence interval.</p>
@@ -579,21 +579,21 @@ Show the answers
 </summary>
 <p><strong>Part 1</strong></p>
 <ul>
-<li><strong>The two bugs.</strong> Line 4 misspells <code>binomial</code> as <code>binomal</code>, so <code>glm()</code> fails. Line 7 calls <code>predict()</code> without <code>type = "response"</code>, so once the typo is fixed, the script prints the log-odds (1.309) rather than a probability.</li>
-<li><strong>Prompts 1 and 2</strong> should say what the script does: it reads <code>data.csv</code>, fits a logit model of <code>y</code> on <code>x</code>, and prints a prediction for <code>x = 1</code>. A complete answer also names both bugs. An answer that says the script prints a probability is wrong. No file should change.</li>
+<li><strong>The two bugs.</strong> Line 4 misspells <code>binomial</code> as <code>binomal</code>, so <code>glm()</code> fails. Line 7 calls <code>predict()</code> without <code>type = "response"</code>, so once the typo is fixed, the script prints the log-odds (1.729) rather than a probability.</li>
+<li><strong>Prompts 1 and 2</strong> should say what the script does: it reads <code>data.csv</code>, fits a logit model of <code>y</code> on <code>x</code> and <code>z</code>, and prints a prediction for <code>x = 1</code> and <code>z = 0</code>. A complete answer also names both bugs. An answer that says the script prints a probability is wrong. No file should change.</li>
 <li><strong>Prompts 3 and 4</strong> should list both bugs and nothing else. (A missing <code>data.csv</code> and points of style aren’t bugs in this script.) <code>logit.R</code> and <code>data.csv</code> should be unchanged. A new file (e.g., a test script) is a change you didn’t ask for, so write it down.</li>
-<li><strong>Prompts 5 and 6</strong> should leave a <code>logit.R</code> that prints 0.787, with changes on lines 4 and 7 only. <code>data.csv</code> should be unchanged. If the script prints 1.309, then the agent fixed only the typo.</li>
+<li><strong>Prompts 5 and 6</strong> should leave a <code>logit.R</code> that prints 0.849, with changes on lines 4 and 7 only. <code>data.csv</code> should be unchanged. If the script prints 1.729, then the agent fixed only the typo.</li>
 </ul>
 <p><strong>Part 2</strong></p>
 <ul>
-<li><strong>Prompts 7–10.</strong> The predicted probability is 0.787.</li>
-<li><strong>Prompts 9 and 10.</strong> The 95% interval is (0.714, 0.846) if it’s computed on the log-odds scale and then transformed, or (0.721, 0.854) if it’s computed on the probability scale (the delta method). Both are defensible. The method the agent names should be the method its code uses. An interval of (0.714, 0.846) is not the delta method. An interval near (0.65, 0.88) is wrong. It comes from transforming the endpoints of the coefficients’ confidence intervals: (0.649, 0.881) from <code>confint.default()</code> or (0.652, 0.883) from <code>confint()</code>.</li>
+<li><strong>Prompts 7–10.</strong> The predicted probability is 0.849.</li>
+<li><strong>Prompts 9 and 10.</strong> The 95% interval is (0.776, 0.901) if it’s computed on the log-odds scale and then transformed, or (0.787, 0.911) if it’s computed on the probability scale (the delta method). Both are defensible. The method the agent names should be the method its code uses. An interval of (0.776, 0.901) is not the delta method. An interval near (0.72, 0.93) is wrong. It comes from transforming the endpoints of the coefficients’ confidence intervals: (0.718, 0.926) from <code>confint.default()</code> or (0.723, 0.928) from <code>confint()</code>.</li>
 <li><strong>Prompts 7–9</strong> shouldn’t change a file. <strong>Prompt 10</strong> should add the interval to <code>logit.R</code> and keep the lines that print the probability.</li>
 </ul>
 <p><strong>Part 3</strong></p>
 <ul>
-<li><strong>Prompts 11–13.</strong> The average difference is 0.557, with a 95% interval of (0.481, 0.634). The call is <code>avg_comparisons(fit, variables = list(x =   "iqr"))</code>. (The lecture’s runs used a script with a second predictor, <code>z</code>, so their answer was 0.433.)</li>
-<li><strong>Wrong answers to recognize.</strong> 0.292 is the average slope (from <code>avg_slopes()</code>). 0.311 is the difference for a one-unit change in <code>x</code> (the default of <code>avg_comparisons()</code>). 0.450 is the difference for a one-standard-deviation change. 0.284 compares <code>x = 0.25</code> with <code>x = 0.75</code>.</li>
+<li><strong>Prompts 11–13.</strong> The average difference is 0.433, with a 95% interval of (0.375, 0.491). The call is <code>avg_comparisons(fit, variables = list(x =   "iqr"))</code>.</li>
+<li><strong>Wrong answers to recognize.</strong> 0.253 is the average slope (from <code>avg_slopes()</code>). 0.254 is the difference for a one-unit change in <code>x</code> (the default of <code>avg_comparisons()</code>). 0.345 is the difference for a one-standard-deviation change. 0.180 compares <code>x = 0.25</code> with <code>x = 0.75</code>. 0.611 is the difference with <code>z</code> held at its mean, rather than averaged across the observed values.</li>
 <li><strong>Prompt 11</strong> shouldn’t change a file. <strong>Prompts 12 and 13</strong> should change <code>logit.R</code> only.</li>
 </ul>
 </details>

@@ -47,10 +47,10 @@ The script should now read
 # fit a logit model and report one predicted probability
 dat <- read.csv("data.csv")
 
-fit <- glm(y ~ x, family = binomial, data = dat)
+fit <- glm(y ~ x + z, family = binomial, data = dat)
 
-# predicted probability that y = 1 when x = 1
-pr <- predict(fit, newdata = data.frame(x = 1), type = "response")
+# predicted probability that y = 1 when x = 1 and z = 0
+pr <- predict(fit, newdata = data.frame(x = 1, z = 0), type = "response")
 print(pr)
 ```
 
@@ -58,7 +58,7 @@ Save the file and click *Source*. You should see
 
 ```
         1 
-0.7874273 
+0.8492817 
 ```
 
 Now commit the fix. In GitHub Desktop, the *Changes* tab should list
@@ -78,19 +78,19 @@ Prompt 10 asks the agent to change `logit.R`.
 
 **Prompt 7.**
 
-> What's the predicted probability that y = 1 when x = 1?
+> What's the predicted probability that y = 1 when x = 1 and z = 0?
 
 **Prompt 8.**
 
-> Use logit.R to compute the predicted probability that y = 1 when x = 1. Run the code and show me what it prints.
+> Use logit.R to compute the predicted probability that y = 1 when x = 1 and z = 0. Run the code and show me what it prints.
 
 **Prompt 9.**
 
-> What's the 95% confidence interval for the predicted probability that y = 1 when x = 1?
+> What's the 95% confidence interval for the predicted probability that y = 1 when x = 1 and z = 0?
 
 **Prompt 10.**
 
-> Modify logit.R to also compute a 95% confidence interval for the predicted probability that y = 1 when x = 1. Tell me how the interval is computed, run the code, and show me what it prints.
+> Modify logit.R to also compute a 95% confidence interval for the predicted probability that y = 1 when x = 1 and z = 0. Tell me how the interval is computed, run the code, and show me what it prints.
 
 **Check the agent's work.** Before you discard the changes from prompt 10,
 click *Source* in RStudio to see what the agent's script prints. After you've
@@ -99,17 +99,17 @@ run
 
 ```r
 dat <- read.csv("data.csv")
-fit <- glm(y ~ x, family = binomial, data = dat)
+fit <- glm(y ~ x + z, family = binomial, data = dat)
 
 # the predicted probability, from the coefficients
-plogis(sum(coef(fit) * c(1, 1)))
+plogis(sum(coef(fit) * c(1, 1, 0)))
 
 # a 95% interval computed on the log-odds scale, then transformed
-p <- predict(fit, newdata = data.frame(x = 1), se.fit = TRUE)
+p <- predict(fit, newdata = data.frame(x = 1, z = 0), se.fit = TRUE)
 plogis(p$fit + c(-1.96, 1.96) * p$se.fit)
 
 # a 95% interval computed on the probability scale (the delta method)
-r <- predict(fit, newdata = data.frame(x = 1), type = "response", se.fit = TRUE)
+r <- predict(fit, newdata = data.frame(x = 1, z = 0), type = "response", se.fit = TRUE)
 r$fit + c(-1.96, 1.96) * r$se.fit
 ```
 
@@ -120,8 +120,6 @@ the agent's interval? Is that the method the agent said it used?
 
 These three prompts ask for a quantity the script doesn't compute. Prompt 11
 doesn't name a file. Prompts 12 and 13 ask the agent to change `logit.R`.
-Your `logit.R` has only `x`. The lecture's runs on this task used a version
-with a second predictor, `z`, so your answer won't be the lecture's 0.433.
 
 **Prompt 11.**
 
