@@ -2,9 +2,10 @@
 
 Usage, from site/:   python3 explorer/build-runs.py
 
-Reads the four graded batches in ../local-agent-example/results/full-<model>/
-(outside this repo) and writes one compact file:
-  - one record per row of each batch's runs.csv (750 in all): the grade
+Reads the four graded batches in ../local-agent-example/results/z-<model>/
+(outside this repo; the 2026-10-20/22 re-run on the practice repo's y ~ x + z
+script) and writes one compact file:
+  - one record per row of each batch's runs.csv (600 in all): the grade
     (stage, claimed, the grader's note), time, cost, the agent's messages and
     tool calls (name, a short argument, a trimmed output for shell calls),
     a diff of logit.R from the starting file to the agent's version,
@@ -18,7 +19,7 @@ came from, so "final message" means the same thing here as in the grading.
 Privacy: the macOS username (read from this machine), home paths, and email
 addresses are replaced before writing, and the script stops if any remain.
 Counts: the script stops unless the four outcomes and the fully-correct
-counts equal runs.csv, results/full-summary.md, and the deck's Totals slide.
+counts equal runs.csv, results/z-summary.md, and the deck's Totals slide.
 """
 import csv
 import difflib
@@ -37,10 +38,10 @@ sys.path.insert(0, os.path.join(SRC, "tools"))
 from logparse import events as parse_events  # noqa: E402
 
 MODELS = [  # batch, short id, label, interface
-    ("full-haiku", "haiku", "Haiku", "Claude Code"),
-    ("full-sonnet", "sonnet", "Sonnet", "Claude Code"),
-    ("full-qwen", "qwen", "qwen", "OpenCode"),
-    ("full-gptoss", "gptoss", "gpt-oss", "OpenCode"),
+    ("z-haiku", "haiku", "Haiku", "Claude Code"),
+    ("z-sonnet", "sonnet", "Sonnet", "Claude Code"),
+    ("z-qwen", "qwen", "qwen", "OpenCode"),
+    ("z-gptoss", "gptoss", "gpt-oss", "OpenCode"),
 ]
 
 TASKS = [  # task, [(prompt key, label)]
@@ -54,15 +55,15 @@ TASKS = [  # task, [(prompt key, label)]
 
 # The deck's eight runs (header comment of slides/slides.qmd).
 LECTURE = {
-    "haiku/fix-scope-r6": 1, "haiku/fix-vague-r1": 2, "haiku/fix-better-r8": 3,
-    "gptoss/fix-naive-r3": 4, "sonnet/bugs-naive-r5": 5, "gptoss/prob-better-r6": 6,
-    "qwen/iqr-base-r4": 7, "haiku/ci-better-r1": 8,
+    "haiku/fix-scope-r1": 1, "qwen/fix-vague-r6": 2, "qwen/iqr-fn-r10": 3,
+    "gptoss/fix-naive-r1": 4, "qwen/bugs-naive-r4": 5, "gptoss/prob-better-r6": 6,
+    "qwen/iqr-fn-r7": 7, "qwen/ci-better-r10": 8,
 }
 
 # The Totals slide: fully correct / claimed success, wrong result /
 # claimed success, flawed run / honest failure.
-TOTALS = {"haiku": [146, 37, 32, 10], "sonnet": [200, 0, 17, 8],
-          "qwen": [40, 46, 21, 43], "gptoss": [30, 54, 34, 32]}
+TOTALS = {"haiku": [130, 0, 20, 0], "sonnet": [127, 0, 23, 0],
+          "qwen": [39, 37, 30, 44], "gptoss": [40, 50, 29, 31]}
 OUTCOMES = ["correct", "wrong", "flawed", "honest"]
 
 ARG_CAP = 160      # characters of a tool call's argument shown in its row
@@ -83,8 +84,8 @@ def outcome(stage, claimed):
 def scrub(s, names=()):
     """Shorten the harness's paths and remove anything personal."""
     here = lambda m: "./" if m.group(0).endswith("/") else "."
-    s = re.sub(r"(/private)?/tmp/agent-trials/full-[a-z]+/[a-z]+-[a-z]+-r\d+/?", here, s)
-    s = re.sub(r"(/private)?/tmp/agent-trials/full-[a-z]+/?", here, s)
+    s = re.sub(r"(/private)?/tmp/agent-trials/(full|z)-[a-z]+/[a-z]+-[a-z]+-r\d+/?", here, s)
+    s = re.sub(r"(/private)?/tmp/agent-trials/(full|z)-[a-z]+/?", here, s)
     s = s.replace(HOME + "/agent-trials/fakehome", "~")
     s = s.replace(HOME, "~")
     s = re.sub(r"/Users/[A-Za-z0-9._-]+", "~", s)
@@ -112,7 +113,7 @@ def short_arg(inp):
         if isinstance(v, str) and v:
             v = v.strip()
             if k in ("file_path", "filePath", "path"):
-                v = re.sub(r"^.*/agent-trials/full-[a-z]+/[a-z]+-[a-z]+-r\d+/", "", v)
+                v = re.sub(r"^.*/agent-trials/(full|z)-[a-z]+/[a-z]+-[a-z]+-r\d+/", "", v)
             return v if len(v) <= ARG_CAP else v[:ARG_CAP] + "…"
     if "todos" in inp:
         return "(to-do list)"
@@ -175,7 +176,7 @@ def main():
         if line and not line.startswith("#"):
             k, group, text = line.split("\t")
             prompts[k] = {"group": group, "text": text}
-    starts = {g: read(os.path.join(SRC, "materials", g, "logit.R")) for g in ("1-bugs", "2-run", "3-new")}
+    starts = {g: read(os.path.join(SRC, "materials", g, "logit.R")) for g in sorted({p["group"] for p in prompts.values()})}
 
     runs = []
     for batch, mid, _, _ in MODELS:
@@ -211,16 +212,28 @@ def main():
             start = starts[prompts[row["key"]]["group"]]
             final = read(os.path.join(d, "agent-test", "logit.R"), "")
             new_files = []
+            top = []
             for fn in sorted(os.listdir(os.path.join(d, "agent-test"))):
                 if fn in ("logit.R", "data.csv"):
                     continue
-                body = read(os.path.join(d, "agent-test", fn), "")
-                new_files.append({"name": fn, "text": trim(body, FILE_CAP)})
+                top.append(fn)
+                path = os.path.join(d, "agent-test", fn)
+                if not os.path.isdir(path):
+                    new_files.append({"name": fn, "text": trim(read(path, ""), FILE_CAP)})
+                    continue
+                # a new folder (gpt-oss fix-scope-r5 made private/tmp/agent-trials/...):
+                # list each file in it, with the harness's batch and run folders
+                # shown as "…" so the scrub leaves the name readable
+                for root, _, files in os.walk(path):
+                    for f in sorted(files):
+                        rel = os.path.relpath(os.path.join(root, f), os.path.join(d, "agent-test"))
+                        rel = re.sub(r"agent-trials/(full|z)-[a-z]+/[a-z]+-[a-z]+-r\d+/", "agent-trials/…/", rel)
+                        new_files.append({"name": rel, "text": trim(read(os.path.join(root, f), ""), FILE_CAP)})
             prog = progress[rid]
             data_changed = row["data_unchanged"] != "1"
             assert data_changed == ("data_changed=yes" in prog), rid
             listed = re.search(r"new_files=\[([^\]]*)\]", prog).group(1)
-            assert sorted(x for x in listed.split(",") if x) == [f["name"] for f in new_files], rid
+            assert sorted(x for x in listed.split(",") if x) == top, rid
 
             uid = f"{mid}/{rid}"
             rec = {
@@ -266,20 +279,20 @@ def main():
 
 
 def check(runs):
-    """The counts the page shows must equal runs.csv, full-summary.md, and the deck."""
-    assert len(runs) == 750, len(runs)
-    assert len({r["id"] for r in runs}) == 750
+    """The counts the page shows must equal runs.csv, z-summary.md, and the deck."""
+    assert len(runs) == 600, len(runs)
+    assert len({r["id"] for r in runs}) == 600
     assert sorted(LECTURE) == sorted(r["id"] for r in runs if "lecture" in r)
     # The "data.csv overwritten" row of LECTURE-RESULTS.md.
-    overwritten = {"haiku": 4, "sonnet": 0, "qwen": 5, "gptoss": 1}
+    overwritten = {"haiku": 0, "sonnet": 0, "qwen": 2, "gptoss": 0}
     for mid, want in overwritten.items():
         got = sum(r["dataChanged"] for r in runs if r["model"] == mid)
         assert got == want, (mid, "data.csv changed", got, want)
     for mid, want in TOTALS.items():
         got = [sum(r["outcome"] == o for r in runs if r["model"] == mid) for o in OUTCOMES]
         assert got == want, (mid, got, want)
-    # The "fully correct / n" table at the top of results/full-summary.md.
-    summary = read(os.path.join(RES, "full-summary.md"))
+    # The "fully correct / n" table at the top of results/z-summary.md.
+    summary = read(os.path.join(RES, "z-summary.md"))
     table = summary.split("## All batches: fully correct / n")[1].split("\n## ")[0]
     cells = 0
     for line in table.splitlines():

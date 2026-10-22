@@ -1,5 +1,6 @@
 # Build img/results-by-prompt.png, the deck's "Fully correct, by prompt" chart,
-# from the four graded batches in ../../../local-agent-example/results/.
+# from the four graded z batches (the 2026-10-20/22 re-run on y ~ x + z) in
+# ../../local-agent-example/results/.
 # A run is fully correct when its stage is S6 (tools/RUBRIC.md), the same
 # count as the Totals slide and the appendix tables.
 #
@@ -10,10 +11,10 @@ library(tidyverse)
 results <- "../../local-agent-example/results"
 
 batches <- c(
-  "full-haiku"  = "Haiku",
-  "full-sonnet" = "Sonnet",
-  "full-qwen"   = "qwen",
-  "full-gptoss" = "gpt-oss"
+  "z-haiku"  = "Haiku",
+  "z-sonnet" = "Sonnet",
+  "z-qwen"   = "qwen",
+  "z-gptoss" = "gpt-oss"
 )
 
 prompts <- tribble(
@@ -52,7 +53,7 @@ shares <- runs |>
   inner_join(prompts, by = "key") |>
   mutate(model = factor(model, levels = unname(batches)))
 
-stopifnot(nrow(shares) == 60)
+stopifnot(nrow(shares) == 60, all(shares$n == 10))
 
 colors <- c(
   "Haiku"   = "#f59e0b",

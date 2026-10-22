@@ -13,8 +13,8 @@
   const ORDER = ["correct", "wrong", "flawed", "honest"];
   const WRITE_LABEL = { write: "A Write call on ", edit: "An Edit call on ", shell: "A shell command that writes " };
   const FULL_NAME = {
-    haiku: "Haiku 4.5 · Claude Code",
-    sonnet: "Sonnet 5 · Claude Code",
+    haiku: "Haiku 5.5 · Claude Code",
+    sonnet: "Sonnet 5.5 · Claude Code",
     qwen: "qwen3-coder:30b · OpenCode",
     gptoss: "gpt-oss:20b · OpenCode",
   };

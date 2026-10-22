@@ -1,6 +1,6 @@
 ---
 title: "Explore the runs"
-subtitle: "750 runs, four models, fifteen prompts"
+subtitle: "600 runs, four models, fifteen prompts"
 toc: false
 css: explorer/explorer.css
 resources:
@@ -8,11 +8,7 @@ resources:
   - explorer/explorer.js
 ---
 
-The lecture's results come from 750 real runs. Pick a task and a prompt to see what each model did, then click a square to read that run.
-
-::: {.callout-note}
-These runs used an earlier version of the practice script and data, with only `x`. The exception is the IQR task, whose runs used today's `y ~ x + z`. The other runs will be redone on today's script.
-:::
+The lecture's results come from 600 real runs. Pick a task and a prompt to see what each model did, then click a square to read that run.
 
 ```{=html}
 <div id="explorer" class="column-page">
