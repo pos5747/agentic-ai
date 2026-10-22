@@ -53,9 +53,9 @@ folder for this exercise holds only simulated data.)
 6. Look at the *Changes* tab, write down which files changed, and discard the
    changes.
 
-Each reply takes about 5 to 20 seconds, plus the time you take to read the
-requests. (`--model sonnet` now runs Sonnet 5.5, a newer model than the
-lecture's Sonnet 5.)
+Each reply takes about 5 to 25 seconds, plus the time you take to read the
+requests. (`--model sonnet` runs Sonnet 5.5, the model in the lecture's
+runs.)
 
 ## Claude Code + qwen
 
@@ -140,7 +140,7 @@ system tray on Windows).
 6. Look at the *Changes* tab, write down which files changed, and discard the
    changes.
 
-Each reply takes about 30 seconds to a few minutes. Sometimes the model writes out a
+Each reply takes about 20 seconds to a few minutes. Sometimes the model writes out a
 tool call as text (e.g., `<function=read>`) instead of running it, and the
 reply stops there. If that happens, write it down as a run that failed and go
 on to the next prompt.
